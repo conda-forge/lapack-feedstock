@@ -1,13 +1,5 @@
 #!/bin/sh
 
-# bug 145
-if test `uname` = "Linux"
-then
-  sed -e 's|/CMAKE/|/cmake/|' -i CBLAS/CMakeLists.txt
-fi
-
-# lapack_testing.py does not support py3k, correction sent
-cp ${RECIPE_DIR}/lapack_testing.py .
 
 mkdir build
 cd build
