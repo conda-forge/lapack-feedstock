@@ -1,4 +1,4 @@
-{% set version = "3.6.0" %}
+{% set version = "3.6.1" %}
 
 package:
   name: lapack
@@ -7,7 +7,7 @@ package:
 source:
   fn: lapack-{{ version }}.tgz
   url: http://www.netlib.org/lapack/lapack-{{ version }}.tgz
-  sha1: 7e993de16d80d52b22b6093465eeb90c93c7a2e7
+  sha1: 7220a9bc9c766cb513007f313b804d88f110c228
 
 build:
   number: 0
@@ -17,6 +17,7 @@ requirements:
   build:
     - cmake
     - gcc  # [unix]
+    - cloog 0.18.0 10  # [unix]
   run:
     - libgcc  # [unix]
 
