@@ -9,22 +9,29 @@ source:
   url: http://www.netlib.org/lapack/lapack-{{ version }}.tgz
   sha1: 7220a9bc9c766cb513007f313b804d88f110c228
 
+  # The next lapack version will have a fix for this.
+  patches:
+    - python-test.patch
+
 build:
   number: 0
-  skip: true  # [win]
 
 requirements:
   build:
     - cmake
     - gcc  # [unix]
     - cloog 0.18.0 10  # [unix]
+    - m2w64-toolchain  # [win]
   run:
     - libgcc  # [unix]
+    - libgfortran  # [not win]
+    - m2w64-gcc-libs  # [win]
 
 test:
   commands:
     - test -f ${PREFIX}/lib/liblapack.so  # [linux]
     - test -f ${PREFIX}/lib/liblapack.dylib  # [osx]
+    - if not exist %LIBRARY_PREFIX%\\lib\\liblapack.a exit 1  # [win]
 
 about:
   home: http://www.netlib.org/lapack
@@ -35,3 +42,4 @@ extra:
   recipe-maintainers:
     - jakirkham
     - jschueller
+    - hadim
