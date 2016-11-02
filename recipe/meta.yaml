@@ -23,7 +23,6 @@ requirements:
     - cloog 0.18.0 10  # [unix]
     - m2w64-toolchain  # [win]
   run:
-    - libgcc  # [unix]
     - libgfortran  # [not win]
     - m2w64-gcc-libs  # [win]
 
