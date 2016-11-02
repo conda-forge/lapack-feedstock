@@ -14,16 +14,16 @@ source:
     - python-test.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
+    - toolchain
     - cmake
     - gcc  # [unix]
     - cloog 0.18.0 10  # [unix]
     - m2w64-toolchain  # [win]
   run:
-    - libgcc  # [unix]
     - libgfortran  # [not win]
     - m2w64-gcc-libs  # [win]
 
