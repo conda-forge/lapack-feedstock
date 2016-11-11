@@ -33,7 +33,6 @@ conda search lapack --channel conda-forge
 ```
 
 
-
 About conda-forge
 =================
 
