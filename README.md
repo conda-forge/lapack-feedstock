@@ -11,6 +11,18 @@ Summary: Linear Algebra PACKage
 
 
 
+Current build status
+====================
+
+Linux: [![Circle CI](https://circleci.com/gh/conda-forge/lapack-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/lapack-feedstock)
+OSX: [![TravisCI](https://travis-ci.org/conda-forge/lapack-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/lapack-feedstock)
+Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/lapack-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/lapack-feedstock/branch/master)
+
+Current release info
+====================
+Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/lapack/badges/version.svg)](https://anaconda.org/conda-forge/lapack)
+Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/lapack/badges/downloads.svg)](https://anaconda.org/conda-forge/lapack)
+
 Installing lapack
 =================
 
@@ -66,18 +78,6 @@ Terminology
 
 **conda-forge** - the place where the feedstock and smithy live and work to
                   produce the finished article (built conda distributions)
-
-Current build status
-====================
-
-Linux: [![Circle CI](https://circleci.com/gh/conda-forge/lapack-feedstock.svg?style=shield)](https://circleci.com/gh/conda-forge/lapack-feedstock)
-OSX: [![TravisCI](https://travis-ci.org/conda-forge/lapack-feedstock.svg?branch=master)](https://travis-ci.org/conda-forge/lapack-feedstock)
-Windows: [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/conda-forge/lapack-feedstock?svg=True)](https://ci.appveyor.com/project/conda-forge/lapack-feedstock/branch/master)
-
-Current release info
-====================
-Version: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/lapack/badges/version.svg)](https://anaconda.org/conda-forge/lapack)
-Downloads: [![Anaconda-Server Badge](https://anaconda.org/conda-forge/lapack/badges/downloads.svg)](https://anaconda.org/conda-forge/lapack)
 
 
 Updating lapack-feedstock
