@@ -6,7 +6,7 @@ package:
 
 source:
   fn: lapack-{{ version }}.tgz
-  url: http://www.netlib.org/lapack/lapack-{{ version }}.tgz
+  url: http://www.netlib.org/lapack/lapack-{{ version }}.tar.gz
   sha256: deb22cc4a6120bff72621155a9917f485f96ef8319ac074a7afbc68aab88bcf6
 
 build:
