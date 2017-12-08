@@ -1,4 +1,4 @@
-{% set version = "3.6.1" %}
+{% set version = "3.8.0" %}
 
 package:
   name: lapack
@@ -7,30 +7,23 @@ package:
 source:
   fn: lapack-{{ version }}.tgz
   url: http://www.netlib.org/lapack/lapack-{{ version }}.tgz
-  sha1: 7220a9bc9c766cb513007f313b804d88f110c228
-
-  # The next lapack version will have a fix for this.
-  patches:
-    - python-test.patch
+  sha256: deb22cc4a6120bff72621155a9917f485f96ef8319ac074a7afbc68aab88bcf6
 
 build:
-  number: 1
+  number: 0
 
 requirements:
   build:
     - toolchain
     - cmake
-    - gcc  # [unix]
-    - cloog 0.18.0 10  # [unix]
     - m2w64-toolchain  # [win]
   run:
-    - libgfortran  # [not win]
-    - m2w64-gcc-libs  # [win]
+    - libgfortran      # [not win]
+    - m2w64-gcc-libs   # [win]
 
 test:
   commands:
-    - test -f ${PREFIX}/lib/liblapack.so  # [linux]
-    - test -f ${PREFIX}/lib/liblapack.dylib  # [osx]
+    - test -f ${PREFIX}/lib/liblapack${SHLIB_EXT}  # [unix]
     - if not exist %LIBRARY_PREFIX%\\lib\\liblapack.a exit 1  # [win]
 
 about:
@@ -43,3 +36,4 @@ extra:
     - jakirkham
     - jschueller
     - hadim
+    - isuruf
