@@ -16,6 +16,7 @@ requirements:
   build:
     - toolchain
     - cmake
+    - gcc              # [osx]
     - m2w64-toolchain  # [win]
   run:
     - libgfortran      # [not win]
