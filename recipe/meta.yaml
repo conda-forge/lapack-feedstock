@@ -18,14 +18,14 @@ build:
 
 requirements:
   build:
-    - toolchain
     - cmake
-    - gcc  # [unix]
+    - {{ compiler('fortran') }}        # [unix]
+    - {{ compiler('m2w64_fortran') }}  # [win]
+    - {{ compiler('c') }}        # [unix]
+    - {{ compiler('m2w64_c') }}  # [win]
+  host:
     - cloog 0.18.0 10  # [unix]
-    - m2w64-toolchain  # [win]
   run:
-    - libgfortran  # [not win]
-    - m2w64-gcc-libs  # [win]
 
 test:
   commands:
