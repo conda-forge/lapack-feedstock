@@ -26,6 +26,7 @@ requirements:
   host:
     - cloog 0.18.0 10  # [unix]
   run:
+    - m2w64-gcc-libs  # [win]
 
 test:
   commands:
