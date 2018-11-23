@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 mkdir build
 cd build
 
@@ -13,9 +12,17 @@ cmake \
   -DBUILD_SHARED_LIBS=ON \
   -DLAPACKE=ON \
   -DCBLAS=ON \
-  -DCMAKE_EXE_LINKER_FLAGS="-Wl,-rpath,${PREFIX}/lib -L${PREFIX}/lib" \
   ..
 
-make
+make -j${CPU_COUNT}
 ctest --output-on-failure
 make install
+
+
+if [[ $(uname) == "Darwin" ]]; then
+    for lib in blas cblas lapack lapacke; do
+        mv $PREFIX/lib/lib$lib.dylib $PREFIX/lib/lib$lib.$PKG_VERISON.dylib
+        ln -s  $PREFIX/lib/lib$lib.$PKG_VERISON.dylib $PREFIX/lib/lib$lib.dylib
+        ln -s  $PREFIX/lib/lib$lib.$PKG_VERISON.dylib $PREFIX/lib/lib$lib.3.dylib
+    done
+fi

@@ -1,41 +1,136 @@
-{% set version = "3.6.1" %}
+{% set version = "3.8.0" %}
+{% set build_num = "0" %}
+{% set version_major = version.split(".")[0] %}
 
 package:
-  name: lapack
+  name: blas-split
   version: {{ version }}
 
 source:
-  fn: lapack-{{ version }}.tgz
-  url: http://www.netlib.org/lapack/lapack-{{ version }}.tgz
-  sha1: 7220a9bc9c766cb513007f313b804d88f110c228
-
-  # The next lapack version will have a fix for this.
+  url: http://www.netlib.org/lapack/lapack-{{ version }}.tar.gz
+  sha256: deb22cc4a6120bff72621155a9917f485f96ef8319ac074a7afbc68aab88bcf6
   patches:
-    - python-test.patch
+    # Avoid setting current_version and compatibility_version
+    - no_soversion_osx.diff  # [osx]
 
 build:
-  number: 1
+  number: "{{ build_num }}"
 
 requirements:
   build:
-    - toolchain
-    - cmake
-    - gcc  # [unix]
-    - cloog 0.18.0 10  # [unix]
-    - m2w64-toolchain  # [win]
-  run:
-    - libgfortran  # [not win]
-    - m2w64-gcc-libs  # [win]
+    - {{ compiler("c") }}
+    - {{ compiler("fortran") }}
 
-test:
-  commands:
-    - test -f ${PREFIX}/lib/liblapack.so  # [linux]
-    - test -f ${PREFIX}/lib/liblapack.dylib  # [osx]
-    - if not exist %LIBRARY_PREFIX%\\lib\\liblapack.a exit 1  # [win]
+outputs:
+  - name: libblas
+    build:
+      string: "{{ build_num }}_netlib"
+      track_features:
+       - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("libblas", max_pin="x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
+    files:
+      - lib/pkgconfig/blas.pc
+      - lib/libblas.so                          # [linux]
+      - lib/libblas.so.{{ version_major }}      # [linux]
+      - lib/libblas.so.{{ version }}            # [linux]
+      - lib/libblas.dylib                       # [osx]
+      - lib/libblas.{{ version_major }}.dylib   # [osx]
+      - lib/libblas.{{ version }}.dylib         # [osx]
+      - lib/cmake/blas-{{ version }}/*.cmake
+
+  - name: libcblas
+    build:
+      string: "{{ build_num }}_netlib"
+      track_features:
+       - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("libcblas", max_pin="x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
+      run:
+        - {{ pin_subpackage("libblas", exact=True) }}
+    files:
+      - include/cblas*.h
+      - lib/pkgconfig/cblas.pc
+      - lib/libcblas.so                          # [linux]
+      - lib/libcblas.so.{{ version_major }}      # [linux]
+      - lib/libcblas.so.{{ version }}            # [linux]
+      - lib/libcblas.dylib                       # [osx]
+      - lib/libcblas.{{ version_major }}.dylib   # [osx]
+      - lib/libcblas.{{ version }}.dylib         # [osx]
+      - lib/cmake/cblas-{{ version }}/*.cmake
+
+  - name: liblapack
+    build:
+      string: "{{ build_num }}_netlib"
+      track_features:
+       - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("liblapack", max_pin="x.x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
+      run:
+        - {{ pin_subpackage("libblas", exact=True) }}
+    files:
+      - lib/pkgconfig/lapack.pc
+      - lib/liblapack.so                          # [linux]
+      - lib/liblapack.so.{{ version_major }}      # [linux]
+      - lib/liblapack.so.{{ version }}            # [linux]
+      - lib/liblapack.dylib                       # [osx]
+      - lib/liblapack.{{ version_major }}.dylib   # [osx]
+      - lib/liblapack.{{ version }}.dylib         # [osx]
+      - lib/cmake/lapack-{{ version }}/*.cmake
+
+  - name: liblapacke
+    build:
+      string: "{{ build_num }}_netlib"
+      track_features:
+       - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("liblapacke", max_pin="x.x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
+      run:
+        - {{ pin_subpackage("liblapack", exact=True) }}
+        - {{ pin_subpackage("libcblas", exact=True) }}
+        - {{ pin_subpackage("libblas", exact=True) }}
+    files:
+      - include/lapacke*.h
+      - lib/pkgconfig/lapacke.pc
+      - lib/liblapacke.so                          # [linux]
+      - lib/liblapacke.so.{{ version_major }}      # [linux]
+      - lib/liblapacke.so.{{ version }}            # [linux]
+      - lib/liblapacke.dylib                       # [osx]
+      - lib/liblapacke.{{ version_major }}.dylib   # [osx]
+      - lib/liblapacke.{{ version }}.dylib         # [osx]
+      - lib/cmake/lapacke-{{ version }}/*.cmake
+
+  # For compatiblity
+  - name: blas
+    version: "2.{{ build_num }}"
+    build:
+      string: "netlib"
+    requirements:
+    - {{ pin_subpackage("liblapack", exact=True) }}
+    - {{ pin_subpackage("liblapacke", exact=True) }}
+    - {{ pin_subpackage("libcblas", exact=True) }}
+    - {{ pin_subpackage("libblas", exact=True) }}
 
 about:
   home: http://www.netlib.org/lapack
   license: BSD 3-Clause
+  license_file: LICENSE
   summary: Linear Algebra PACKage
 
 extra:
@@ -43,3 +138,4 @@ extra:
     - jakirkham
     - jschueller
     - hadim
+    - isuruf
