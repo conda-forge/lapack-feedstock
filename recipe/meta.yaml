@@ -47,7 +47,7 @@ outputs:
     build:
       string: "{{ build_num }}_netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
       run_exports:
         - {{ pin_subpackage("libcblas", max_pin="x") }}
     requirements:
@@ -71,7 +71,7 @@ outputs:
     build:
       string: "{{ build_num }}_netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
       run_exports:
         - {{ pin_subpackage("liblapack", max_pin="x.x") }}
     requirements:
@@ -94,7 +94,7 @@ outputs:
     build:
       string: "{{ build_num }}_netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
       run_exports:
         - {{ pin_subpackage("liblapacke", max_pin="x.x") }}
     requirements:
