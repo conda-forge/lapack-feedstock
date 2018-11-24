@@ -31,8 +31,9 @@ make install
 
 if [[ $(uname) == "Darwin" ]]; then
     for lib in blas cblas lapack lapacke; do
-        mv $PREFIX/lib/lib$lib.dylib $PREFIX/lib/lib$lib.$PKG_VERISON.dylib
-        ln -s  $PREFIX/lib/lib$lib.$PKG_VERISON.dylib $PREFIX/lib/lib$lib.dylib
-        ln -s  $PREFIX/lib/lib$lib.$PKG_VERISON.dylib $PREFIX/lib/lib$lib.3.dylib
+        mv $PREFIX/lib/lib$lib.dylib $PREFIX/lib/lib$lib.$PKG_VERSION.dylib
+        install_name_tool -id $PREFIX/lib/lib$lib.$PKG_VERSION.dylib $PREFIX/lib/lib$lib.3.dylib
+        ln -s  $PREFIX/lib/lib$lib.$PKG_VERSION.dylib $PREFIX/lib/lib$lib.dylib
+        ln -s  $PREFIX/lib/lib$lib.$PKG_VERSION.dylib $PREFIX/lib/lib$lib.3.dylib
     done
 fi
