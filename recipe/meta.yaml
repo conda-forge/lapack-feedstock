@@ -18,8 +18,10 @@ build:
 
 requirements:
   build:
-    - {{ compiler("c") }}
-    - {{ compiler("fortran") }}
+    - {{ compiler("c") }}               # [unix]
+    - {{ compiler("fortran") }}         # [unix]
+    - {{ compiler("m2w64_c") }}         # [win]
+    - {{ compiler("m2w64_fortran") }}   # [win]
     - cmake
 
 outputs:
@@ -32,8 +34,10 @@ outputs:
         - {{ pin_subpackage("libblas", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("fortran") }}
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
     files:
       - lib/pkgconfig/blas.pc
       - lib/libblas.so                          # [linux]
@@ -53,10 +57,12 @@ outputs:
         - {{ pin_subpackage("libcblas", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("fortran") }}
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - {{ pin_subpackage("libblas", exact=True) }}
+        - libblas {{ version }}
     files:
       - include/cblas*.h
       - lib/pkgconfig/cblas.pc
@@ -77,10 +83,12 @@ outputs:
         - {{ pin_subpackage("liblapack", max_pin="x.x") }}
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("fortran") }}
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - {{ pin_subpackage("libblas", exact=True) }}
+        - libblas {{ version }}
     files:
       - lib/pkgconfig/lapack.pc
       - lib/liblapack.so                          # [linux]
@@ -100,12 +108,14 @@ outputs:
         - {{ pin_subpackage("liblapacke", max_pin="x.x") }}
     requirements:
       build:
-        - {{ compiler("c") }}
-        - {{ compiler("fortran") }}
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - {{ pin_subpackage("liblapack", exact=True) }}
-        - {{ pin_subpackage("libcblas", exact=True) }}
-        - {{ pin_subpackage("libblas", exact=True) }}
+        - libblas    {{ version }}
+        - libcblas   {{ version }}
+        - liblapack  {{ version }}
     files:
       - include/lapacke*.h
       - lib/pkgconfig/lapacke.pc
