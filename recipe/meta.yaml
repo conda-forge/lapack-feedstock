@@ -23,6 +23,7 @@ requirements:
     - {{ compiler("fortran") }}        # [unix]
     - {{ compiler("m2w64_fortran") }}  # [win]
     - cmake
+  host:
   run:
 
 test:
