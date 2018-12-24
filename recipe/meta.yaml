@@ -14,7 +14,7 @@ source:
     - python-test.patch
 
 build:
-  number: 2
+  number: 1002
 
 requirements:
   build:
