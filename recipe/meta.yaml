@@ -28,8 +28,7 @@ requirements:
 
 test:
   commands:
-    - test -f ${PREFIX}/lib/liblapack.so                      # [linux]
-    - test -f ${PREFIX}/lib/liblapack.dylib                   # [osx]
+    - test -f ${PREFIX}/lib/liblapack${SHLIB_EXT}             # [unix]
     - if not exist %LIBRARY_PREFIX%\\lib\\liblapack.a exit 1  # [win]
 
 about:
