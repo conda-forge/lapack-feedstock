@@ -14,28 +14,27 @@ source:
     - python-test.patch
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
-    - toolchain
+    - {{ compiler("c") }}              # [unix]
+    - {{ compiler("m2w64_c") }}        # [win]
+    - {{ compiler("fortran") }}        # [unix]
+    - {{ compiler("m2w64_fortran") }}  # [win]
     - cmake
-    - gcc  # [unix]
-    - cloog 0.18.0 10  # [unix]
-    - m2w64-toolchain  # [win]
+  host:
   run:
-    - libgfortran  # [not win]
-    - m2w64-gcc-libs  # [win]
 
 test:
   commands:
-    - test -f ${PREFIX}/lib/liblapack.so  # [linux]
-    - test -f ${PREFIX}/lib/liblapack.dylib  # [osx]
+    - test -f ${PREFIX}/lib/liblapack${SHLIB_EXT}             # [unix]
     - if not exist %LIBRARY_PREFIX%\\lib\\liblapack.a exit 1  # [win]
 
 about:
   home: http://www.netlib.org/lapack
   license: BSD 3-Clause
+  license_file: LICENSE
   summary: Linear Algebra PACKage
 
 extra:
