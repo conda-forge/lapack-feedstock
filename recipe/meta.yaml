@@ -3,9 +3,9 @@
 {% set version_major = version.split(".")[0] %}
 
 {% if unix %}
-{% set library="" %}
+{% set library = "" %}
 {% else %}
-{% set library="Library/" %}
+{% set library = "Library/" %}
 {% endif %}
 
 package:
