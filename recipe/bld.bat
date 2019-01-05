@@ -10,7 +10,6 @@ cmake -G "MinGW Makefiles" ^
     -DCMAKE_BUILD_TYPE=Release ^
     -DLAPACKE=ON ^
     -DCBLAS=ON ^
-    -DCMAKE_GNUtoMS=ON ^
     -Wno-dev ..
 
 mingw32-make -j%CPU_COUNT%
@@ -18,7 +17,10 @@ mingw32-make install
 
 ctest --output-on-failure
 
-move "%LIBRARY_LIB%\libblas.lib"    "%LIBRARY_LIB%\cblas.lib"
-move "%LIBRARY_LIB%\libcblas.lib"   "%LIBRARY_LIB%\cblas.lib"
-move "%LIBRARY_LIB%\liblapack.lib"  "%LIBRARY_LIB%\lapack.lib"
-move "%LIBRARY_LIB%\liblapacke.lib" "%LIBRARY_LIB%\lapacke.lib"
+for %%i in (blas cblas lapack lapacke) do (
+    dumpbin /exports %PREFIX%/Library/bin/lib%%i.dll > exports%%i.txt
+    echo LIBRARY lib%%i.dll > %%i.def
+    echo EXPORTS >> %%i.def
+    for /f "skip=19 tokens=4" %%A in (exports%%i.txt) do echo %%A >> %%i.def
+    lib /def:%%i.def /out:%%i.lib /machine:x64
+)
