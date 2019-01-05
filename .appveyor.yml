@@ -44,5 +44,11 @@ build: off
 
 test_script:
     - conda.exe build recipe -m .ci_support\%CONFIG%.yaml --quiet
+    - cmd: copy C:\bld\win-64\*.bz2 C:\projects\lapack-feedstock\
+
 deploy_script:
     - cmd: upload_package .\ .\recipe .ci_support\%CONFIG%.yaml
+
+artifacts:
+    # Store built conda packages as artifacts
+    - path: '*.bz2'
