@@ -1,5 +1,5 @@
 {% set version = "3.8.0" %}
-{% set build_num = "1" %}
+{% set build_num = "2" %}
 {% set version_major = version.split(".")[0] %}
 
 {% if unix %}
@@ -32,21 +32,6 @@ requirements:
     - vs2008_win-64                     # [win64]
     - m2w64-make                        # [win]
     - cmake
-
-test:
-  commands:
-    {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
-    - test -f $PREFIX/lib/lib{{ each_lib }}.so                          # [linux]
-    - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version_major }}      # [linux]
-    - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version }}            # [linux]
-    - test -f $PREFIX/lib/lib{{ each_lib }}.dylib                       # [osx]
-    - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version_major }}.dylib   # [osx]
-    - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version }}.dylib         # [osx]
-    - test -f $PREFIX/lib/pkgconfig/{{ each_lib }}.pc                   # [unix]
-    - if not exist %LIBRARY_LIB%/pkgconfig/{{ each_lib }}.pc            # [win]
-    - if not exist %LIBRARY_LIB%/{{ each_lib }}.lib exit 1        # [win]
-    - if not exist %LIBRARY_BIN%/lib{{ each_lib }}.dll exit 1     # [win]
-    {% endfor %}
 
 outputs:
   - name: libblas
@@ -169,6 +154,20 @@ outputs:
     - {{ pin_subpackage("liblapacke", exact=True) }}
     - {{ pin_subpackage("libcblas", exact=True) }}
     - {{ pin_subpackage("libblas", exact=True) }}
+    test:
+      commands:
+        {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
+        - test -f $PREFIX/lib/lib{{ each_lib }}.so                          # [linux]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version_major }}      # [linux]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version }}            # [linux]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.dylib                       # [osx]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version_major }}.dylib   # [osx]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version }}.dylib         # [osx]
+        - test -f $PREFIX/lib/pkgconfig/{{ each_lib }}.pc                   # [unix]
+        - if not exist %LIBRARY_LIB%/pkgconfig/{{ each_lib }}.pc            # [win]
+        - if not exist %LIBRARY_LIB%/{{ each_lib }}.lib exit 1        # [win]
+        - if not exist %LIBRARY_BIN%/lib{{ each_lib }}.dll exit 1     # [win]
+        {% endfor %}
 
 about:
   home: http://www.netlib.org/lapack

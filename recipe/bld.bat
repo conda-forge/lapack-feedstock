@@ -23,4 +23,5 @@ for %%i in (blas cblas lapack lapacke) do (
     echo EXPORTS >> %%i.def
     for /f "skip=19 tokens=4" %%A in (exports%%i.txt) do echo %%A >> %%i.def
     lib /def:%%i.def /out:%%i.lib /machine:x64
+    copy %%i.lib %PREFIX%/Library/lib/%%i.lib
 )
