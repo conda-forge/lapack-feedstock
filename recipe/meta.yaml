@@ -37,10 +37,14 @@ outputs:
        - blas_netlib
       run_exports:
         - {{ pin_subpackage("libblas", max_pin="x") }}
+      ignore_run_exports:
+        - vc
     requirements:
       build:
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
+      run:
+        - vs2015_runtime          # [win]
     files:
       - {{ library }}lib/pkgconfig/blas.pc
       - {{ library }}lib/cmake/blas-{{ version }}/*.cmake
@@ -60,12 +64,15 @@ outputs:
         - blas_netlib
       run_exports:
         - {{ pin_subpackage("libcblas", max_pin="x") }}
+      ignore_run_exports:
+        - vc
     requirements:
       build:
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
       run:
         - libblas {{ version }}
+        - vs2015_runtime          # [win]
     files:
       - {{ library }}include/cblas*.h
       - {{ library }}lib/pkgconfig/cblas.pc
@@ -86,12 +93,15 @@ outputs:
         - blas_netlib
       run_exports:
         - {{ pin_subpackage("liblapack", max_pin="x.x") }}
+      ignore_run_exports:
+        - vc
     requirements:
       build:
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
       run:
         - libblas {{ version }}
+        - vs2015_runtime          # [win]
     files:
       - {{ library }}lib/pkgconfig/lapack.pc
       - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
@@ -111,6 +121,8 @@ outputs:
         - blas_netlib
       run_exports:
         - {{ pin_subpackage("liblapacke", max_pin="x.x") }}
+      ignore_run_exports:
+        - vc
     requirements:
       build:
         - {{ compiler("c") }}
@@ -119,6 +131,7 @@ outputs:
         - libblas    {{ version }}
         - libcblas   {{ version }}
         - liblapack  {{ version }}
+        - vs2015_runtime          # [win]
     files:
       - {{ library }}include/lapacke*.h
       - {{ library }}lib/pkgconfig/lapacke.pc
