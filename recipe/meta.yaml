@@ -30,6 +30,13 @@ requirements:
     - ninja                       # [win]
     - cmake
 
+test:
+  commands:
+    - test -f lib/blas${SHLIB_EXT}      # [unix]
+    - test -f lib/cblas${SHLIB_EXT}     # [unix]
+    - test -f lib/lapack${SHLIB_EXT}    # [unix]
+    - test -f lib/lapacke${SHLIB_EXT}   # [unix]
+
 outputs:
   - name: libblas
     build:
