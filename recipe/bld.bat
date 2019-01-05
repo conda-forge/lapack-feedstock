@@ -17,3 +17,8 @@ mingw32-make -j%CPU_COUNT%
 mingw32-make install
 
 ctest --output-on-failure
+
+move "%LIBRARY_LIB%\libblas.lib"    "%LIBRARY_LIB%\cblas.lib"
+move "%LIBRARY_LIB%\libcblas.lib"   "%LIBRARY_LIB%\cblas.lib"
+move "%LIBRARY_LIB%\liblapack.lib"  "%LIBRARY_LIB%\lapack.lib"
+move "%LIBRARY_LIB%\liblapacke.lib" "%LIBRARY_LIB%\lapacke.lib"
