@@ -43,7 +43,6 @@ test:
     - test -f $PREFIX/lib/pkgconfig/{{ each_lib }}.pc                   # [unix]
     - if not exist %LIBRARY_LIB%/pkgconfig/{{ each_lib }}.pc            # [win]
     - if not exist %LIBRARY_LIB%/{{ each_lib }}.lib exit 1        # [win]
-    - if not exist %LIBRARY_LIB%/lib{{ each_lib }}.dll.a exit 1   # [win]
     - if not exist %LIBRARY_BIN%/lib{{ each_lib }}.dll exit 1     # [win]
     {% endfor %}
 
@@ -71,7 +70,6 @@ outputs:
       - lib/libblas.{{ version_major }}.dylib   # [osx]
       - lib/libblas.{{ version }}.dylib         # [osx]
       - Library/bin/libblas.dll                 # [win]
-      - Library/lib/libblas.dll.a               # [win]
       - Library/lib/blas.lib                    # [win]
 
   - name: libcblas
@@ -100,7 +98,6 @@ outputs:
       - lib/libcblas.{{ version_major }}.dylib   # [osx]
       - lib/libcblas.{{ version }}.dylib         # [osx]
       - Library/bin/libcblas.dll                 # [win]
-      - Library/lib/libcblas.dll.a               # [win]
       - Library/lib/cblas.lib                    # [win]
 
   - name: liblapack
@@ -128,7 +125,6 @@ outputs:
       - lib/liblapack.{{ version_major }}.dylib   # [osx]
       - lib/liblapack.{{ version }}.dylib         # [osx]
       - Library/bin/liblapack.dll                 # [win]
-      - Library/lib/liblapack.dll.a               # [win]
       - Library/lib/lapack.lib                    # [win]
 
   - name: liblapacke
@@ -159,7 +155,6 @@ outputs:
       - lib/liblapacke.{{ version_major }}.dylib   # [osx]
       - lib/liblapacke.{{ version }}.dylib         # [osx]
       - Library/bin/liblapacke.dll                 # [win]
-      - Library/lib/liblapacke.dll.a               # [win]
       - Library/lib/lapacke.lib                    # [win]
 
   # For compatiblity
