@@ -164,9 +164,9 @@ outputs:
         - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version_major }}.dylib   # [osx]
         - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version }}.dylib         # [osx]
         - test -f $PREFIX/lib/pkgconfig/{{ each_lib }}.pc                   # [unix]
-        - if not exist "%LIBRARY_LIB%/pkgconfig/{{ each_lib }}.pc"          # [win]
-        - if not exist "%LIBRARY_LIB%/{{ each_lib }}.lib" exit 1            # [win]
-        - if not exist "%LIBRARY_BIN%/lib{{ each_lib }}.dll" exit 1         # [win]
+        - if not exist "%LIBRARY_LIB%\\pkgconfig\\{{ each_lib }}.pc"          # [win]
+        - if not exist "%LIBRARY_LIB%\\{{ each_lib }}.lib" exit 1            # [win]
+        - if not exist "%LIBRARY_BIN%\\lib{{ each_lib }}.dll" exit 1         # [win]
         {% endfor %}
 
 about:
