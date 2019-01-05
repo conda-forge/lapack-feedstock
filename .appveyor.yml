@@ -46,3 +46,8 @@ test_script:
     - conda.exe build recipe -m .ci_support\%CONFIG%.yaml --quiet
 deploy_script:
     - cmd: upload_package .\ .\recipe .ci_support\%CONFIG%.yaml
+
+artifacts:
+    # Store built conda packages as artifacts
+    - path: 'C:\bld\win-64\*.bz2'
+
