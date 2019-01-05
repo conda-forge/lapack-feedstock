@@ -6,8 +6,6 @@ ren "C:\Program Files\Git\usr\bin\sh.exe" _sh.exe
 
 cmake -G "MinGW Makefiles" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
-    -DCMAKE_C_COMPILER=clang-cl ^
-    -DCMAKE_Fortran_COMPILER=flang ^
     -DBUILD_SHARED_LIBS=yes ^
     -DCMAKE_BUILD_TYPE=Release ^
     -DLAPACKE=ON ^
