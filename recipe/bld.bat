@@ -18,10 +18,12 @@ mingw32-make install
 ctest --output-on-failure
 
 for %%i in (blas cblas lapack lapacke) do (
-    dumpbin /exports %PREFIX%/Library/bin/lib%%i.dll > exports%%i.txt
+    dumpbin /exports %LIBRARY_PREFIX%/bin/lib%%i.dll > exports%%i.txt
     echo LIBRARY lib%%i.dll > %%i.def
     echo EXPORTS >> %%i.def
     for /f "skip=19 tokens=4" %%A in (exports%%i.txt) do echo %%A >> %%i.def
     lib /def:%%i.def /out:%%i.lib /machine:x64
-    copy %%i.lib %PREFIX%/Library/lib/%%i.lib
+    copy %%i.lib %LIBRARY_PREFIX%/lib/%%i.lib
 )
+
+dir %LIBRARY_PREFIX%/lib
