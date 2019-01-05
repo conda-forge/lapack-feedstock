@@ -10,7 +10,7 @@ cmake -G "MinGW Makefiles" ^
     -DCMAKE_BUILD_TYPE=Release ^
     -DLAPACKE=ON ^
     -DCBLAS=ON ^
-    -DCMake_GNUtoMS=ON ^
+    -DCMAKE_GNUtoMS=ON ^
     -Wno-dev ..
 
 mingw32-make -j%CPU_COUNT%
