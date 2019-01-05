@@ -2,6 +2,12 @@
 {% set build_num = "0" %}
 {% set version_major = version.split(".")[0] %}
 
+{% if unix %}
+{% set library="" %}
+{% else %}
+{% set library="Library/" %}
+{% endif %}
+
 package:
   name: blas-split
   version: {{ version }}
@@ -18,11 +24,9 @@ build:
 
 requirements:
   build:
-    - {{ compiler("c") }}               # [unix]
-    - {{ compiler("fortran") }}         # [unix]
-    - {{ compiler("m2w64_c") }}         # [win]
-    - {{ compiler("m2w64_fortran") }}   # [win]
-    - m2w64-make                        # [win]
+    - {{ compiler("c") }}
+    - {{ compiler("fortran") }}
+    - ninja                       # [win]
     - cmake
 
 outputs:
@@ -35,19 +39,19 @@ outputs:
         - {{ pin_subpackage("libblas", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
     files:
-      - lib/pkgconfig/blas.pc
+      - {{ library }}lib/pkgconfig/blas.pc
+      - {{ library }}lib/cmake/blas-{{ version }}/*.cmake
       - lib/libblas.so                          # [linux]
       - lib/libblas.so.{{ version_major }}      # [linux]
       - lib/libblas.so.{{ version }}            # [linux]
       - lib/libblas.dylib                       # [osx]
       - lib/libblas.{{ version_major }}.dylib   # [osx]
       - lib/libblas.{{ version }}.dylib         # [osx]
-      - lib/cmake/blas-{{ version }}/*.cmake
+      - Library/bin/blas.dll                    # [win]
+      - Library/lib/blas.lib                    # [win]
 
   - name: libcblas
     build:
@@ -58,22 +62,22 @@ outputs:
         - {{ pin_subpackage("libcblas", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
       run:
         - libblas {{ version }}
     files:
-      - include/cblas*.h
-      - lib/pkgconfig/cblas.pc
+      - {{ library }}include/cblas*.h
+      - {{ library }}lib/pkgconfig/cblas.pc
+      - {{ library }}lib/cmake/cblas-{{ version }}/*.cmake
       - lib/libcblas.so                          # [linux]
       - lib/libcblas.so.{{ version_major }}      # [linux]
       - lib/libcblas.so.{{ version }}            # [linux]
       - lib/libcblas.dylib                       # [osx]
       - lib/libcblas.{{ version_major }}.dylib   # [osx]
       - lib/libcblas.{{ version }}.dylib         # [osx]
-      - lib/cmake/cblas-{{ version }}/*.cmake
+      - Library/bin/cblas.dll                    # [win]
+      - Library/lib/cblas.lib                    # [win]
 
   - name: liblapack
     build:
@@ -84,21 +88,21 @@ outputs:
         - {{ pin_subpackage("liblapack", max_pin="x.x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
       run:
         - libblas {{ version }}
     files:
-      - lib/pkgconfig/lapack.pc
+      - {{ library }}lib/pkgconfig/lapack.pc
+      - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
       - lib/liblapack.so                          # [linux]
       - lib/liblapack.so.{{ version_major }}      # [linux]
       - lib/liblapack.so.{{ version }}            # [linux]
       - lib/liblapack.dylib                       # [osx]
       - lib/liblapack.{{ version_major }}.dylib   # [osx]
       - lib/liblapack.{{ version }}.dylib         # [osx]
-      - lib/cmake/lapack-{{ version }}/*.cmake
+      - Library/bin/lapack.dll                    # [win]
+      - Library/lib/lapack.lib                    # [win]
 
   - name: liblapacke
     build:
@@ -109,24 +113,24 @@ outputs:
         - {{ pin_subpackage("liblapacke", max_pin="x.x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
       run:
         - libblas    {{ version }}
         - libcblas   {{ version }}
         - liblapack  {{ version }}
     files:
-      - include/lapacke*.h
-      - lib/pkgconfig/lapacke.pc
+      - {{ library }}include/lapacke*.h
+      - {{ library }}lib/pkgconfig/lapacke.pc
+      - {{ library }}lib/cmake/lapacke-{{ version }}/*.cmake
       - lib/liblapacke.so                          # [linux]
       - lib/liblapacke.so.{{ version_major }}      # [linux]
       - lib/liblapacke.so.{{ version }}            # [linux]
       - lib/liblapacke.dylib                       # [osx]
       - lib/liblapacke.{{ version_major }}.dylib   # [osx]
       - lib/liblapacke.{{ version }}.dylib         # [osx]
-      - lib/cmake/lapacke-{{ version }}/*.cmake
+      - Library/bin/lapacke.dll                    # [win]
+      - Library/lib/lapacke.lib                    # [win]
 
   # For compatiblity
   - name: blas
