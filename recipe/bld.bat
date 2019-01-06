@@ -8,6 +8,7 @@ cmake -G "MinGW Makefiles" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DBUILD_SHARED_LIBS=yes ^
     -DCMAKE_BUILD_TYPE=Release ^
+    -DBUILD_TESTING=ON ^
     -DLAPACKE=ON ^
     -DCBLAS=ON ^
     -Wno-dev ..
