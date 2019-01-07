@@ -4,13 +4,15 @@ set +e
 
 if [[ $(uname) == "Linux" ]]; then
     export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,${PREFIX}/lib"
+    export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,--as-needed//g")
 fi
 
-export SDKROOT="${CONDA_BUILD_SYSROOT}"
-export CFLAGS="${CFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
-export CXXFLAGS="${CXXFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
-export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,-dead_strip_dylibs//g")
-export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,--as-needed//g")
+if [[ $(uname) == "Darwin" ]]; then
+    export SDKROOT="${CONDA_BUILD_SYSROOT}"
+    export CFLAGS="${CFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
+    export FFLAGS="${FFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
+    export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,-dead_strip_dylibs//g")
+fi
 
 mkdir build
 cd build
