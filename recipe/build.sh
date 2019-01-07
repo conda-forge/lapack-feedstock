@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set +e
+
 if [[ $(uname) == "Linux" ]]; then
     export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,${PREFIX}/lib"
 fi
@@ -17,6 +19,9 @@ cmake \
   -DLAPACKE=ON \
   -DCBLAS=ON \
   ..
+
+cat CMakeFiles/CMakeOutput.log
+cat CMakeFiles/CMakeError.log
 
 make -j${CPU_COUNT}
 
