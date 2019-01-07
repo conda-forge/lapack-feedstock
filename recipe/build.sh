@@ -9,6 +9,8 @@ fi
 export SDKROOT="${CONDA_BUILD_SYSROOT}"
 export CFLAGS="${CFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
 export CXXFLAGS="${CXXFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
+export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,-dead_strip_dylibs//g")
+export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,--as-needed//g")
 
 mkdir build
 cd build
