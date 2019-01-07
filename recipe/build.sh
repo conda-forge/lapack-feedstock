@@ -6,6 +6,10 @@ if [[ $(uname) == "Linux" ]]; then
     export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,${PREFIX}/lib"
 fi
 
+export SDKROOT="${CONDA_BUILD_SYSROOT}"
+export CFLAGS="${CFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
+export CXXFLAGS="${CXXFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
+
 mkdir build
 cd build
 
