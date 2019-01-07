@@ -1,0 +1,3 @@
+channel_targets:
+  - conda-forge blasdev-main
+  - conda-forge blasdev-gcc7                            # [(linux or osx)     and (environ.get('CF_COMPILER_STACK') == 'comp7')]
