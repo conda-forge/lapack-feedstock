@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [[ $(uname) == "Linux" ]]; then
+    export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,${PREFIX}/lib"
+fi
+
 mkdir build
 cd build
 
