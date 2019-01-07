@@ -16,7 +16,8 @@ cmake -G "MinGW Makefiles" ^
 mingw32-make -j%CPU_COUNT%
 mingw32-make install
 
-ctest --output-on-failure
+ctest --output-on-failure -E "x*cblat*"
+if errorlevel 1 exit 1
 
 for %%i in (blas cblas lapack lapacke) do (
     dumpbin /exports "%LIBRARY_PREFIX%/bin/lib%%i.dll" > exports%%i.txt
