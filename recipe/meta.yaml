@@ -36,7 +36,7 @@ requirements:
 outputs:
   - name: libblas
     build:
-      string: "{{ build_num }}_netlib"
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
        - blas_netlib
       run_exports:
@@ -61,7 +61,7 @@ outputs:
 
   - name: libcblas
     build:
-      string: "{{ build_num }}_netlib"
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
         - blas_netlib
       run_exports:
@@ -89,7 +89,7 @@ outputs:
 
   - name: liblapack
     build:
-      string: "{{ build_num }}_netlib"
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
         - blas_netlib
       run_exports:
@@ -116,7 +116,7 @@ outputs:
 
   - name: liblapacke
     build:
-      string: "{{ build_num }}_netlib"
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
         - blas_netlib
       run_exports:
