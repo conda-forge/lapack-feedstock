@@ -1,9 +1,13 @@
 #!/bin/sh
 
-set +e
+set -e
+
+mkdir build
+cd build
 
 if [[ $(uname) == "Linux" ]]; then
-    export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,${PREFIX}/lib"
+    # workaround a binutils bug
+    export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,$(pwd)/lib"
     export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,--as-needed//g")
 fi
 
@@ -13,9 +17,6 @@ if [[ $(uname) == "Darwin" ]]; then
     export FFLAGS="${FFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
     export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,-dead_strip_dylibs//g")
 fi
-
-mkdir build
-cd build
 
 # CMAKE_INSTALL_LIBDIR="lib" suppresses CentOS default of lib64 (conda expects lib)
 
@@ -27,9 +28,6 @@ cmake \
   -DLAPACKE=ON \
   -DCBLAS=ON \
   ..
-
-cat CMakeFiles/CMakeOutput.log
-cat CMakeFiles/CMakeError.log
 
 make -j${CPU_COUNT}
 
