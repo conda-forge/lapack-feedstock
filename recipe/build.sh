@@ -5,6 +5,8 @@ set -e
 mkdir build
 cd build
 
+mkdir -p ${PREFIX}/include
+
 if [[ $(uname) == "Linux" ]]; then
     # workaround a binutils bug
     export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,$(pwd)/lib"
@@ -39,6 +41,8 @@ if [[ $(uname) == "Darwin" ]]; then
   # xerbla was called. This does not work with dylibs on osx and dlls on windows
   ctest --output-on-failure -E "x*cblat2|x*cblat3"
 else
+  # Ref: https://github.com/Reference-LAPACK/lapack/issues/85
+  ulimit -s unlimited
   ctest --output-on-failure
 fi
 make install
