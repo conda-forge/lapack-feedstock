@@ -31,6 +31,7 @@ requirements:
     # This is just for creating the import libaries
     - vs2008_win-64                     # [win64]
     - m2w64-make                        # [win]
+    - make
     - cmake
 
 outputs:
