@@ -1,35 +1,174 @@
-{% set version = "3.6.1" %}
+{% set version = "3.8.0" %}
+{% set build_num = "2" %}
+{% set version_major = version.split(".")[0] %}
+
+{% if unix %}
+{% set library = "" %}
+{% else %}
+{% set library = "Library/" %}
+{% endif %}
 
 package:
-  name: lapack
+  name: blas-split
   version: {{ version }}
 
 source:
-  fn: lapack-{{ version }}.tgz
-  url: http://www.netlib.org/lapack/lapack-{{ version }}.tgz
-  sha1: 7220a9bc9c766cb513007f313b804d88f110c228
-
-  # The next lapack version will have a fix for this.
+  url: http://www.netlib.org/lapack/lapack-{{ version }}.tar.gz
+  sha256: deb22cc4a6120bff72621155a9917f485f96ef8319ac074a7afbc68aab88bcf6
   patches:
-    - python-test.patch
+    # Avoid setting current_version and compatibility_version
+    - no_soversion_osx.diff  # [osx]
 
 build:
-  number: 2
+  number: "{{ build_num }}"
 
 requirements:
   build:
-    - {{ compiler("c") }}              # [unix]
-    - {{ compiler("m2w64_c") }}        # [win]
-    - {{ compiler("fortran") }}        # [unix]
-    - {{ compiler("m2w64_fortran") }}  # [win]
+    - {{ compiler("c") }}               # [unix]
+    - {{ compiler("fortran") }}         # [unix]
+    - {{ compiler("m2w64_c") }}         # [win]
+    - {{ compiler("m2w64_fortran") }}   # [win]
+    # This is just for creating the import libaries
+    - vs2008_win-64                     # [win64]
+    - m2w64-make                        # [win]
+    - make
     - cmake
-  host:
-  run:
 
-test:
-  commands:
-    - test -f ${PREFIX}/lib/liblapack${SHLIB_EXT}             # [unix]
-    - if not exist %LIBRARY_PREFIX%\\lib\\liblapack.a exit 1  # [win]
+outputs:
+  - name: libblas
+    build:
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      track_features:
+       - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("libblas", max_pin="x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
+    files:
+      - {{ library }}lib/pkgconfig/blas.pc
+      - {{ library }}lib/cmake/blas-{{ version }}/*.cmake
+      - lib/libblas.so                          # [linux]
+      - lib/libblas.so.{{ version_major }}      # [linux]
+      - lib/libblas.so.{{ version }}            # [linux]
+      - lib/libblas.dylib                       # [osx]
+      - lib/libblas.{{ version_major }}.dylib   # [osx]
+      - lib/libblas.{{ version }}.dylib         # [osx]
+      - Library/bin/libblas.dll                 # [win]
+      - Library/lib/blas.lib                    # [win]
+
+  - name: libcblas
+    build:
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      track_features:
+        - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("libcblas", max_pin="x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
+      run:
+        - libblas {{ version }}
+    files:
+      - {{ library }}include/cblas*.h
+      - {{ library }}lib/pkgconfig/cblas.pc
+      - {{ library }}lib/cmake/cblas-{{ version }}/*.cmake
+      - lib/libcblas.so                          # [linux]
+      - lib/libcblas.so.{{ version_major }}      # [linux]
+      - lib/libcblas.so.{{ version }}            # [linux]
+      - lib/libcblas.dylib                       # [osx]
+      - lib/libcblas.{{ version_major }}.dylib   # [osx]
+      - lib/libcblas.{{ version }}.dylib         # [osx]
+      - Library/bin/libcblas.dll                 # [win]
+      - Library/lib/cblas.lib                    # [win]
+
+  - name: liblapack
+    build:
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      track_features:
+        - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("liblapack", max_pin="x.x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
+      run:
+        - libblas {{ version }}
+    files:
+      - {{ library }}lib/pkgconfig/lapack.pc
+      - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
+      - lib/liblapack.so                          # [linux]
+      - lib/liblapack.so.{{ version_major }}      # [linux]
+      - lib/liblapack.so.{{ version }}            # [linux]
+      - lib/liblapack.dylib                       # [osx]
+      - lib/liblapack.{{ version_major }}.dylib   # [osx]
+      - lib/liblapack.{{ version }}.dylib         # [osx]
+      - Library/bin/liblapack.dll                 # [win]
+      - Library/lib/lapack.lib                    # [win]
+
+  - name: liblapacke
+    build:
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      track_features:
+        - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("liblapacke", max_pin="x.x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
+      run:
+        - libblas    {{ version }}
+        - libcblas   {{ version }}
+        - liblapack  {{ version }}
+    files:
+      - {{ library }}include/lapacke*.h
+      - {{ library }}lib/pkgconfig/lapacke.pc
+      - {{ library }}lib/cmake/lapacke-{{ version }}/*.cmake
+      - lib/liblapacke.so                          # [linux]
+      - lib/liblapacke.so.{{ version_major }}      # [linux]
+      - lib/liblapacke.so.{{ version }}            # [linux]
+      - lib/liblapacke.dylib                       # [osx]
+      - lib/liblapacke.{{ version_major }}.dylib   # [osx]
+      - lib/liblapacke.{{ version }}.dylib         # [osx]
+      - Library/bin/liblapacke.dll                 # [win]
+      - Library/lib/lapacke.lib                    # [win]
+
+  # For compatiblity
+  - name: blas
+    version: "2.{{ build_num }}"
+    build:
+      string: "netlib"
+    requirements:
+    - {{ pin_subpackage("liblapack", exact=True) }}
+    - {{ pin_subpackage("liblapacke", exact=True) }}
+    - {{ pin_subpackage("libcblas", exact=True) }}
+    - {{ pin_subpackage("libblas", exact=True) }}
+    test:
+      commands:
+        {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
+        - test -f $PREFIX/lib/lib{{ each_lib }}.so                          # [linux]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version_major }}      # [linux]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version }}            # [linux]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.dylib                       # [osx]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version_major }}.dylib   # [osx]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version }}.dylib         # [osx]
+        - test -f $PREFIX/lib/pkgconfig/{{ each_lib }}.pc                   # [unix]
+        - if not exist "%LIBRARY_LIB%\\pkgconfig\\{{ each_lib }}.pc" exit 1  # [win]
+        - if not exist "%LIBRARY_LIB%\\{{ each_lib }}.lib" exit 1           # [win]
+        - if not exist "%LIBRARY_BIN%\\lib{{ each_lib }}.dll" exit 1        # [win]
+        {% endfor %}
 
 about:
   home: http://www.netlib.org/lapack
@@ -41,3 +180,4 @@ extra:
   recipe-maintainers:
     - jakirkham
     - hadim
+    - isuruf

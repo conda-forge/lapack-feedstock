@@ -1,7 +1,9 @@
-About lapack
-============
+<!--
+# -*- mode: jinja -*-
+-->
 
-[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
+About blas-split
+================
 
 Home: http://www.netlib.org/lapack
 
@@ -25,32 +27,38 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-lapack-green.svg)](https://anaconda.org/conda-forge/lapack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/lapack.svg)](https://anaconda.org/conda-forge/lapack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/lapack.svg)](https://anaconda.org/conda-forge/lapack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/lapack.svg)](https://anaconda.org/conda-forge/lapack) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-blas-green.svg)](https://anaconda.org/conda-forge/blas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/blas.svg)](https://anaconda.org/conda-forge/blas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/blas.svg)](https://anaconda.org/conda-forge/blas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/blas.svg)](https://anaconda.org/conda-forge/blas) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libblas-green.svg)](https://anaconda.org/conda-forge/libblas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libblas.svg)](https://anaconda.org/conda-forge/libblas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libblas.svg)](https://anaconda.org/conda-forge/libblas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libblas.svg)](https://anaconda.org/conda-forge/libblas) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libcblas-green.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-liblapack-green.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-liblapacke-green.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) |
 
-Installing lapack
-=================
+Installing blas-split
+=====================
 
-Installing `lapack` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `blas-split` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `lapack` can be installed with:
+Once the `conda-forge` channel has been enabled, `blas, libblas, libcblas, liblapack, liblapacke` can be installed with:
 
 ```
-conda install lapack
+conda install blas libblas libcblas liblapack liblapacke
 ```
 
-It is possible to list all of the versions of `lapack` available on your platform with:
+It is possible to list all of the versions of `blas` available on your platform with:
 
 ```
-conda search lapack --channel conda-forge
+conda search blas --channel conda-forge
 ```
 
 
 About conda-forge
 =================
+
+[![Powered by NumFOCUS](https://img.shields.io/badge/powered%20by-NumFOCUS-orange.svg?style=flat&colorA=E1523D&colorB=007D8A)](http://numfocus.org)
 
 conda-forge is a community-led conda channel of installable packages.
 In order to provide high-quality builds, the process has been automated into the
@@ -85,17 +93,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating lapack-feedstock
-=========================
+Updating blas-split-feedstock
+=============================
 
-If you would like to improve the lapack recipe or build a new
+If you would like to improve the blas-split recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/lapack-feedstock are
+Note that all branches in the conda-forge/blas-split-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
@@ -111,6 +119,7 @@ Feedstock Maintainers
 =====================
 
 * [@hadim](https://github.com/hadim/)
+* [@isuruf](https://github.com/isuruf/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@jschueller](https://github.com/jschueller/)
 

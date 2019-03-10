@@ -1,0 +1,56 @@
+diff --git a/BLAS/SRC/CMakeLists.txt b/BLAS/SRC/CMakeLists.txt
+index 41c48043..bdc49b91 100644
+--- a/BLAS/SRC/CMakeLists.txt
++++ b/BLAS/SRC/CMakeLists.txt
+@@ -98,9 +98,4 @@ endif()
+ list(REMOVE_DUPLICATES SOURCES)
+ 
+ add_library(blas ${SOURCES})
+-set_target_properties(
+-  blas PROPERTIES
+-  VERSION ${LAPACK_VERSION}
+-  SOVERSION ${LAPACK_MAJOR_VERSION}
+-  )
+ lapack_install_library(blas)
+diff --git a/CBLAS/src/CMakeLists.txt b/CBLAS/src/CMakeLists.txt
+index 90e19f81..b31a2da0 100644
+--- a/CBLAS/src/CMakeLists.txt
++++ b/CBLAS/src/CMakeLists.txt
+@@ -117,8 +117,6 @@ add_library(cblas ${SOURCES})
+ set_target_properties(
+   cblas PROPERTIES
+   LINKER_LANGUAGE C
+-  VERSION ${LAPACK_VERSION}
+-  SOVERSION ${LAPACK_MAJOR_VERSION}
+   )
+ target_include_directories(cblas PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+diff --git a/LAPACKE/CMakeLists.txt b/LAPACKE/CMakeLists.txt
+index d4cf13a9..b509476a 100644
+--- a/LAPACKE/CMakeLists.txt
++++ b/LAPACKE/CMakeLists.txt
+@@ -50,8 +50,6 @@ add_library(lapacke ${SOURCES})
+ set_target_properties(
+   lapacke PROPERTIES
+   LINKER_LANGUAGE C
+-  VERSION ${LAPACK_VERSION}
+-  SOVERSION ${LAPACK_MAJOR_VERSION}
+   )
+ target_include_directories(lapacke PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+diff --git a/SRC/CMakeLists.txt b/SRC/CMakeLists.txt
+index 8105d221..88b10fb2 100644
+--- a/SRC/CMakeLists.txt
++++ b/SRC/CMakeLists.txt
+@@ -497,11 +497,6 @@ endif()
+ list(REMOVE_DUPLICATES SOURCES)
+ 
+ add_library(lapack ${SOURCES})
+-set_target_properties(
+-  lapack PROPERTIES
+-  VERSION ${LAPACK_VERSION}
+-  SOVERSION ${LAPACK_MAJOR_VERSION}
+-  )
+ 
+ if(USE_XBLAS)
+   target_link_libraries(lapack PRIVATE ${XBLAS_LIBRARY})
