@@ -40,10 +40,13 @@ if [[ $(uname) == "Darwin" ]]; then
   # by the test program's own version which reports to the test program that
   # xerbla was called. This does not work with dylibs on osx and dlls on windows
   ctest --output-on-failure -E "x*cblat2|x*cblat3"
-else
+elif [[ $(uname -m) == "x86_64" ]]; then
   # Ref: https://github.com/Reference-LAPACK/lapack/issues/85
   ulimit -s unlimited
   ctest --output-on-failure
+else
+  ulimit -s unlimited
+  ctest --output-on-failure -E "LAPACK-xeigtstz*"
 fi
 make install
 
