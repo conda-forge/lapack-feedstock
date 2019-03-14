@@ -1,5 +1,5 @@
 {% set version = "3.8.0" %}
-{% set build_num = "2" %}
+{% set build_num = "3" %}
 {% set version_major = version.split(".")[0] %}
 
 {% if unix %}
@@ -48,6 +48,8 @@ outputs:
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
+      run_constrained:
+        - blas 2.*
     files:
       - {{ library }}lib/pkgconfig/blas.pc
       - {{ library }}lib/cmake/blas-{{ version }}/*.cmake
@@ -75,6 +77,8 @@ outputs:
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
         - libblas {{ version }}
+      run_constrained:
+        - blas 2.*
     files:
       - {{ library }}include/cblas*.h
       - {{ library }}lib/pkgconfig/cblas.pc
@@ -103,6 +107,8 @@ outputs:
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
         - libblas {{ version }}
+      run_constrained:
+        - blas 2.*
     files:
       - {{ library }}lib/pkgconfig/lapack.pc
       - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
@@ -132,6 +138,8 @@ outputs:
         - libblas    {{ version }}
         - libcblas   {{ version }}
         - liblapack  {{ version }}
+      run_constrained:
+        - blas 2.*
     files:
       - {{ library }}include/lapacke*.h
       - {{ library }}lib/pkgconfig/lapacke.pc
