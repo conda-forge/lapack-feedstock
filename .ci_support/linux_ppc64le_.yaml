@@ -1,5 +1,7 @@
 c_compiler:
 - gcc
+c_compiler_version:
+- '8'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -8,3 +10,5 @@ docker_image:
 - condaforge/linux-anvil-ppc64le
 fortran_compiler:
 - gfortran
+fortran_compiler_version:
+- '8'
