@@ -18,8 +18,6 @@ Summary: Linear Algebra PACKage
 Current build status
 ====================
 
-[![Linux](https://img.shields.io/circleci/project/github/conda-forge/lapack-feedstock/master.svg?label=Linux)](https://circleci.com/gh/conda-forge/lapack-feedstock)
-[![OSX](https://img.shields.io/travis/conda-forge/lapack-feedstock/master.svg?label=macOS)](https://travis-ci.org/conda-forge/lapack-feedstock)
 [![Windows](https://img.shields.io/appveyor/ci/conda-forge/lapack-feedstock/master.svg?label=Windows)](https://ci.appveyor.com/project/conda-forge/lapack-feedstock/branch/master)
 
 Current release info
@@ -121,5 +119,4 @@ Feedstock Maintainers
 * [@hadim](https://github.com/hadim/)
 * [@isuruf](https://github.com/isuruf/)
 * [@jakirkham](https://github.com/jakirkham/)
-* [@jschueller](https://github.com/jschueller/)
 
