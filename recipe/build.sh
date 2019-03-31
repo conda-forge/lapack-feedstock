@@ -29,6 +29,7 @@ cmake \
   -DBUILD_SHARED_LIBS=ON \
   -DLAPACKE=ON \
   -DCBLAS=ON \
+  -DBUILD_DEPRECATED=ON \
   ..
 
 make -j${CPU_COUNT}
