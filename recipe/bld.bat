@@ -11,6 +11,7 @@ cmake -G "MinGW Makefiles" ^
     -DBUILD_TESTING=ON ^
     -DLAPACKE=ON ^
     -DCBLAS=ON ^
+    -DBUILD_DEPRECATED=ON ^
     -Wno-dev ..
 
 mingw32-make -j%CPU_COUNT%
