@@ -145,6 +145,17 @@ outputs:
       - Library/bin/liblapacke.dll                 # [win]
       - Library/lib/lapacke.lib                    # [win]
 
+  - name: blas-devel
+    build:
+      string: "netlib"
+    requirements:
+      run:
+        - {{ pin_subpackage("libblas", exact=True) }}
+        - {{ pin_subpackage("libcblas", exact=True) }}
+        - {{ pin_subpackage("liblapack", exact=True) }}
+        - {{ pin_subpackage("liblapacke", exact=True) }}
+        - {{ pin_subpackage("blas", exact=True) }}
+
   # For compatiblity
   - name: blas
     version: "2.{{ build_num }}"
