@@ -1,5 +1,5 @@
-{% set version = "3.8.0" %}
-{% set build_num = "8" %}
+{% set version = "3.9.0" %}
+{% set build_num = "0" %}
 {% set version_major = version.split(".")[0] %}
 
 {% if unix %}
@@ -13,8 +13,8 @@ package:
   version: {{ version }}
 
 source:
-  url: http://www.netlib.org/lapack/lapack-{{ version }}.tar.gz
-  sha256: deb22cc4a6120bff72621155a9917f485f96ef8319ac074a7afbc68aab88bcf6
+  url: https://github.com/Reference-LAPACK/lapack/archive/v{{ version }}.tar.gz
+  sha256: 106087f1bb5f46afdfba7f569d0cbe23dacb9a07cd24733765a0e89dbe1ad573
   patches:
     # Avoid setting current_version and compatibility_version
     - no_soversion_osx.diff  # [osx]
