@@ -1,5 +1,5 @@
 {% set version = "3.8.0" %}
-{% set build_num = "8" %}
+{% set build_num = "9" %}
 {% set version_major = version.split(".")[0] %}
 
 {% if unix %}
@@ -59,6 +59,7 @@ outputs:
       - lib/libblas.{{ version }}.dylib         # [osx]
       - Library/bin/libblas.dll                 # [win]
       - Library/lib/blas.lib                    # [win]
+      - Library/lib/libblas.dll.a               # [win]
 
   - name: libcblas
     build:
@@ -87,6 +88,7 @@ outputs:
       - lib/libcblas.{{ version }}.dylib         # [osx]
       - Library/bin/libcblas.dll                 # [win]
       - Library/lib/cblas.lib                    # [win]
+      - Library/lib/libcblas.dll.a               # [win]
 
   - name: liblapack
     build:
@@ -114,6 +116,7 @@ outputs:
       - lib/liblapack.{{ version }}.dylib         # [osx]
       - Library/bin/liblapack.dll                 # [win]
       - Library/lib/lapack.lib                    # [win]
+      - Library/lib/liblapack.dll.a               # [win]
 
   - name: liblapacke
     build:
@@ -144,6 +147,7 @@ outputs:
       - lib/liblapacke.{{ version }}.dylib         # [osx]
       - Library/bin/liblapacke.dll                 # [win]
       - Library/lib/lapacke.lib                    # [win]
+      - Library/lib/liblapacke.dll.a               # [win]
 
   - name: blas-devel
     build:
