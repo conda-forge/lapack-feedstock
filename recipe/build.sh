@@ -20,6 +20,9 @@ if [[ $(uname) == "Darwin" ]]; then
     export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,-dead_strip_dylibs//g")
 fi
 
+export LDFLAGS="$LDFLAGS -fno-optimize-sibling-calls"
+export FFLAGS="$FFLAGS -fno-optimize-sibling-calls"
+
 # CMAKE_INSTALL_LIBDIR="lib" suppresses CentOS default of lib64 (conda expects lib)
 
 cmake \

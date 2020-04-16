@@ -4,6 +4,10 @@ cd build
 REM Trick to avoid CMake/sh.exe error
 ren "C:\Program Files\Git\usr\bin\sh.exe" _sh.exe
 
+set "CC=gcc.exe"
+set "CXX=g++.exe"
+set "FC=gfortran.exe"
+
 cmake -G "MinGW Makefiles" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DBUILD_SHARED_LIBS=yes ^
