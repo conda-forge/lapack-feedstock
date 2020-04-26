@@ -185,6 +185,14 @@ outputs:
         - if not exist "%LIBRARY_BIN%\\lib{{ each_lib }}.dll" exit 1        # [win]
         {% endfor %}
 
+  # For compatiblity (see #33)
+  - name: lapack
+    build:
+      string: "netlib"
+    requirements:
+      run:
+        - {{ pin_subpackage("liblapack", exact=True) }}
+
 about:
   home: http://www.netlib.org/lapack
   license: BSD-3-Clause
