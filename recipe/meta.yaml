@@ -191,7 +191,7 @@ outputs:
       string: "netlib"
     requirements:
       run:
-        - {{ pin_subpackage("liblapack", exact=True) }}
+        - liblapack {{ version }}.*
 
 about:
   home: http://www.netlib.org/lapack
