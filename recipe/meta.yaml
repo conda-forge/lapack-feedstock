@@ -75,7 +75,7 @@ outputs:
         - {{ compiler("m2w64_c") }}         # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas {{ version }}
+        - libblas {{ version }}.*
     files:
       - {{ library }}include/cblas*.h
       - {{ library }}lib/pkgconfig/cblas.pc
@@ -104,7 +104,7 @@ outputs:
         - {{ compiler("m2w64_c") }}         # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas {{ version }}
+        - libblas {{ version }}.*
     files:
       - {{ library }}lib/pkgconfig/lapack.pc
       - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
@@ -132,9 +132,9 @@ outputs:
         - {{ compiler("m2w64_c") }}         # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas    {{ version }}
-        - libcblas   {{ version }}
-        - liblapack  {{ version }}
+        - libblas    {{ version }}.*
+        - libcblas   {{ version }}.*
+        - liblapack  {{ version }}.*
     files:
       - {{ library }}include/lapacke*.h
       - {{ library }}lib/pkgconfig/lapacke.pc
