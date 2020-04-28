@@ -20,6 +20,7 @@ cmake -G "MinGW Makefiles" ^
 
 mingw32-make -j%CPU_COUNT%
 mingw32-make install
+if %ERRORLEVEL% NEQ 0 exit 1
 
 :: testing with shared libraries does not work - skip them.
 :: This is because: to test that the program exits if wrong parameters are given,
