@@ -12,3 +12,4 @@ provider:
   linux_aarch64: azure
   osx: azure
   linux: azure
+conda_forge_output_validation: true
