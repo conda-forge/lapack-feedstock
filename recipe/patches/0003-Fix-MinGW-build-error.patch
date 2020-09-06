@@ -1,0 +1,42 @@
+From 769a9c4cc8a7da9a46b9bd7db21968fdfe411cc6 Mon Sep 17 00:00:00 2001
+From: Julien Schueller <schueller@phimeca.com>
+Date: Mon, 25 Nov 2019 19:41:16 +0100
+Subject: [PATCH 3/6] Fix MinGW build error
+
+With MinGW the build fails for some LAPACKE xgesvd routines with:
+lapacke_cgesvdq.c:74:5: error: aggregate value used where an integer was expected
+Seems the C2INT macro is useful there.
+---
+ LAPACKE/src/lapacke_cgesvdq.c | 2 +-
+ LAPACKE/src/lapacke_zgesvdq.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/LAPACKE/src/lapacke_cgesvdq.c b/LAPACKE/src/lapacke_cgesvdq.c
+index 80156945..6ecd0696 100644
+--- a/LAPACKE/src/lapacke_cgesvdq.c
++++ b/LAPACKE/src/lapacke_cgesvdq.c
+@@ -71,7 +71,7 @@ lapack_int LAPACKE_cgesvdq( int matrix_layout, char joba, char jobp,
+         goto exit_level_0;
+     }
+     liwork = (lapack_int)iwork_query;
+-    lcwork = (lapack_int)cwork_query;
++    lcwork = LAPACK_C2INT(cwork_query);
+     lrwork = (lapack_int)rwork_query;
+     /* Allocate memory for work arrays */
+     iwork = (lapack_int*)LAPACKE_malloc( sizeof(lapack_int) * liwork );
+diff --git a/LAPACKE/src/lapacke_zgesvdq.c b/LAPACKE/src/lapacke_zgesvdq.c
+index 7c205dab..1674138f 100644
+--- a/LAPACKE/src/lapacke_zgesvdq.c
++++ b/LAPACKE/src/lapacke_zgesvdq.c
+@@ -71,7 +71,7 @@ lapack_int LAPACKE_zgesvdq( int matrix_layout, char joba, char jobp,
+         goto exit_level_0;
+     }
+     liwork = (lapack_int)iwork_query;
+-    lcwork = (lapack_int)cwork_query;
++    lcwork = LAPACK_C2INT(cwork_query);
+     lrwork = (lapack_int)rwork_query;
+     /* Allocate memory for work arrays */
+     iwork = (lapack_int*)LAPACKE_malloc( sizeof(lapack_int) * liwork );
+-- 
+2.26.2.windows.1
+
