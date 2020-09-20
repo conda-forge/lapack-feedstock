@@ -33,7 +33,7 @@ cmake \
   -DLAPACKE=ON \
   -DCBLAS=ON \
   -DBUILD_DEPRECATED=ON \
-  ${CMAKE_ARGS}
+  ${CMAKE_ARGS} \
   ..
 
 make -j${CPU_COUNT}
