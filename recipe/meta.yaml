@@ -33,6 +33,8 @@ source:
     - patches/0005-Fix-the-loop-index-scalar-in-ZHEEQUB.f.patch
     # from Reference-LAPACK/lapack#436, see also xianyi/OpenBLAS#2817
     - patches/0006-Fix-some-minor-inconsistencies-in-LAPACK-E-_-cz-gesv.patch
+    # from Reference-LAPACK/lapack#443, see also xianyi/OpenBLAS#2845
+    - patches/0007-fix-workspace-query-in-dgelq.patch
 
 build:
   number: "{{ build_num }}"

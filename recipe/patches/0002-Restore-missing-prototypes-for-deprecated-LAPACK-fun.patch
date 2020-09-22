@@ -1,7 +1,7 @@
 From 9ba3335009a801bae4b6dcb3df2cbdf47015f462 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?S=C3=A9bastien=20Villemot?= <sebastien@debian.org>
 Date: Sat, 23 Nov 2019 12:22:20 +0100
-Subject: [PATCH 2/6] Restore missing prototypes for deprecated LAPACK
+Subject: [PATCH 2/7] Restore missing prototypes for deprecated LAPACK
  functions
 
 Some LAPACK functions prototypes were inadvertedly dropped in 3.9.0. As a

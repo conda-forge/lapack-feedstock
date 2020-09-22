@@ -1,7 +1,7 @@
 From e30d1c9ca0c08ab3559015cb33621b7f28ba801b Mon Sep 17 00:00:00 2001
 From: pdalgd <55156186+pdalgd@users.noreply.github.com>
 Date: Fri, 21 Feb 2020 13:24:37 +0100
-Subject: [PATCH 4/6] NaN not propagating in DCOMBSSQ and SCOMBSSQ
+Subject: [PATCH 4/7] NaN not propagating in DCOMBSSQ and SCOMBSSQ
 
 ---
  SRC/dcombssq.f | 2 ++
