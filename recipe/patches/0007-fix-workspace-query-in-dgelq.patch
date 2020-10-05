@@ -1,7 +1,7 @@
 From b073e7b969d2e425483a2225aba8f78f9fef3c0f Mon Sep 17 00:00:00 2001
 From: Thijs Steel <thijs.steel@kuleuven.be>
 Date: Wed, 16 Sep 2020 12:14:21 +0200
-Subject: [PATCH 7/7] fix workspace query in dgelq
+Subject: [PATCH 7/8] fix workspace query in dgelq
 
 ---
  SRC/cgelq.f   | 28 ++++++++++++++++++++--------

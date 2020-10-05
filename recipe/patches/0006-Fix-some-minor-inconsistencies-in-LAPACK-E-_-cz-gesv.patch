@@ -1,7 +1,7 @@
 From a6666421568ea9eaa9a1b880cf33579a88ba808c Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 26 Apr 2020 00:57:37 +0200
-Subject: [PATCH 6/7] Fix some minor inconsistencies in LAPACK(E)_[cz]gesvdq
+Subject: [PATCH 6/8] Fix some minor inconsistencies in LAPACK(E)_[cz]gesvdq
 
 For LAPACKE_cgesvdq, align datatype of `rwork` with lapacke.h and callsite
 in LAPACKE_cgesvdq_work; both of the latter use `float* rwork`, so there's

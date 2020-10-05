@@ -1,7 +1,7 @@
 From e69f944b6b4df8f8dd0ef4de6574ec201b415af3 Mon Sep 17 00:00:00 2001
 From: Ilhan Polat <ilhanpolat@gmail.com>
 Date: Mon, 27 Apr 2020 12:36:59 +0200
-Subject: [PATCH 5/7] Fix the loop index scalar in ZHEEQUB.f
+Subject: [PATCH 5/8] Fix the loop index scalar in ZHEEQUB.f
 
 ---
  SRC/zheequb.f | 2 +-
