@@ -8,11 +8,11 @@ jobs:
     vmImage: macOS-10.15
   strategy:
     matrix:
-      osx_64_c_compiler_version10fortran_compiler_version7:
-        CONFIG: osx_64_c_compiler_version10fortran_compiler_version7
+      osx_64_fortran_compiler_version7:
+        CONFIG: osx_64_fortran_compiler_version7
         UPLOAD_PACKAGES: 'True'
-      osx_64_c_compiler_version10fortran_compiler_version9:
-        CONFIG: osx_64_c_compiler_version10fortran_compiler_version9
+      osx_64_fortran_compiler_version9:
+        CONFIG: osx_64_fortran_compiler_version9
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
