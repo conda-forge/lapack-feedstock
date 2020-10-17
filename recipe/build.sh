@@ -25,7 +25,7 @@ export FFLAGS="$FFLAGS -fno-optimize-sibling-calls"
 
 # CMAKE_INSTALL_LIBDIR="lib" suppresses CentOS default of lib64 (conda expects lib)
 
-cmake \
+cmake ${CMAKE_ARGS} \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_INSTALL_LIBDIR="lib" \
   -DBUILD_TESTING=ON \

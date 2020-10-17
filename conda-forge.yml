@@ -1,8 +1,4 @@
-compiler_stack: comp7
-
-provider:
-  linux_ppc64le: azure
-  linux_aarch64: azure
-  osx: azure
-  linux: azure
+build_platform: {osx_arm64: osx_64}
 conda_forge_output_validation: true
+provider: {linux: azure, linux_aarch64: azure, linux_ppc64le: azure, osx: azure}
+test_on_native_only: true
