@@ -3,7 +3,7 @@ About lapack
 
 Home: http://www.netlib.org/lapack
 
-Package license: BSD 3-Clause
+Package license: BSD-3-Clause
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/lapack-feedstock/blob/master/LICENSE.txt)
 
@@ -41,66 +41,73 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64_c_compiler_version7fortran_compiler_version7</td>
+              <td>linux_64_c_compiler_version7fortran_compiler_version7target_platformlinux-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version7fortran_compiler_version7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version7fortran_compiler_version7target_platformlinux-64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_c_compiler_version9fortran_compiler_version9</td>
+              <td>linux_64_c_compiler_version9fortran_compiler_version9target_platformlinux-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version9fortran_compiler_version9" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_64_c_compiler_version9fortran_compiler_version9target_platformlinux-64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_compiler_version7fortran_compiler_version7</td>
+              <td>linux_aarch64_c_compiler_version7fortran_compiler_version7target_platformlinux-aarch64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version7fortran_compiler_version7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version7fortran_compiler_version7target_platformlinux-aarch64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_aarch64_c_compiler_version9fortran_compiler_version9</td>
+              <td>linux_aarch64_c_compiler_version9fortran_compiler_version9target_platformlinux-aarch64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version9fortran_compiler_version9" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_aarch64_c_compiler_version9fortran_compiler_version9target_platformlinux-aarch64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le_c_compiler_version8fortran_compiler_version8</td>
+              <td>linux_ppc64le_c_compiler_version8fortran_compiler_version8target_platformlinux-ppc64le</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version8fortran_compiler_version8" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version8fortran_compiler_version8target_platformlinux-ppc64le" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_ppc64le_c_compiler_version9fortran_compiler_version9</td>
+              <td>linux_ppc64le_c_compiler_version9fortran_compiler_version9target_platformlinux-ppc64le</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version9fortran_compiler_version9" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_c_compiler_version9fortran_compiler_version9target_platformlinux-ppc64le" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_fortran_compiler_version7</td>
+              <td>osx_64_fortran_compiler_version7target_platformosx-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version7target_platformosx-64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_fortran_compiler_version9</td>
+              <td>osx_64_fortran_compiler_version9target_platformosx-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version9" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version9target_platformosx-64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64</td>
+              <td>osx_arm64_target_platformosx-arm64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=win&configuration=win_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_arm64_target_platformosx-arm64" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_target_platformwin-64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=win&configuration=win_64_target_platformwin-64" alt="variant">
                 </a>
               </td>
             </tr>
@@ -118,6 +125,7 @@ Current release info
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-blas-green.svg)](https://anaconda.org/conda-forge/blas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/blas.svg)](https://anaconda.org/conda-forge/blas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/blas.svg)](https://anaconda.org/conda-forge/blas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/blas.svg)](https://anaconda.org/conda-forge/blas) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-blas--devel-green.svg)](https://anaconda.org/conda-forge/blas-devel) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/blas-devel.svg)](https://anaconda.org/conda-forge/blas-devel) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/blas-devel.svg)](https://anaconda.org/conda-forge/blas-devel) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/blas-devel.svg)](https://anaconda.org/conda-forge/blas-devel) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-lapack-green.svg)](https://anaconda.org/conda-forge/lapack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/lapack.svg)](https://anaconda.org/conda-forge/lapack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/lapack.svg)](https://anaconda.org/conda-forge/lapack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/lapack.svg)](https://anaconda.org/conda-forge/lapack) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libblas-green.svg)](https://anaconda.org/conda-forge/libblas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libblas.svg)](https://anaconda.org/conda-forge/libblas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libblas.svg)](https://anaconda.org/conda-forge/libblas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libblas.svg)](https://anaconda.org/conda-forge/libblas) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcblas-green.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-liblapack-green.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) |
@@ -132,10 +140,10 @@ Installing `lapack` from the `conda-forge` channel can be achieved by adding `co
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `blas, blas-devel, libblas, libcblas, liblapack, liblapacke` can be installed with:
+Once the `conda-forge` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke` can be installed with:
 
 ```
-conda install blas blas-devel libblas libcblas liblapack liblapacke
+conda install blas blas-devel lapack libblas libcblas liblapack liblapacke
 ```
 
 It is possible to list all of the versions of `blas` available on your platform with:
@@ -209,7 +217,6 @@ Feedstock Maintainers
 =====================
 
 * [@beckermr](https://github.com/beckermr/)
-* [@hadim](https://github.com/hadim/)
 * [@isuruf](https://github.com/isuruf/)
 * [@jakirkham](https://github.com/jakirkham/)
 

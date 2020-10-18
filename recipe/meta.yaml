@@ -1,5 +1,5 @@
-{% set version = "3.8.0" %}
-{% set build_num = "11" %}
+{% set version = "3.9.0" %}
+{% set build_num = "0" %}
 {% set version_major = version.split(".")[0] %}
 
 {% if unix %}
@@ -13,11 +13,26 @@ package:
   version: {{ version }}
 
 source:
-  url: http://www.netlib.org/lapack/lapack-{{ version }}.tar.gz
-  sha256: deb22cc4a6120bff72621155a9917f485f96ef8319ac074a7afbc68aab88bcf6
+  url: https://github.com/Reference-LAPACK/lapack/archive/v{{ version }}.tar.gz
+  sha256: 106087f1bb5f46afdfba7f569d0cbe23dacb9a07cd24733765a0e89dbe1ad573
   patches:
     # Avoid setting current_version and compatibility_version
-    - no_soversion_osx.diff  # [osx]
+    - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
+    #
+    # carry upstream patches for build errors/bugs; these can all be removed upon next release
+    # ===FIX BUILD ERRORS===
+    # restore deprecated symbols that were inadvertently removed (from Reference-LAPACK/lapack#367);
+    # squashed with fix-ups Reference-LAPACK/lapack#434 & #437 (cf. xianyi/OpenBLAS#2808 & #2819)
+    - patches/0002-Restore-missing-prototypes-for-deprecated-LAPACK-fun.patch
+    # fix compile errors due to trying to cast complex_float to int (from Reference-LAPACK/lapack#370)
+    - patches/0003-Fix-MinGW-build-error.patch
+    # ===OTHER BUG FIXES===
+    # from Reference-LAPACK/lapack#390, see also xianyi/OpenBLAS#2442
+    - patches/0004-NaN-not-propagating-in-DCOMBSSQ-and-SCOMBSSQ.patch
+    # from Reference-LAPACK/lapack#408
+    - patches/0005-Fix-the-loop-index-scalar-in-ZHEEQUB.f.patch
+    # from Reference-LAPACK/lapack#436, see also xianyi/OpenBLAS#2817
+    - patches/0006-Fix-some-minor-inconsistencies-in-LAPACK-E-_-cz-gesv.patch
 
 build:
   number: "{{ build_num }}"
@@ -75,7 +90,7 @@ outputs:
         - {{ compiler("m2w64_c") }}         # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas {{ version }}
+        - libblas {{ version }}.*
     files:
       - {{ library }}include/cblas*.h
       - {{ library }}lib/pkgconfig/cblas.pc
@@ -104,7 +119,7 @@ outputs:
         - {{ compiler("m2w64_c") }}         # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas {{ version }}
+        - libblas {{ version }}.*
     files:
       - {{ library }}lib/pkgconfig/lapack.pc
       - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
@@ -132,9 +147,9 @@ outputs:
         - {{ compiler("m2w64_c") }}         # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas    {{ version }}
-        - libcblas   {{ version }}
-        - liblapack  {{ version }}
+        - libblas    {{ version }}.*
+        - libcblas   {{ version }}.*
+        - liblapack  {{ version }}.*
     files:
       - {{ library }}include/lapacke*.h
       - {{ library }}lib/pkgconfig/lapacke.pc
@@ -185,9 +200,17 @@ outputs:
         - if not exist "%LIBRARY_BIN%\\lib{{ each_lib }}.dll" exit 1        # [win]
         {% endfor %}
 
+  # For compatiblity (see #33)
+  - name: lapack
+    build:
+      string: "netlib"
+    requirements:
+      run:
+        - liblapack {{ version }}.*
+
 about:
   home: http://www.netlib.org/lapack
-  license: BSD 3-Clause
+  license: BSD-3-Clause
   license_file: LICENSE
   summary: Linear Algebra PACKage
 
@@ -195,6 +218,5 @@ extra:
   feedstock-name: lapack
   recipe-maintainers:
     - jakirkham
-    - hadim
     - isuruf
     - beckermr

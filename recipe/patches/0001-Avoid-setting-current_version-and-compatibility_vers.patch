@@ -1,0 +1,72 @@
+From 1b26dcff9774541c0c5739a02c97a527964c1d87 Mon Sep 17 00:00:00 2001
+From: Isuru Fernando <isuruf@gmail.com>
+Date: Thu, 22 Nov 2018 19:39:51 -0600
+Subject: [PATCH 1/6] Avoid setting current_version and compatibility_version
+ on OSX
+
+---
+ BLAS/SRC/CMakeLists.txt  | 5 -----
+ CBLAS/src/CMakeLists.txt | 2 --
+ LAPACKE/CMakeLists.txt   | 2 --
+ SRC/CMakeLists.txt       | 5 -----
+ 4 files changed, 14 deletions(-)
+
+diff --git a/BLAS/SRC/CMakeLists.txt b/BLAS/SRC/CMakeLists.txt
+index 41c48043..bdc49b91 100644
+--- a/BLAS/SRC/CMakeLists.txt
++++ b/BLAS/SRC/CMakeLists.txt
+@@ -98,9 +98,4 @@ endif()
+ list(REMOVE_DUPLICATES SOURCES)
+ 
+ add_library(blas ${SOURCES})
+-set_target_properties(
+-  blas PROPERTIES
+-  VERSION ${LAPACK_VERSION}
+-  SOVERSION ${LAPACK_MAJOR_VERSION}
+-  )
+ lapack_install_library(blas)
+diff --git a/CBLAS/src/CMakeLists.txt b/CBLAS/src/CMakeLists.txt
+index 90e19f81..b31a2da0 100644
+--- a/CBLAS/src/CMakeLists.txt
++++ b/CBLAS/src/CMakeLists.txt
+@@ -117,8 +117,6 @@ add_library(cblas ${SOURCES})
+ set_target_properties(
+   cblas PROPERTIES
+   LINKER_LANGUAGE C
+-  VERSION ${LAPACK_VERSION}
+-  SOVERSION ${LAPACK_MAJOR_VERSION}
+   )
+ target_include_directories(cblas PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+diff --git a/LAPACKE/CMakeLists.txt b/LAPACKE/CMakeLists.txt
+index 0589a74b..6ba4a2e9 100644
+--- a/LAPACKE/CMakeLists.txt
++++ b/LAPACKE/CMakeLists.txt
+@@ -76,8 +76,6 @@ add_library(lapacke ${SOURCES})
+ set_target_properties(
+   lapacke PROPERTIES
+   LINKER_LANGUAGE C
+-  VERSION ${LAPACK_VERSION}
+-  SOVERSION ${LAPACK_MAJOR_VERSION}
+   )
+ target_include_directories(lapacke PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+diff --git a/SRC/CMakeLists.txt b/SRC/CMakeLists.txt
+index f19bdd30..b9aa7784 100644
+--- a/SRC/CMakeLists.txt
++++ b/SRC/CMakeLists.txt
+@@ -501,11 +501,6 @@ endif()
+ list(REMOVE_DUPLICATES SOURCES)
+ 
+ add_library(lapack ${SOURCES})
+-set_target_properties(
+-  lapack PROPERTIES
+-  VERSION ${LAPACK_VERSION}
+-  SOVERSION ${LAPACK_MAJOR_VERSION}
+-  )
+ 
+ if(USE_XBLAS)
+   target_link_libraries(lapack PRIVATE ${XBLAS_LIBRARY})
+-- 
+2.26.2.windows.1
+
