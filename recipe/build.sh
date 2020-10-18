@@ -7,13 +7,13 @@ cd build
 
 mkdir -p ${PREFIX}/include
 
-if [[ $(uname) == "Linux" ]]; then
+if [[ "$target_platform" == linux-* ]]; then
     # workaround a binutils bug
     export LDFLAGS="${LDFLAGS} -Wl,-rpath-link,$(pwd)/lib"
     export LDFLAGS=$(echo "${LDFLAGS}" | sed "s/-Wl,--as-needed//g")
 fi
 
-if [[ $(uname) == "Darwin" ]]; then
+if [[ "$target_platform" == osx-* ]]; then
     export SDKROOT="${CONDA_BUILD_SYSROOT}"
     export CFLAGS="${CFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
     export FFLAGS="${FFLAGS} -isysroot ${CONDA_BUILD_SYSROOT}"
@@ -33,7 +33,7 @@ cmake \
   -DLAPACKE=ON \
   -DCBLAS=ON \
   -DBUILD_DEPRECATED=ON \
-  ..
+  ${CMAKE_ARGS} ..
 
 make -j${CPU_COUNT}
 
@@ -55,7 +55,7 @@ fi
 make install
 
 
-if [[ $(uname) == "Darwin" ]]; then
+if [[ "${target_platform}" == osx-* ]]; then
     for lib in blas cblas lapack lapacke; do
         mv $PREFIX/lib/lib$lib.dylib $PREFIX/lib/lib$lib.$PKG_VERSION.dylib
         install_name_tool -id $PREFIX/lib/lib$lib.3.dylib $PREFIX/lib/lib$lib.$PKG_VERSION.dylib
