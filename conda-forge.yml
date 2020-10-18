@@ -1,8 +1,6 @@
 compiler_stack: comp7
 
 provider:
-  linux_ppc64le: azure
-  linux_aarch64: azure
-  osx: azure
-  linux: azure
+  linux_ppc64le: default
+  linux_aarch64: default
 conda_forge_output_validation: true

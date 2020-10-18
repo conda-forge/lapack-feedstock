@@ -1,5 +1,5 @@
-About blas-split
-================
+About lapack
+============
 
 Home: http://www.netlib.org/lapack
 
@@ -13,7 +13,21 @@ Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>Travis</td>
+    <td>
+      <a href="https://travis-ci.com/conda-forge/lapack-feedstock">
+        <img alt="macOS" src="https://img.shields.io/travis/com/conda-forge/lapack-feedstock/master.svg?label=macOS">
+      </a>
+    </td>
+  </tr><tr>
+    <td>Drone</td>
+    <td>
+      <a href="https://cloud.drone.io/conda-forge/lapack-feedstock">
+        <img alt="linux" src="https://img.shields.io/drone/build/conda-forge/lapack-feedstock/master.svg?label=Linux">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
@@ -69,17 +83,17 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_c_compiler_version10fortran_compiler_version7</td>
+              <td>osx_64_fortran_compiler_version7</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_64_c_compiler_version10fortran_compiler_version7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version7" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_c_compiler_version10fortran_compiler_version9</td>
+              <td>osx_64_fortran_compiler_version9</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5927&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_64_c_compiler_version10fortran_compiler_version9" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/lapack-feedstock?branchName=master&jobName=osx&configuration=osx_64_fortran_compiler_version9" alt="variant">
                 </a>
               </td>
             </tr><tr>
@@ -109,10 +123,10 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-liblapack-green.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-liblapacke-green.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) |
 
-Installing blas-split
-=====================
+Installing lapack
+=================
 
-Installing `blas-split` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `lapack` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
@@ -169,17 +183,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating blas-split-feedstock
-=============================
+Updating lapack-feedstock
+=========================
 
-If you would like to improve the blas-split recipe or build a new
+If you would like to improve the lapack recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/blas-split-feedstock are
+Note that all branches in the conda-forge/lapack-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
