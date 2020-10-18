@@ -111,7 +111,7 @@ outputs:
       track_features:
         - blas_netlib
       run_exports:
-        - {{ pin_subpackage("liblapack", max_pin="x.x") }}
+        - {{ pin_subpackage("liblapack", max_pin="x") }}
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
@@ -139,7 +139,7 @@ outputs:
       track_features:
         - blas_netlib
       run_exports:
-        - {{ pin_subpackage("liblapacke", max_pin="x.x") }}
+        - {{ pin_subpackage("liblapacke", max_pin="x") }}
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
@@ -215,6 +215,7 @@ about:
   summary: Linear Algebra PACKage
 
 extra:
+  feedstock-name: lapack
   recipe-maintainers:
     - jakirkham
     - isuruf
