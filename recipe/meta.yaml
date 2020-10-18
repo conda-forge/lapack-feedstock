@@ -192,6 +192,7 @@ about:
   summary: Linear Algebra PACKage
 
 extra:
+  feedstock-name: lapack
   recipe-maintainers:
     - jakirkham
     - hadim
