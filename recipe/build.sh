@@ -37,20 +37,22 @@ cmake \
 
 make -j${CPU_COUNT}
 
-if [[ $(uname) == "Darwin" ]]; then
-  # testing with shared libraries does not work. skip them
-  # to test that program exits if wrong parameters are given, what the testsuite
-  # do is that the symbol xerbla (xerbla logs the error and exits) is overriden
-  # by the test program's own version which reports to the test program that
-  # xerbla was called. This does not work with dylibs on osx and dlls on windows
-  ctest --output-on-failure -E "x*cblat2|x*cblat3" -j${CPU_COUNT}
-elif [[ $(uname -m) == "x86_64" ]]; then
-  # Ref: https://github.com/Reference-LAPACK/lapack/issues/85
-  ulimit -s unlimited
-  ctest --output-on-failure -j${CPU_COUNT}
-else
-  ulimit -s unlimited
-  ctest --output-on-failure -E "LAPACK-xeigtstz*" -j${CPU_COUNT}
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
+  if [[ "$target_platform" == osx-* ]]; then
+    # testing with shared libraries does not work. skip them
+    # to test that program exits if wrong parameters are given, what the testsuite
+    # do is that the symbol xerbla (xerbla logs the error and exits) is overriden
+    # by the test program's own version which reports to the test program that
+    # xerbla was called. This does not work with dylibs on osx and dlls on windows
+    ctest --output-on-failure -E "x*cblat2|x*cblat3" -j${CPU_COUNT}
+  elif [[ "$target_platform" == *-64 ]]; then
+    # Ref: https://github.com/Reference-LAPACK/lapack/issues/85
+    ulimit -s unlimited
+    ctest --output-on-failure -j${CPU_COUNT}
+  else
+    ulimit -s unlimited
+    ctest --output-on-failure -E "LAPACK-xeigtstz*" -j${CPU_COUNT}
+  fi
 fi
 make install
 
