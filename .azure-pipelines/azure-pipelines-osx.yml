@@ -14,6 +14,9 @@ jobs:
       osx_64_fortran_compiler_version9target_platformosx-64:
         CONFIG: osx_64_fortran_compiler_version9target_platformosx-64
         UPLOAD_PACKAGES: 'True'
+      osx_arm64_target_platformosx-arm64:
+        CONFIG: osx_arm64_target_platformosx-arm64
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
 
   steps:
