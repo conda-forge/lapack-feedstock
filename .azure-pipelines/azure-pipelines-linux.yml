@@ -16,22 +16,6 @@ jobs:
         CONFIG: linux_64_c_compiler_version9fortran_compiler_version9
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-comp7
-      linux_aarch64_c_compiler_version7fortran_compiler_version7:
-        CONFIG: linux_aarch64_c_compiler_version7fortran_compiler_version7
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-aarch64
-      linux_aarch64_c_compiler_version9fortran_compiler_version9:
-        CONFIG: linux_aarch64_c_compiler_version9fortran_compiler_version9
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-aarch64
-      linux_ppc64le_c_compiler_version8fortran_compiler_version8:
-        CONFIG: linux_ppc64le_c_compiler_version8fortran_compiler_version8
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-ppc64le
-      linux_ppc64le_c_compiler_version9fortran_compiler_version9:
-        CONFIG: linux_ppc64le_c_compiler_version9fortran_compiler_version9
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: condaforge/linux-anvil-ppc64le
   timeoutInMinutes: 360
 
   steps:
