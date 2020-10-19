@@ -29,7 +29,7 @@ source:
     # ===OTHER BUG FIXES===
     # from Reference-LAPACK/lapack#390, see also xianyi/OpenBLAS#2442
     - patches/0004-NaN-not-propagating-in-DCOMBSSQ-and-SCOMBSSQ.patch
-    # from Reference-LAPACK/lapack#408
+    # from Reference-LAPACK/lapack#408, see also xianyi/OpenBLAS#2635
     - patches/0005-Fix-the-loop-index-scalar-in-ZHEEQUB.f.patch
     # from Reference-LAPACK/lapack#436, see also xianyi/OpenBLAS#2817
     - patches/0006-Fix-some-minor-inconsistencies-in-LAPACK-E-_-cz-gesv.patch
