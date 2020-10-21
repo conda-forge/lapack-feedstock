@@ -1,5 +1,5 @@
 {% set version = "3.9.0" %}
-{% set build_num = "1" %}
+{% set build_num = "2" %}
 {% set version_major = version.split(".")[0] %}
 
 {% if unix %}
@@ -63,6 +63,8 @@ outputs:
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
+      run_constrained:
+        - blas * netlib
     files:
       - {{ library }}lib/pkgconfig/blas.pc
       - {{ library }}lib/cmake/blas-{{ version }}/*.cmake
