@@ -1,5 +1,5 @@
 {% set version = "3.9.0" %}
-{% set build_num = "2" %}
+{% set build_num = "3" %}
 {% set version_major = version.split(".")[0] %}
 
 {% if unix %}
