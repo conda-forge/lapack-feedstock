@@ -1,6 +1,12 @@
 {% set version = "3.9.0" %}
-{% set build_num = "3" %}
+# if build_num is reset to 0 (for new version), update increment for blas_minor below
+{% set build_num = 3 %}
 {% set version_major = version.split(".")[0] %}
+# blas_major denotes major infrastructural change to how blas is managed
+{% set blas_major = "2" %}
+# make sure we do not create colliding version strings of output "blas"
+# for builds across lapack-versions within the same blas_major
+{% set blas_minor = build_num + 100 %}
 
 {% if unix %}
 {% set library = "" %}
@@ -181,9 +187,9 @@ outputs:
         - {{ pin_subpackage("liblapacke", exact=True) }}
         - {{ pin_subpackage("blas", exact=True) }}
 
-  # For compatiblity
+  # For conda-forge blas selector, see also blas-feedstock
   - name: blas
-    version: "2.{{ build_num }}"
+    version: "{{ blas_major }}.{{ blas_minor }}"
     build:
       string: "netlib"
     requirements:
