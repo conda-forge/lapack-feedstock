@@ -102,6 +102,7 @@ Current release info
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libcblas-green.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libcblas.svg)](https://anaconda.org/conda-forge/libcblas) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-liblapack-green.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblapack.svg)](https://anaconda.org/conda-forge/liblapack) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-liblapacke-green.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/liblapacke.svg)](https://anaconda.org/conda-forge/liblapacke) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libtmglib-green.svg)](https://anaconda.org/conda-forge/libtmglib) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libtmglib.svg)](https://anaconda.org/conda-forge/libtmglib) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libtmglib.svg)](https://anaconda.org/conda-forge/libtmglib) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libtmglib.svg)](https://anaconda.org/conda-forge/libtmglib) |
 
 Installing lapack
 =================
@@ -112,10 +113,10 @@ Installing `lapack` from the `conda-forge` channel can be achieved by adding `co
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke` can be installed with:
+Once the `conda-forge` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke, libtmglib` can be installed with:
 
 ```
-conda install blas blas-devel lapack libblas libcblas liblapack liblapacke
+conda install blas blas-devel lapack libblas libcblas liblapack liblapacke libtmglib
 ```
 
 It is possible to list all of the versions of `blas` available on your platform with:
@@ -180,9 +181,9 @@ build distinct package versions.
 
 In order to produce a uniquely identifiable distribution:
  * If the version of a package **is not** being increased, please add or increase
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string).
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string).
  * If the version of a package **is** being increased, please remember to return
-   the [``build/number``](https://conda.io/docs/user-guide/tasks/build-packages/define-metadata.html#build-number-and-string)
+   the [``build/number``](https://docs.conda.io/projects/conda-build/en/latest/resources/define-metadata.html#build-number-and-string)
    back to 0.
 
 Feedstock Maintainers
