@@ -87,6 +87,11 @@ outputs:
       - Library/bin/libblas.dll                 # [win]
       - Library/lib/blas.lib                    # [win]
       - Library/lib/libblas.dll.a               # [win]
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libblas.so                      # [linux]
+        - test -f ${PREFIX}/lib/libblas.dylib                   # [osx]
+        - if not exist %PREFIX%\Library\lib\libblas.dll exit 1  # [win]
 
   - name: libtmglib
     build:
@@ -112,6 +117,11 @@ outputs:
       - lib/libtmglib.{{ version }}.dylib         # [osx]
       - Library/bin/libtmglib.dll                 # [win]
       - Library/lib/libtmglib.dll.a               # [win]
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libtmglib.so                      # [linux]
+        - test -f ${PREFIX}/lib/libtmglib.dylib                   # [osx]
+        - if not exist %PREFIX%\Library\lib\libtmglib.dll exit 1  # [win]
 
   - name: libcblas
     build:
@@ -141,6 +151,11 @@ outputs:
       - Library/bin/libcblas.dll                 # [win]
       - Library/lib/cblas.lib                    # [win]
       - Library/lib/libcblas.dll.a               # [win]
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libcblas.so                      # [linux]
+        - test -f ${PREFIX}/lib/libcblas.dylib                   # [osx]
+        - if not exist %PREFIX%\Library\lib\libcblas.dll exit 1  # [win]
 
   - name: liblapack
     build:
@@ -169,6 +184,11 @@ outputs:
       - Library/bin/liblapack.dll                 # [win]
       - Library/lib/lapack.lib                    # [win]
       - Library/lib/liblapack.dll.a               # [win]
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/liblapack.so                      # [linux]
+        - test -f ${PREFIX}/lib/liblapack.dylib                   # [osx]
+        - if not exist %PREFIX%\Library\lib\liblapack.dll exit 1  # [win]
 
   - name: liblapacke
     build:
@@ -200,6 +220,11 @@ outputs:
       - Library/bin/liblapacke.dll                 # [win]
       - Library/lib/lapacke.lib                    # [win]
       - Library/lib/liblapacke.dll.a               # [win]
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/liblapacke.so                      # [linux]
+        - test -f ${PREFIX}/lib/liblapacke.dylib                   # [osx]
+        - if not exist %PREFIX%\Library\lib\liblapacke.dll exit 1  # [win]
 
   - name: blas-devel
     build:
