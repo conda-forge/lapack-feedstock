@@ -179,6 +179,8 @@ outputs:
   - name: blas-devel
     build:
       string: "{{ build_num }}_netlib"
+      track_features:
+       - blas_netlib
     requirements:
       run:
         - {{ pin_subpackage("libblas", exact=True) }}
@@ -191,6 +193,8 @@ outputs:
     version: "{{ blas_major }}.{{ blas_minor }}"
     build:
       string: "netlib"
+      track_features:
+       - blas_netlib
     requirements:
     - {{ pin_subpackage("liblapack", exact=True) }}
     - {{ pin_subpackage("liblapacke", exact=True) }}
