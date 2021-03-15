@@ -19,3 +19,5 @@ target_platform:
 zip_keys:
 - - c_compiler_version
   - fortran_compiler_version
+- - cdt_name
+  - docker_image
