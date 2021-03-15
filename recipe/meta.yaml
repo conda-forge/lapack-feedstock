@@ -1,12 +1,12 @@
-{% set version = "3.9.0" %}
+{% set version = "3.9.1" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 5 %}
+{% set build_num = 0 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
 # make sure we do not create colliding version strings of output "blas"
 # for builds across lapack-versions within the same blas_major
-{% set blas_minor = build_num + 100 %}
+{% set blas_minor = build_num + 200 %}
 
 {% if unix %}
 {% set library = "" %}
@@ -20,7 +20,7 @@ package:
 
 source:
   url: https://github.com/Reference-LAPACK/lapack/archive/v{{ version }}.tar.gz
-  sha256: 106087f1bb5f46afdfba7f569d0cbe23dacb9a07cd24733765a0e89dbe1ad573
+  sha256: d0085d2caf997ff39299c05d4bacb6f3d27001d25a4cc613d48c1f352b73e7e0
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
