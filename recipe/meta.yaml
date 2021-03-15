@@ -24,25 +24,6 @@ source:
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
-    #
-    # carry upstream patches for build errors/bugs; these can all be removed upon next release
-    # ===FIX BUILD ERRORS===
-    # restore deprecated symbols that were inadvertently removed (from Reference-LAPACK/lapack#367);
-    # squashed with fix-ups Reference-LAPACK/lapack#434 & #437 (cf. xianyi/OpenBLAS#2808 & #2819)
-    - patches/0002-Restore-missing-prototypes-for-deprecated-LAPACK-fun.patch
-    # fix compile errors due to trying to cast complex_float to int (from Reference-LAPACK/lapack#370)
-    - patches/0003-Fix-MinGW-build-error.patch
-    # ===OTHER BUG FIXES===
-    # from Reference-LAPACK/lapack#390, see also xianyi/OpenBLAS#2442
-    - patches/0004-NaN-not-propagating-in-DCOMBSSQ-and-SCOMBSSQ.patch
-    # from Reference-LAPACK/lapack#408, see also xianyi/OpenBLAS#2635
-    - patches/0005-Fix-the-loop-index-scalar-in-ZHEEQUB.f.patch
-    # from Reference-LAPACK/lapack#436, see also xianyi/OpenBLAS#2817
-    - patches/0006-Fix-some-minor-inconsistencies-in-LAPACK-E-_-cz-gesv.patch
-    # from Reference-LAPACK/lapack#443, see also xianyi/OpenBLAS#2845
-    - patches/0007-fix-workspace-query-in-dgelq.patch
-    # from Reference-LAPACK/lapack#445, see also xianyi/OpenBLAS#2864
-    - patches/0008-fix-dlanv2.patch
 
 build:
   number: "{{ build_num }}"
