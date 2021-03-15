@@ -178,7 +178,7 @@ outputs:
 
   - name: blas-devel
     build:
-      string: "netlib"
+      string: "{{ build_num }}_netlib"
     requirements:
       run:
         - {{ pin_subpackage("libblas", exact=True) }}
