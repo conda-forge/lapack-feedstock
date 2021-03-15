@@ -1,4 +1,4 @@
-{% set version = "3.9.0" %}
+{% set version = "3.9.1" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
 {% set build_num = 3 %}
 {% set version_major = version.split(".")[0] %}
@@ -20,7 +20,7 @@ package:
 
 source:
   url: https://github.com/Reference-LAPACK/lapack/archive/v{{ version }}.tar.gz
-  sha256: 106087f1bb5f46afdfba7f569d0cbe23dacb9a07cd24733765a0e89dbe1ad573
+  sha256: 6e071a15053048a38ec076227ad8d326b01cfd809794f13e6539573bd791e3bc
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
@@ -45,7 +45,7 @@ source:
     - patches/0008-fix-dlanv2.patch
 
 build:
-  number: "{{ build_num }}"
+  number: {{ build_num }}
 
 requirements:
   build:
@@ -62,9 +62,9 @@ requirements:
 outputs:
   - name: libblas
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
-       - blas_netlib
+        - blas_netlib
       run_exports:
         - {{ pin_subpackage("libblas", max_pin="x") }}
     requirements:
@@ -90,7 +90,7 @@ outputs:
 
   - name: libcblas
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
       run_exports:
@@ -119,7 +119,7 @@ outputs:
 
   - name: liblapack
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
       run_exports:
@@ -147,7 +147,7 @@ outputs:
 
   - name: liblapacke
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
       run_exports:
@@ -178,7 +178,7 @@ outputs:
 
   - name: blas-devel
     build:
-      string: "netlib"
+      string: netlib
     requirements:
       run:
         - {{ pin_subpackage("libblas", exact=True) }}
@@ -189,14 +189,14 @@ outputs:
 
   # For conda-forge blas selector, see also blas-feedstock
   - name: blas
-    version: "{{ blas_major }}.{{ blas_minor }}"
+    version: {{ blas_major }}.{{ blas_minor }}
     build:
-      string: "netlib"
+      string: netlib
     requirements:
-    - {{ pin_subpackage("liblapack", exact=True) }}
-    - {{ pin_subpackage("liblapacke", exact=True) }}
-    - {{ pin_subpackage("libcblas", exact=True) }}
-    - {{ pin_subpackage("libblas", exact=True) }}
+      - {{ pin_subpackage("liblapack", exact=True) }}
+      - {{ pin_subpackage("liblapacke", exact=True) }}
+      - {{ pin_subpackage("libcblas", exact=True) }}
+      - {{ pin_subpackage("libblas", exact=True) }}
     test:
       commands:
         {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
@@ -215,7 +215,7 @@ outputs:
   # For compatiblity (see #33)
   - name: lapack
     build:
-      string: "netlib"
+      string: netlib
     requirements:
       run:
         - liblapack {{ version }}.*
