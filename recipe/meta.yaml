@@ -1,6 +1,6 @@
 {% set version = "3.9.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 4 %}
+{% set build_num = 5 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -203,25 +203,29 @@ outputs:
 
   - name: blas-devel
     build:
-      string: "netlib"
+      string: "{{ build_num }}_netlib"
+      track_features:
+       - blas_netlib
     requirements:
       run:
         - {{ pin_subpackage("libblas", exact=True) }}
         - {{ pin_subpackage("libcblas", exact=True) }}
         - {{ pin_subpackage("liblapack", exact=True) }}
         - {{ pin_subpackage("liblapacke", exact=True) }}
-        - {{ pin_subpackage("blas", exact=True) }}
 
   # For conda-forge blas selector, see also blas-feedstock
   - name: blas
     version: "{{ blas_major }}.{{ blas_minor }}"
     build:
       string: "netlib"
+      track_features:
+       - blas_netlib
     requirements:
     - {{ pin_subpackage("liblapack", exact=True) }}
     - {{ pin_subpackage("liblapacke", exact=True) }}
     - {{ pin_subpackage("libcblas", exact=True) }}
     - {{ pin_subpackage("libblas", exact=True) }}
+    - {{ pin_subpackage("blas-devel", exact=True) }}
     - {{ pin_subpackage("libtmglib", exact=True) }}
     test:
       commands:

@@ -35,7 +35,7 @@ cmake \
   -DBUILD_DEPRECATED=ON \
   ${CMAKE_ARGS} ..
 
-make -j${CPU_COUNT}
+make -j${CPU_COUNT} VERBOSE=1
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
   if [[ "$target_platform" == osx-* ]]; then
