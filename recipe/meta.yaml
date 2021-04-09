@@ -1,6 +1,6 @@
 {% set version = "3.9.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 3 %}
+{% set build_num = 4 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -87,6 +87,31 @@ outputs:
       - Library/bin/libblas.dll                 # [win]
       - Library/lib/blas.lib                    # [win]
       - Library/lib/libblas.dll.a               # [win]
+
+  - name: libtmglib
+    build:
+      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      track_features:
+       - blas_netlib
+      run_exports:
+        - {{ pin_subpackage("libtmglib", max_pin="x") }}
+    requirements:
+      build:
+        - {{ compiler("c") }}               # [unix]
+        - {{ compiler("fortran") }}         # [unix]
+        - {{ compiler("m2w64_c") }}         # [win]
+        - {{ compiler("m2w64_fortran") }}   # [win]
+      run_constrained:
+        - blas * netlib
+    files:
+      - lib/libtmglib.so                          # [linux]
+      - lib/libtmglib.so.{{ version_major }}      # [linux]
+      - lib/libtmglib.so.{{ version }}            # [linux]
+      - lib/libtmglib.dylib                       # [osx]
+      - lib/libtmglib.{{ version_major }}.dylib   # [osx]
+      - lib/libtmglib.{{ version }}.dylib         # [osx]
+      - Library/bin/libtmglib.dll                 # [win]
+      - Library/lib/libtmglib.dll.a               # [win]
 
   - name: libcblas
     build:
@@ -197,6 +222,7 @@ outputs:
     - {{ pin_subpackage("liblapacke", exact=True) }}
     - {{ pin_subpackage("libcblas", exact=True) }}
     - {{ pin_subpackage("libblas", exact=True) }}
+    - {{ pin_subpackage("libtmglib", exact=True) }}
     test:
       commands:
         {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
