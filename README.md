@@ -111,6 +111,7 @@ Installing `lapack` from the `conda-forge` channel can be achieved by adding `co
 
 ```
 conda config --add channels conda-forge
+conda config --set channel_priority strict
 ```
 
 Once the `conda-forge` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke, libtmglib` can be installed with:
