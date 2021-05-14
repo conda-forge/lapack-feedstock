@@ -1,8 +1,8 @@
 From 83bd877a87e6d2ad14ef83c8700ca5c45ea977a0 Mon Sep 17 00:00:00 2001
 From: Isuru Fernando <isuruf@gmail.com>
 Date: Thu, 22 Nov 2018 19:39:51 -0600
-Subject: [PATCH] Avoid setting current_version and compatibility_version on
- OSX
+Subject: [PATCH 1/2] Avoid setting current_version and compatibility_version
+ on OSX
 
 ---
  BLAS/SRC/CMakeLists.txt  | 5 -----
@@ -12,7 +12,7 @@ Subject: [PATCH] Avoid setting current_version and compatibility_version on
  4 files changed, 14 deletions(-)
 
 diff --git a/BLAS/SRC/CMakeLists.txt b/BLAS/SRC/CMakeLists.txt
-index 0078dca4..86cd4a00 100644
+index 0078dca40..86cd4a004 100644
 --- a/BLAS/SRC/CMakeLists.txt
 +++ b/BLAS/SRC/CMakeLists.txt
 @@ -98,9 +98,4 @@ endif()
@@ -26,7 +26,7 @@ index 0078dca4..86cd4a00 100644
 -  )
  lapack_install_library(${BLASLIB})
 diff --git a/CBLAS/src/CMakeLists.txt b/CBLAS/src/CMakeLists.txt
-index 1313e798..ab5071ba 100644
+index 1313e798b..ab5071ba1 100644
 --- a/CBLAS/src/CMakeLists.txt
 +++ b/CBLAS/src/CMakeLists.txt
 @@ -117,8 +117,6 @@ add_library(${CBLASLIB} ${SOURCES})
@@ -39,7 +39,7 @@ index 1313e798..ab5071ba 100644
  target_include_directories(${CBLASLIB} PUBLIC
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
 diff --git a/LAPACKE/CMakeLists.txt b/LAPACKE/CMakeLists.txt
-index 60d5ddbe..e85eb152 100644
+index 60d5ddbe3..e85eb1529 100644
 --- a/LAPACKE/CMakeLists.txt
 +++ b/LAPACKE/CMakeLists.txt
 @@ -76,8 +76,6 @@ add_library(${LAPACKELIB} ${SOURCES})
@@ -52,7 +52,7 @@ index 60d5ddbe..e85eb152 100644
  target_include_directories(${LAPACKELIB} PUBLIC
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 diff --git a/SRC/CMakeLists.txt b/SRC/CMakeLists.txt
-index bd3be3c6..17dc82b0 100644
+index bd3be3c6e..17dc82b07 100644
 --- a/SRC/CMakeLists.txt
 +++ b/SRC/CMakeLists.txt
 @@ -501,11 +501,6 @@ endif()
@@ -68,5 +68,5 @@ index bd3be3c6..17dc82b0 100644
  if(USE_XBLAS)
    target_link_libraries(${LAPACKLIB} PRIVATE ${XBLAS_LIBRARY})
 -- 
-2.29.2.windows.3
+2.31.1.windows.1
 

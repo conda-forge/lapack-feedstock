@@ -24,6 +24,8 @@ source:
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
+    # backport of Reference-LAPACK/lapack#553, can be dropped for v>3.9.1
+    - patches/0002-Changes-from-Reference-LAPACK-lapack-553-squashed.patch
 
 build:
   number: "{{ build_num }}"

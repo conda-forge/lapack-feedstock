@@ -1,0 +1,318 @@
+From 5cae4e2de96422342b4ef9aa948afb8d4a5885fc Mon Sep 17 00:00:00 2001
+From: Martin Kroeker <martin@ruby.chemie.uni-freiburg.de>
+Date: Fri, 14 May 2021 18:11:32 +0200
+Subject: [PATCH 2/2] Changes from Reference-LAPACK/lapack#553 (squashed)
+
+Rename cchkaa.f to cchkaa.F
+
+Rename dchkaa.f to dchkaa.F
+
+Rename schkaa.f to schkaa.F
+
+Rename zchkaa.f to zchkaa.F
+
+Use dynamic allocation for all large arrays
+
+Reflect renaming of ?chkaa files to .F
+
+Reflect renaming of ?chkaa files to .F
+---
+ TESTING/LIN/CMakeLists.txt         |  8 ++++----
+ TESTING/LIN/Makefile               |  8 ++++----
+ TESTING/LIN/{cchkaa.f => cchkaa.F} | 26 +++++++++++++++++++++++---
+ TESTING/LIN/{dchkaa.f => dchkaa.F} | 27 +++++++++++++++++++++++----
+ TESTING/LIN/{schkaa.f => schkaa.F} | 25 ++++++++++++++++++++++---
+ TESTING/LIN/{zchkaa.f => zchkaa.F} | 25 ++++++++++++++++++++++---
+ 6 files changed, 98 insertions(+), 21 deletions(-)
+ rename TESTING/LIN/{cchkaa.f => cchkaa.F} (97%)
+ rename TESTING/LIN/{dchkaa.f => dchkaa.F} (97%)
+ rename TESTING/LIN/{schkaa.f => schkaa.F} (97%)
+ rename TESTING/LIN/{zchkaa.f => zchkaa.F} (97%)
+
+diff --git a/TESTING/LIN/CMakeLists.txt b/TESTING/LIN/CMakeLists.txt
+index dd32e5995..2c3e2a5fd 100644
+--- a/TESTING/LIN/CMakeLists.txt
++++ b/TESTING/LIN/CMakeLists.txt
+@@ -6,7 +6,7 @@ set(SCLNTST slaord.f)
+ 
+ set(DZLNTST dlaord.f)
+ 
+-set(SLINTST schkaa.f
++set(SLINTST schkaa.F
+    schkeq.f schkgb.f schkge.f schkgt.f
+    schklq.f schkpb.f schkpo.f schkps.f schkpp.f
+    schkpt.f schkq3.f schkql.f schkqr.f schkrq.f
+@@ -51,7 +51,7 @@ else()
+                       serrvx.f serrge.f serrsy.f serrpo.f)
+ endif()
+ 
+-set(CLINTST cchkaa.f
++set(CLINTST cchkaa.F
+    cchkeq.f cchkgb.f cchkge.f cchkgt.f
+    cchkhe.f cchkhe_rook.f cchkhe_rk.f 
+    cchkhe_aa.f cchkhe_aa_2stage.f
+@@ -107,7 +107,7 @@ else()
+                       cerrvx.f cerrge.f cerrhe.f cerrsy.f cerrpo.f)
+ endif()
+ 
+-set(DLINTST dchkaa.f
++set(DLINTST dchkaa.F
+    dchkeq.f dchkgb.f dchkge.f dchkgt.f
+    dchklq.f dchkpb.f dchkpo.f dchkps.f dchkpp.f
+    dchkpt.f dchkq3.f dchkql.f dchkqr.f dchkrq.f
+@@ -153,7 +153,7 @@ else()
+                       derrvx.f derrge.f derrsy.f derrpo.f)
+ endif()
+ 
+-set(ZLINTST zchkaa.f
++set(ZLINTST zchkaa.F
+    zchkeq.f zchkgb.f zchkge.f zchkgt.f
+    zchkhe.f zchkhe_rook.f zchkhe_rk.f 
+    zchkhe_aa.f zchkhe_aa_2stage.f
+diff --git a/TESTING/LIN/Makefile b/TESTING/LIN/Makefile
+index fd889ee14..2474d04db 100644
+--- a/TESTING/LIN/Makefile
++++ b/TESTING/LIN/Makefile
+@@ -317,13 +317,13 @@ cleanobj:
+ cleanexe:
+ 	rm -f xlintst*
+ 
+-schkaa.o: schkaa.f
++schkaa.o: schkaa.F
+ 	$(FC) $(FFLAGS_DRV) -c -o $@ $<
+-dchkaa.o: dchkaa.f
++dchkaa.o: dchkaa.F
+ 	$(FC) $(FFLAGS_DRV) -c -o $@ $<
+-cchkaa.o: cchkaa.f
++cchkaa.o: cchkaa.F
+ 	$(FC) $(FFLAGS_DRV) -c -o $@ $<
+-zchkaa.o: zchkaa.f
++zchkaa.o: zchkaa.F
+ 	$(FC) $(FFLAGS_DRV) -c -o $@ $<
+ 
+ .NOTPARALLEL:
+diff --git a/TESTING/LIN/cchkaa.f b/TESTING/LIN/cchkaa.F
+similarity index 97%
+rename from TESTING/LIN/cchkaa.f
+rename to TESTING/LIN/cchkaa.F
+index d36770be7..f9c77bf0e 100644
+--- a/TESTING/LIN/cchkaa.f
++++ b/TESTING/LIN/cchkaa.F
+@@ -156,9 +156,13 @@
+      $                   NBVAL( MAXIN ), NBVAL2( MAXIN ),
+      $                   NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ),
+      $                   RANKVAL( MAXIN ), PIV( NMAX )
+-      REAL               RWORK( 150*NMAX+2*MAXRHS ), S( 2*NMAX )
+-      COMPLEX            A( ( KDMAX+1 )*NMAX, 7 ), B( NMAX*MAXRHS, 4 ),
+-     $                   E( NMAX ), WORK( NMAX, NMAX+MAXRHS+10 )
++      REAL               S( 2*NMAX )
++      COMPLEX            E( NMAX )
++*     ..
++*     .. Allocatable Arrays ..
++      INTEGER AllocateStatus
++      REAL, DIMENSION(:), ALLOCATABLE :: RWORK
++      COMPLEX, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
+ *     ..
+ *     .. External Functions ..
+       LOGICAL            LSAME, LSAMEN
+@@ -194,6 +198,17 @@
+ *     .. Data statements ..
+       DATA               THREQ / 2.0 / , INTSTR / '0123456789' /
+ *     ..
++*     .. Allocate memory dynamically ..
++*
++      ALLOCATE ( A( ( KDMAX+1 )*NMAX, 7 ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE ( B( NMAX*MAXRHS, 4 ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE ( WORK( NMAX, NMAX+MAXRHS+10 ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE ( RWORK( 150*NMAX+2*MAXRHS ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++*     ..
+ *     .. Executable Statements ..
+ *
+       S1 = SECOND( )
+@@ -1196,6 +1211,11 @@
+       S2 = SECOND( )
+       WRITE( NOUT, FMT = 9998 )
+       WRITE( NOUT, FMT = 9997 )S2 - S1
++*
++      DEALLOCATE (A, STAT = AllocateStatus)
++      DEALLOCATE (B, STAT = AllocateStatus)
++      DEALLOCATE (WORK, STAT = AllocateStatus)
++      DEALLOCATE (RWORK,  STAT = AllocateStatus)
+ *
+  9999 FORMAT( / ' Execution not attempted due to input errors' )
+  9998 FORMAT( / ' End of tests' )
+diff --git a/TESTING/LIN/dchkaa.f b/TESTING/LIN/dchkaa.F
+similarity index 97%
+rename from TESTING/LIN/dchkaa.f
+rename to TESTING/LIN/dchkaa.F
+index 03575c4d1..9c4b1ddae 100644
+--- a/TESTING/LIN/dchkaa.f
++++ b/TESTING/LIN/dchkaa.F
+@@ -116,7 +116,6 @@
+ *  -- LAPACK test routine (version 3.9.0) --
+ *  -- LAPACK is a software package provided by Univ. of Tennessee,    --
+ *  -- Univ. of California Berkeley, Univ. of Colorado Denver and NAG Ltd..--
+-*     Novemebr 2019
+ *
+ *  =====================================================================
+ *
+@@ -152,9 +151,12 @@
+      $                   NBVAL( MAXIN ), NBVAL2( MAXIN ),
+      $                   NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ),
+      $                   RANKVAL( MAXIN ), PIV( NMAX )
+-      DOUBLE PRECISION   A( ( KDMAX+1 )*NMAX, 7 ), B( NMAX*MAXRHS, 4 ),
+-     $                   E( NMAX ), RWORK( 5*NMAX+2*MAXRHS ),
+-     $                   S( 2*NMAX ), WORK( NMAX, 3*NMAX+MAXRHS+30 )
++      DOUBLE PRECISION   E( NMAX ), S( 2*NMAX )
++*     ..
++*     .. Allocatable Arrays ..
++      INTEGER AllocateStatus
++      DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE :: RWORK
++      DOUBLE PRECISION, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK      
+ *     ..
+ *     .. External Functions ..
+       LOGICAL            LSAME, LSAMEN
+@@ -188,6 +190,18 @@
+ *     .. Data statements ..
+       DATA               THREQ / 2.0D0 / , INTSTR / '0123456789' /
+ *     ..
++*     ..
++*     .. Allocate memory dynamically ..
++*
++      ALLOCATE ( A( ( KDMAX+1 )*NMAX, 7 ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE ( B( NMAX*MAXRHS, 4 ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE ( WORK( NMAX, 3*NMAX+MAXRHS+30 ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE ( RWORK( 5*NMAX+2*MAXRHS ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++*
+ *     .. Executable Statements ..
+ *
+       S1 = DSECND( )
+@@ -1039,6 +1053,11 @@
+       S2 = DSECND( )
+       WRITE( NOUT, FMT = 9998 )
+       WRITE( NOUT, FMT = 9997 )S2 - S1
++*
++      DEALLOCATE (A, STAT = AllocateStatus)
++      DEALLOCATE (B, STAT = AllocateStatus)
++      DEALLOCATE (WORK, STAT = AllocateStatus)
++      DEALLOCATE (RWORK,  STAT = AllocateStatus)
+ *
+  9999 FORMAT( / ' Execution not attempted due to input errors' )
+  9998 FORMAT( / ' End of tests' )
+diff --git a/TESTING/LIN/schkaa.f b/TESTING/LIN/schkaa.F
+similarity index 97%
+rename from TESTING/LIN/schkaa.f
+rename to TESTING/LIN/schkaa.F
+index a9c13e442..08d7b9cd0 100644
+--- a/TESTING/LIN/schkaa.f
++++ b/TESTING/LIN/schkaa.F
+@@ -150,9 +150,12 @@
+      $                   NBVAL( MAXIN ), NBVAL2( MAXIN ),
+      $                   NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ),
+      $                   RANKVAL( MAXIN ), PIV( NMAX )
+-      REAL               A( ( KDMAX+1 )*NMAX, 7 ), B( NMAX*MAXRHS, 4 ),
+-     $                   E( NMAX ), RWORK( 5*NMAX+2*MAXRHS ),
+-     $                   S( 2*NMAX ), WORK( NMAX, NMAX+MAXRHS+30 )
++      REAL               E( NMAX ), S( 2*NMAX )
++*     ..
++*     .. Allocatable Arrays ..
++      INTEGER AllocateStatus
++      REAL, DIMENSION(:), ALLOCATABLE :: RWORK
++      REAL, DIMENSION(:,:), ALLOCATABLE :: A, B, WORK
+ *     ..
+ *     .. External Functions ..
+       LOGICAL            LSAME, LSAMEN
+@@ -186,6 +189,17 @@
+ *     .. Data statements ..
+       DATA               THREQ / 2.0E0 / , INTSTR / '0123456789' /
+ *     ..
++*     .. Allocate memory dynamically ..
++*
++      ALLOCATE (A( ( KDMAX+1 )*NMAX, 7 ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE (B( NMAX*MAXRHS, 4 ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE (WORK( NMAX, NMAX+MAXRHS+30 ) , STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE (RWORK( 5*NMAX+2*MAXRHS ), STAT = AllocateStatus )
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***" 
++*     ..
+ *     .. Executable Statements ..
+ *
+       S1 = SECOND( )
+@@ -1034,6 +1048,11 @@
+       S2 = SECOND( )
+       WRITE( NOUT, FMT = 9998 )
+       WRITE( NOUT, FMT = 9997 )S2 - S1
++*
++      DEALLOCATE (A, STAT = AllocateStatus)
++      DEALLOCATE (B, STAT = AllocateStatus)
++      DEALLOCATE (WORK, STAT = AllocateStatus)
++      DEALLOCATE (RWORK,  STAT = AllocateStatus)
+ *
+  9999 FORMAT( / ' Execution not attempted due to input errors' )
+  9998 FORMAT( / ' End of tests' )
+diff --git a/TESTING/LIN/zchkaa.f b/TESTING/LIN/zchkaa.F
+similarity index 97%
+rename from TESTING/LIN/zchkaa.f
+rename to TESTING/LIN/zchkaa.F
+index 30d2a084a..74aeb58c6 100644
+--- a/TESTING/LIN/zchkaa.f
++++ b/TESTING/LIN/zchkaa.F
+@@ -156,9 +156,13 @@
+      $                   NBVAL( MAXIN ), NBVAL2( MAXIN ),
+      $                   NSVAL( MAXIN ), NVAL( MAXIN ), NXVAL( MAXIN ),
+      $                   RANKVAL( MAXIN ), PIV( NMAX )
+-      DOUBLE PRECISION   RWORK( 150*NMAX+2*MAXRHS ), S( 2*NMAX )
+-      COMPLEX*16         A( ( KDMAX+1 )*NMAX, 7 ), B( NMAX*MAXRHS, 4 ),
+-     $                   E( NMAX ),  WORK( NMAX, NMAX+MAXRHS+10 )
++      DOUBLE PRECISION   S( 2*NMAX )
++      COMPLEX*16         E( NMAX )
++*
++*    .. Allocatable Arrays ..
++      INTEGER AllocateStatus
++      DOUBLE PRECISION, DIMENSION(:), ALLOCATABLE::   RWORK
++      COMPLEX*16, DIMENSION(:,:), ALLOCATABLE::  A, B, WORK
+ *     ..
+ *     .. External Functions ..
+       LOGICAL            LSAME, LSAMEN
+@@ -194,6 +198,16 @@
+ *     ..
+ *     .. Data statements ..
+       DATA               THREQ / 2.0D0 / , INTSTR / '0123456789' /
++*
++*     .. Allocate memory dynamically ..
++      ALLOCATE (RWORK( 150*NMAX+2*MAXRHS ), STAT = AllocateStatus)
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE (A ((KDMAX+1) * NMAX, 7), STAT = AllocateStatus)
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE (B (NMAX * MAXRHS, 4), STAT = AllocateStatus)
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
++      ALLOCATE (WORK (NMAX, NMAX+MAXRHS+10), STAT = AllocateStatus)
++      IF (AllocateStatus /= 0) STOP "*** Not enough memory ***"
+ *     ..
+ *     .. Executable Statements ..
+ *
+@@ -1231,6 +1245,11 @@
+       S2 = DSECND( )
+       WRITE( NOUT, FMT = 9998 )
+       WRITE( NOUT, FMT = 9997 )S2 - S1
++*
++      DEALLOCATE (A, STAT = AllocateStatus)
++      DEALLOCATE (B, STAT = AllocateStatus)
++      DEALLOCATE (RWORK, STAT = AllocateStatus)
++      DEALLOCATE (WORK,  STAT = AllocateStatus)
+ *
+  9999 FORMAT( / ' Execution not attempted due to input errors' )
+  9998 FORMAT( / ' End of tests' )
+-- 
+2.31.1.windows.1
+
