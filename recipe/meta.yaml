@@ -1,4 +1,4 @@
-{% set version = "3.9.1" %}
+{% set version = "3.10.1" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
 {% set build_num = 0 %}
 {% set version_major = version.split(".")[0] %}
@@ -20,12 +20,10 @@ package:
 
 source:
   url: https://github.com/Reference-LAPACK/lapack/archive/v{{ version }}.tar.gz
-  sha256: d0085d2caf997ff39299c05d4bacb6f3d27001d25a4cc613d48c1f352b73e7e0
+  sha256: cd005cd021f144d7d5f7f33c943942db9f03a28d110d6a3b80d718a295f7f714
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
-    # backport of Reference-LAPACK/lapack#553, can be dropped for v>3.9.1
-    - patches/0002-Changes-from-Reference-LAPACK-lapack-553-squashed.patch
 
 build:
   number: "{{ build_num }}"
