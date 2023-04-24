@@ -7,7 +7,7 @@ c_compiler_version:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge lapack_rc
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
