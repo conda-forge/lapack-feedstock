@@ -3,7 +3,7 @@ BUILD:
 c_compiler:
 - gcc
 c_compiler_version:
-- '9'
+- '12'
 cdt_arch:
 - aarch64
 cdt_name:
@@ -11,13 +11,13 @@ cdt_name:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge main
+- conda-forge lapack_rc
 docker_image:
 - quay.io/condaforge/linux-anvil-aarch64
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '9'
+- '12'
 target_platform:
 - linux-aarch64
 zip_keys:
