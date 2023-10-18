@@ -33,9 +33,10 @@ cmake \
   -DLAPACKE=ON \
   -DCBLAS=ON \
   -DBUILD_DEPRECATED=ON \
+  -DTEST_FORTRAN_COMPILER=OFF \
   ${CMAKE_ARGS} ..
 
-make -j${CPU_COUNT} VERBOSE=1
+make install -j${CPU_COUNT} VERBOSE=1
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
   if [[ "$target_platform" == osx-* ]]; then
@@ -54,7 +55,6 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
     ctest --output-on-failure -E "LAPACK-xeigtstz*" -j${CPU_COUNT}
   fi
 fi
-make install
 
 
 if [[ "${target_platform}" == osx-* ]]; then
