@@ -58,7 +58,6 @@ outputs:
         - blas * netlib
     files:
       - {{ library }}lib/pkgconfig/blas.pc
-      - {{ library }}lib/cmake/blas-{{ version }}/*.cmake
       - lib/libblas.so                          # [linux]
       - lib/libblas.so.{{ version_major }}      # [linux]
       - lib/libblas.so.{{ version }}            # [linux]
