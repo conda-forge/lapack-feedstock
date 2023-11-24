@@ -1,4 +1,4 @@
-{% set version = "3.10.1" %}
+{% set version = "3.12.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
 {% set build_num = 0 %}
 {% set version_major = version.split(".")[0] %}
@@ -20,7 +20,7 @@ package:
 
 source:
   url: https://github.com/Reference-LAPACK/lapack/archive/v{{ version }}.tar.gz
-  sha256: cd005cd021f144d7d5f7f33c943942db9f03a28d110d6a3b80d718a295f7f714
+  sha256: af3c3fe01dd739e98ad3f455260c77128707c3d994879e45800ab377b6e49fad
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
@@ -45,7 +45,7 @@ outputs:
     build:
       string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
       run_exports:
         - {{ pin_subpackage("libblas", max_pin="x") }}
     requirements:
@@ -73,7 +73,7 @@ outputs:
     build:
       string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
       run_exports:
         - {{ pin_subpackage("libtmglib", max_pin="x") }}
     requirements:
@@ -186,7 +186,7 @@ outputs:
     build:
       string: "{{ build_num }}_netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
     requirements:
       run:
         - {{ pin_subpackage("libblas", exact=True) }}
@@ -200,14 +200,14 @@ outputs:
     build:
       string: "netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
     requirements:
-    - {{ pin_subpackage("liblapack", exact=True) }}
-    - {{ pin_subpackage("liblapacke", exact=True) }}
-    - {{ pin_subpackage("libcblas", exact=True) }}
-    - {{ pin_subpackage("libblas", exact=True) }}
-    - {{ pin_subpackage("blas-devel", exact=True) }}
-    - {{ pin_subpackage("libtmglib", exact=True) }}
+      - {{ pin_subpackage("liblapack", exact=True) }}
+      - {{ pin_subpackage("liblapacke", exact=True) }}
+      - {{ pin_subpackage("libcblas", exact=True) }}
+      - {{ pin_subpackage("libblas", exact=True) }}
+      - {{ pin_subpackage("blas-devel", exact=True) }}
+      - {{ pin_subpackage("libtmglib", exact=True) }}
     test:
       commands:
         {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
