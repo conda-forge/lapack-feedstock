@@ -100,14 +100,14 @@ Current release info
 Installing lapack
 =================
 
-Installing `lapack` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `lapack` from the `conda-forge/label/lapack_rc` channel can be achieved by adding `conda-forge/label/lapack_rc` to your channels with:
 
 ```
-conda config --add channels conda-forge
+conda config --add channels conda-forge/label/lapack_rc
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke, libtmglib` can be installed with `conda`:
+Once the `conda-forge/label/lapack_rc` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke, libtmglib` can be installed with `conda`:
 
 ```
 conda install blas blas-devel lapack libblas libcblas liblapack liblapacke libtmglib
@@ -122,26 +122,26 @@ mamba install blas blas-devel lapack libblas libcblas liblapack liblapacke libtm
 It is possible to list all of the versions of `blas` available on your platform with `conda`:
 
 ```
-conda search blas --channel conda-forge
+conda search blas --channel conda-forge/label/lapack_rc
 ```
 
 or with `mamba`:
 
 ```
-mamba search blas --channel conda-forge
+mamba search blas --channel conda-forge/label/lapack_rc
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search blas --channel conda-forge
+mamba repoquery search blas --channel conda-forge/label/lapack_rc
 
 # List packages depending on `blas`:
-mamba repoquery whoneeds blas --channel conda-forge
+mamba repoquery whoneeds blas --channel conda-forge/label/lapack_rc
 
 # List dependencies of `blas`:
-mamba repoquery depends blas --channel conda-forge
+mamba repoquery depends blas --channel conda-forge/label/lapack_rc
 ```
 
 
@@ -163,7 +163,7 @@ available continuous integration services. Thanks to the awesome service provide
 [CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
 [Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
 it is possible to build and upload installable packages to the
-[conda-forge](https://anaconda.org/conda-forge) [Anaconda-Cloud](https://anaconda.org/)
+[conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.
 
 To manage the continuous integration and simplify feedstock maintenance
