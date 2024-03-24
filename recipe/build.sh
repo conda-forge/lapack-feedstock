@@ -33,9 +33,10 @@ cmake \
   -DLAPACKE=ON \
   -DCBLAS=ON \
   -DBUILD_DEPRECATED=ON \
+  -DTEST_FORTRAN_COMPILER=OFF \
   ${CMAKE_ARGS} ..
 
-make -j${CPU_COUNT} VERBOSE=1
+make install -j${CPU_COUNT} VERBOSE=1
 
 if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
   if [[ "$target_platform" == osx-* ]]; then
@@ -45,16 +46,10 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
     # by the test program's own version which reports to the test program that
     # xerbla was called. This does not work with dylibs on osx and dlls on windows
     ctest --output-on-failure -E "x*cblat2|x*cblat3" -j${CPU_COUNT}
-  elif [[ "$target_platform" == *-64 ]]; then
-    # Ref: https://github.com/Reference-LAPACK/lapack/issues/85
-    ulimit -s unlimited
-    ctest --output-on-failure -j${CPU_COUNT}
   else
-    ulimit -s unlimited
-    ctest --output-on-failure -E "LAPACK-xeigtstz*" -j${CPU_COUNT}
+    ctest --output-on-failure -j${CPU_COUNT}
   fi
 fi
-make install
 
 
 if [[ "${target_platform}" == osx-* ]]; then

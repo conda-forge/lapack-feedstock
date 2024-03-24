@@ -1,4 +1,4 @@
-{% set version = "3.10.1" %}
+{% set version = "3.11.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
 {% set build_num = 0 %}
 {% set version_major = version.split(".")[0] %}
@@ -20,13 +20,13 @@ package:
 
 source:
   url: https://github.com/Reference-LAPACK/lapack/archive/v{{ version }}.tar.gz
-  sha256: cd005cd021f144d7d5f7f33c943942db9f03a28d110d6a3b80d718a295f7f714
+  sha256: 4b9ba79bfd4921ca820e83979db76ab3363155709444a787979e81c22285ffa9
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
 
 build:
-  number: "{{ build_num }}"
+  number: {{ build_num }}
 
 requirements:
   build:
@@ -43,9 +43,9 @@ requirements:
 outputs:
   - name: libblas
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
-       - blas_netlib
+        - blas_netlib
       run_exports:
         - {{ pin_subpackage("libblas", max_pin="x") }}
     requirements:
@@ -58,7 +58,6 @@ outputs:
         - blas * netlib
     files:
       - {{ library }}lib/pkgconfig/blas.pc
-      - {{ library }}lib/cmake/blas-{{ version }}/*.cmake
       - lib/libblas.so                          # [linux]
       - lib/libblas.so.{{ version_major }}      # [linux]
       - lib/libblas.so.{{ version }}            # [linux]
@@ -71,9 +70,9 @@ outputs:
 
   - name: libtmglib
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
-       - blas_netlib
+        - blas_netlib
       run_exports:
         - {{ pin_subpackage("libtmglib", max_pin="x") }}
     requirements:
@@ -96,7 +95,7 @@ outputs:
 
   - name: libcblas
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
       run_exports:
@@ -125,7 +124,7 @@ outputs:
 
   - name: liblapack
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
       run_exports:
@@ -153,7 +152,7 @@ outputs:
 
   - name: liblapacke
     build:
-      string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
+      string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
       run_exports:
@@ -184,9 +183,9 @@ outputs:
 
   - name: blas-devel
     build:
-      string: "{{ build_num }}_netlib"
+      string: {{ build_num }}_netlib
       track_features:
-       - blas_netlib
+        - blas_netlib
     requirements:
       run:
         - {{ pin_subpackage("libblas", exact=True) }}
@@ -196,18 +195,18 @@ outputs:
 
   # For conda-forge blas selector, see also blas-feedstock
   - name: blas
-    version: "{{ blas_major }}.{{ blas_minor }}"
+    version: {{ blas_major }}.{{ blas_minor }}
     build:
-      string: "netlib"
+      string: netlib
       track_features:
-       - blas_netlib
+        - blas_netlib
     requirements:
-    - {{ pin_subpackage("liblapack", exact=True) }}
-    - {{ pin_subpackage("liblapacke", exact=True) }}
-    - {{ pin_subpackage("libcblas", exact=True) }}
-    - {{ pin_subpackage("libblas", exact=True) }}
-    - {{ pin_subpackage("blas-devel", exact=True) }}
-    - {{ pin_subpackage("libtmglib", exact=True) }}
+      - {{ pin_subpackage("liblapack", exact=True) }}
+      - {{ pin_subpackage("liblapacke", exact=True) }}
+      - {{ pin_subpackage("libcblas", exact=True) }}
+      - {{ pin_subpackage("libblas", exact=True) }}
+      - {{ pin_subpackage("blas-devel", exact=True) }}
+      - {{ pin_subpackage("libtmglib", exact=True) }}
     test:
       commands:
         {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
@@ -226,7 +225,7 @@ outputs:
   # For compatiblity (see #33)
   - name: lapack
     build:
-      string: "netlib"
+      string: netlib
     requirements:
       run:
         - liblapack {{ version }}.*
