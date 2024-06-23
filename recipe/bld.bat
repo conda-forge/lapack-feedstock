@@ -6,7 +6,7 @@ set "CC=%HOST%-gcc.exe"
 set "CXX=%HOST%-g++.exe"
 set "FC=%HOST%-gfortran.exe"
 
-cmake -G "MinGW Makefiles" ^
+cmake -G "Ninja" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DBUILD_SHARED_LIBS=yes ^
     -DCMAKE_BUILD_TYPE=Release ^
@@ -16,8 +16,8 @@ cmake -G "MinGW Makefiles" ^
     -DBUILD_DEPRECATED=ON ^
     -Wno-dev ..
 
-make -j%CPU_COUNT%
-make install
+ninja -j%CPU_COUNT%
+ninja install
 if %ERRORLEVEL% NEQ 0 exit 1
 
 :: testing with shared libraries does not work - skip them.

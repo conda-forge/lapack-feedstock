@@ -38,7 +38,7 @@ requirements:
     - {{ compiler("m2w64_fortran") }}   # [win]
     # This is just for creating the import libaries
     - vs2019_win-64                     # [win64]
-    - m2-make                           # [win]
+    - ninja                             # [win]
     - make                              # [unix]
     - cmake
 
