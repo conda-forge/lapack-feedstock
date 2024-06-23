@@ -1,6 +1,6 @@
 {% set version = "3.9.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 5 %}
+{% set build_num = 6 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -50,13 +50,15 @@ build:
 requirements:
   build:
     - {{ compiler("c") }}               # [unix]
+    - {{ stdlib("c") }}                 # [unix]
     - {{ compiler("fortran") }}         # [unix]
     - {{ compiler("m2w64_c") }}         # [win]
+    - {{ stdlib("m2w64_c") }}           # [win]
     - {{ compiler("m2w64_fortran") }}   # [win]
     # This is just for creating the import libaries
-    - vs2017_win-64                     # [win64]
-    - m2w64-make                        # [win]
-    - make
+    - vs2019_win-64                     # [win64]
+    - m2-make                           # [win]
+    - make                              # [unix]
     - cmake
 
 outputs:
@@ -70,8 +72,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run_constrained:
         - blas * netlib
@@ -98,8 +102,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run_constrained:
         - blas * netlib
@@ -123,8 +129,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
         - libblas {{ version }}.*
@@ -152,8 +160,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
         - libblas {{ version }}.*
@@ -180,8 +190,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
         - libblas    {{ version }}.*
