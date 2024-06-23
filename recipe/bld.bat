@@ -1,12 +1,10 @@
 mkdir build
 cd build
 
-:: Trick to avoid CMake/sh.exe error
-ren "C:\Program Files\Git\usr\bin\sh.exe" _sh.exe
-
-set "CC=gcc.exe"
-set "CXX=g++.exe"
-set "FC=gfortran.exe"
+set "HOST=x86_64-w64-mingw32"
+set "CC=%HOST%-gcc.exe"
+set "CXX=%HOST%-g++.exe"
+set "FC=%HOST%-gfortran.exe"
 
 cmake -G "MinGW Makefiles" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
@@ -18,8 +16,8 @@ cmake -G "MinGW Makefiles" ^
     -DBUILD_DEPRECATED=ON ^
     -Wno-dev ..
 
-mingw32-make -j%CPU_COUNT%
-mingw32-make install
+make -j%CPU_COUNT%
+make install
 if %ERRORLEVEL% NEQ 0 exit 1
 
 :: testing with shared libraries does not work - skip them.
