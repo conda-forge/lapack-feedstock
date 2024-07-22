@@ -1,6 +1,6 @@
 {% set version = "3.11.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 0 %}
+{% set build_num = 1 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -31,13 +31,15 @@ build:
 requirements:
   build:
     - {{ compiler("c") }}               # [unix]
+    - {{ stdlib("c") }}                 # [unix]
     - {{ compiler("fortran") }}         # [unix]
     - {{ compiler("m2w64_c") }}         # [win]
+    - {{ stdlib("m2w64_c") }}           # [win]
     - {{ compiler("m2w64_fortran") }}   # [win]
     # This is just for creating the import libaries
     - vs2019_win-64                     # [win64]
-    - m2w64-make                        # [win]
-    - make
+    - ninja                             # [win]
+    - make                              # [unix]
     - cmake
 
 outputs:
@@ -51,8 +53,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run_constrained:
         - blas * netlib
@@ -67,6 +71,9 @@ outputs:
       - Library/bin/libblas.dll                 # [win]
       - Library/lib/blas.lib                    # [win]
       - Library/lib/libblas.dll.a               # [win]
+    test:
+      commands:
+        - echo "no need to revalidate `files:` specification"
 
   - name: libtmglib
     build:
@@ -78,8 +85,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run_constrained:
         - blas * netlib
@@ -92,6 +101,9 @@ outputs:
       - lib/libtmglib.{{ version }}.dylib         # [osx]
       - Library/bin/libtmglib.dll                 # [win]
       - Library/lib/libtmglib.dll.a               # [win]
+    test:
+      commands:
+        - echo "no need to revalidate `files:` specification"
 
   - name: libcblas
     build:
@@ -103,8 +115,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
         - libblas {{ version }}.*
@@ -121,6 +135,9 @@ outputs:
       - Library/bin/libcblas.dll                 # [win]
       - Library/lib/cblas.lib                    # [win]
       - Library/lib/libcblas.dll.a               # [win]
+    test:
+      commands:
+        - echo "no need to revalidate `files:` specification"
 
   - name: liblapack
     build:
@@ -132,8 +149,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
         - libblas {{ version }}.*
@@ -149,6 +168,9 @@ outputs:
       - Library/bin/liblapack.dll                 # [win]
       - Library/lib/lapack.lib                    # [win]
       - Library/lib/liblapack.dll.a               # [win]
+    test:
+      commands:
+        - echo "no need to revalidate `files:` specification"
 
   - name: liblapacke
     build:
@@ -160,8 +182,10 @@ outputs:
     requirements:
       build:
         - {{ compiler("c") }}               # [unix]
+        - {{ stdlib("c") }}                 # [unix]
         - {{ compiler("fortran") }}         # [unix]
         - {{ compiler("m2w64_c") }}         # [win]
+        - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
         - libblas    {{ version }}.*
@@ -180,6 +204,9 @@ outputs:
       - Library/bin/liblapacke.dll                 # [win]
       - Library/lib/lapacke.lib                    # [win]
       - Library/lib/liblapacke.dll.a               # [win]
+    test:
+      commands:
+        - echo "no need to revalidate `files:` specification"
 
   - name: blas-devel
     build:
@@ -192,6 +219,9 @@ outputs:
         - {{ pin_subpackage("libcblas", exact=True) }}
         - {{ pin_subpackage("liblapack", exact=True) }}
         - {{ pin_subpackage("liblapacke", exact=True) }}
+    test:
+      commands:
+        - echo "pure meta-package"
 
   # For conda-forge blas selector, see also blas-feedstock
   - name: blas
@@ -229,6 +259,9 @@ outputs:
     requirements:
       run:
         - liblapack {{ version }}.*
+    test:
+      commands:
+        - echo "pure meta-package"
 
 about:
   home: http://www.netlib.org/lapack
