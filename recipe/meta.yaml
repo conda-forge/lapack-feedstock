@@ -1,6 +1,6 @@
 {% set version = "3.11.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 1 %}
+{% set build_num = 2 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -121,7 +121,7 @@ outputs:
         - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas {{ version }}.*
+        - libblas {{ version }}
     files:
       - {{ library }}include/cblas*.h
       - {{ library }}lib/pkgconfig/cblas.pc
@@ -155,7 +155,7 @@ outputs:
         - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas {{ version }}.*
+        - libblas {{ version }}
     files:
       - {{ library }}lib/pkgconfig/lapack.pc
       - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
@@ -188,9 +188,9 @@ outputs:
         - {{ stdlib("m2w64_c") }}           # [win]
         - {{ compiler("m2w64_fortran") }}   # [win]
       run:
-        - libblas    {{ version }}.*
-        - libcblas   {{ version }}.*
-        - liblapack  {{ version }}.*
+        - libblas    {{ version }}
+        - libcblas   {{ version }}
+        - liblapack  {{ version }}
     files:
       - {{ library }}include/lapack*.h
       - {{ library }}lib/pkgconfig/lapacke.pc
@@ -258,7 +258,7 @@ outputs:
       string: netlib
     requirements:
       run:
-        - liblapack {{ version }}.*
+        - liblapack {{ version }}
     test:
       commands:
         - echo "pure meta-package"
