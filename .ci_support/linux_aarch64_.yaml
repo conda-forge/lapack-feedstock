@@ -15,7 +15,7 @@ cdt_name:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge lapack_rc
+- conda-forge lapack_dev
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 fortran_compiler:

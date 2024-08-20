@@ -93,14 +93,14 @@ Current release info
 Installing lapack
 =================
 
-Installing `lapack` from the `conda-forge/label/lapack_rc` channel can be achieved by adding `conda-forge/label/lapack_rc` to your channels with:
+Installing `lapack` from the `conda-forge/label/lapack_dev` channel can be achieved by adding `conda-forge/label/lapack_dev` to your channels with:
 
 ```
-conda config --add channels conda-forge/label/lapack_rc
+conda config --add channels conda-forge/label/lapack_dev
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge/label/lapack_rc` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke, libtmglib` can be installed with `conda`:
+Once the `conda-forge/label/lapack_dev` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke, libtmglib` can be installed with `conda`:
 
 ```
 conda install blas blas-devel lapack libblas libcblas liblapack liblapacke libtmglib
@@ -115,26 +115,26 @@ mamba install blas blas-devel lapack libblas libcblas liblapack liblapacke libtm
 It is possible to list all of the versions of `blas` available on your platform with `conda`:
 
 ```
-conda search blas --channel conda-forge/label/lapack_rc
+conda search blas --channel conda-forge/label/lapack_dev
 ```
 
 or with `mamba`:
 
 ```
-mamba search blas --channel conda-forge/label/lapack_rc
+mamba search blas --channel conda-forge/label/lapack_dev
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search blas --channel conda-forge/label/lapack_rc
+mamba repoquery search blas --channel conda-forge/label/lapack_dev
 
 # List packages depending on `blas`:
-mamba repoquery whoneeds blas --channel conda-forge/label/lapack_rc
+mamba repoquery whoneeds blas --channel conda-forge/label/lapack_dev
 
 # List dependencies of `blas`:
-mamba repoquery depends blas --channel conda-forge/label/lapack_rc
+mamba repoquery depends blas --channel conda-forge/label/lapack_dev
 ```
 
 
