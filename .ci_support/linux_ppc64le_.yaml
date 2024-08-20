@@ -9,9 +9,13 @@ c_stdlib_version:
 cdt_name:
 - cos7
 channel_sources:
-- conda-forge
+- conda-forge/label/llvm_rc,conda-forge
 channel_targets:
 - conda-forge lapack_dev
+cxx_compiler:
+- gxx
+cxx_compiler_version:
+- '12'
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
 fortran_compiler:
@@ -22,6 +26,7 @@ target_platform:
 - linux-ppc64le
 zip_keys:
 - - c_compiler_version
+  - cxx_compiler_version
   - fortran_compiler_version
 - - c_stdlib_version
   - cdt_name
