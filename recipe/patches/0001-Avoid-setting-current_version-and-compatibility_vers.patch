@@ -1,48 +1,47 @@
-From 7224d5e1545d9f1a7e9fa5f020c93c6730d0a3f5 Mon Sep 17 00:00:00 2001
+From 5e6b8c392a6fb99a3f3ba8ece7501f2ae1aaf555 Mon Sep 17 00:00:00 2001
 From: Isuru Fernando <isuruf@gmail.com>
 Date: Thu, 22 Nov 2018 19:39:51 -0600
 Subject: [PATCH] Avoid setting current_version and compatibility_version on
  OSX
 
 ---
- BLAS/SRC/CMakeLists.txt  | 5 -----
+ BLAS/SRC/CMakeLists.txt  | 2 --
  CBLAS/src/CMakeLists.txt | 2 --
  LAPACKE/CMakeLists.txt   | 2 --
  SRC/CMakeLists.txt       | 5 -----
- 4 files changed, 14 deletions(-)
+ 4 files changed, 11 deletions(-)
 
 diff --git a/BLAS/SRC/CMakeLists.txt b/BLAS/SRC/CMakeLists.txt
-index 6ad8188a7..da43246db 100644
+index 9df128eb5..8e51adc43 100644
 --- a/BLAS/SRC/CMakeLists.txt
 +++ b/BLAS/SRC/CMakeLists.txt
-@@ -110,9 +110,4 @@ endif()
- list(REMOVE_DUPLICATES SOURCES)
+@@ -150,8 +150,6 @@ add_library(${BLASLIB}
  
- add_library(${BLASLIB} ${SOURCES})
--set_target_properties(
--  ${BLASLIB} PROPERTIES
+ set_target_properties(
+   ${BLASLIB} PROPERTIES
 -  VERSION ${LAPACK_VERSION}
 -  SOVERSION ${LAPACK_MAJOR_VERSION}
--  )
+   POSITION_INDEPENDENT_CODE ON
+   )
  lapack_install_library(${BLASLIB})
 diff --git a/CBLAS/src/CMakeLists.txt b/CBLAS/src/CMakeLists.txt
-index 266b1794e..e291e6bb9 100644
+index 787638a2c..3b6d9db2d 100644
 --- a/CBLAS/src/CMakeLists.txt
 +++ b/CBLAS/src/CMakeLists.txt
-@@ -117,8 +117,6 @@ add_library(${CBLASLIB} ${SOURCES})
+@@ -165,8 +165,6 @@ add_library(${CBLASLIB}
  set_target_properties(
    ${CBLASLIB} PROPERTIES
    LINKER_LANGUAGE C
 -  VERSION ${LAPACK_VERSION}
 -  SOVERSION ${LAPACK_MAJOR_VERSION}
+   POSITION_INDEPENDENT_CODE ON
    )
  if(HAS_ATTRIBUTE_WEAK_SUPPORT)
-   target_compile_definitions(${CBLASLIB} PRIVATE HAS_ATTRIBUTE_WEAK_SUPPORT)
 diff --git a/LAPACKE/CMakeLists.txt b/LAPACKE/CMakeLists.txt
-index e78079c0e..3b990fd2a 100644
+index 1c56c0dcb..7853ebf37 100644
 --- a/LAPACKE/CMakeLists.txt
 +++ b/LAPACKE/CMakeLists.txt
-@@ -92,8 +92,6 @@ add_library(${LAPACKELIB} ${SOURCES})
+@@ -71,8 +71,6 @@ add_library(${LAPACKELIB} ${SOURCES})
  set_target_properties(
    ${LAPACKELIB} PROPERTIES
    LINKER_LANGUAGE C
@@ -52,10 +51,10 @@ index e78079c0e..3b990fd2a 100644
  target_include_directories(${LAPACKELIB} PUBLIC
      $<BUILD_INTERFACE:${LAPACK_BINARY_DIR}/include>
 diff --git a/SRC/CMakeLists.txt b/SRC/CMakeLists.txt
-index 66865ea42..1ee58083e 100644
+index 767165a5f..b3e84ba06 100644
 --- a/SRC/CMakeLists.txt
 +++ b/SRC/CMakeLists.txt
-@@ -515,11 +515,6 @@ endif()
+@@ -517,11 +517,6 @@ endif()
  list(REMOVE_DUPLICATES SOURCES)
  
  add_library(${LAPACKLIB} ${SOURCES})
@@ -65,8 +64,5 @@ index 66865ea42..1ee58083e 100644
 -  SOVERSION ${LAPACK_MAJOR_VERSION}
 -  )
  
- if(USE_XBLAS)
-   target_link_libraries(${LAPACKLIB} PRIVATE ${XBLAS_LIBRARY})
--- 
-2.38.1.windows.1
-
+ if( TEST_FORTRAN_COMPILER )
+   add_dependencies( ${LAPACKLIB} run_test_zcomplexabs run_test_zcomplexdiv run_test_zcomplexmult run_test_zminMax )
