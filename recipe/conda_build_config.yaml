@@ -16,4 +16,4 @@ m2w64_c_stdlib_version:             # [win]
   - 12                              # [win]
 
 channel_targets:
-  - conda-forge lapack_rc
+  - conda-forge lapack_dev
