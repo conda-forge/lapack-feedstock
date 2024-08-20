@@ -30,14 +30,10 @@ build:
 
 requirements:
   build:
-    - {{ compiler("c") }}               # [unix]
-    - {{ stdlib("c") }}                 # [unix]
-    - {{ compiler("fortran") }}         # [unix]
-    - {{ compiler("m2w64_c") }}         # [win]
-    - {{ stdlib("m2w64_c") }}           # [win]
-    - {{ compiler("m2w64_fortran") }}   # [win]
-    # This is just for creating the import libaries
-    - vs2019_win-64                     # [win64]
+    - {{ stdlib("c") }}
+    - {{ compiler("c") }}
+    - {{ compiler("cxx") }}
+    - {{ compiler("fortran") }}
     - ninja                             # [win]
     - make                              # [unix]
     - cmake
@@ -52,12 +48,10 @@ outputs:
         - {{ pin_subpackage("libblas", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ stdlib("c") }}                 # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ stdlib("m2w64_c") }}           # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler("fortran") }}
       run_constrained:
         - blas * netlib
     files:
@@ -84,12 +78,10 @@ outputs:
         - {{ pin_subpackage("libtmglib", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ stdlib("c") }}                 # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ stdlib("m2w64_c") }}           # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler("fortran") }}
       run_constrained:
         - blas * netlib
     files:
@@ -114,12 +106,10 @@ outputs:
         - {{ pin_subpackage("libcblas", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ stdlib("c") }}                 # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ stdlib("m2w64_c") }}           # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler("fortran") }}
       run:
         - libblas {{ version }}
     files:
@@ -148,12 +138,10 @@ outputs:
         - {{ pin_subpackage("liblapack", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ stdlib("c") }}                 # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ stdlib("m2w64_c") }}           # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler("fortran") }}
       run:
         - libblas {{ version }}
     files:
@@ -181,12 +169,10 @@ outputs:
         - {{ pin_subpackage("liblapacke", max_pin="x") }}
     requirements:
       build:
-        - {{ compiler("c") }}               # [unix]
-        - {{ stdlib("c") }}                 # [unix]
-        - {{ compiler("fortran") }}         # [unix]
-        - {{ compiler("m2w64_c") }}         # [win]
-        - {{ stdlib("m2w64_c") }}           # [win]
-        - {{ compiler("m2w64_fortran") }}   # [win]
+        - {{ stdlib("c") }}
+        - {{ compiler("c") }}
+        - {{ compiler("cxx") }}
+        - {{ compiler("fortran") }}
       run:
         - libblas    {{ version }}
         - libcblas   {{ version }}
