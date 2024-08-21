@@ -24,6 +24,8 @@ source:
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
+    # backport https://github.com/Reference-LAPACK/lapack/pull/1044
+    - patches/0002-Declare-dependency-on-C-to-avoid-the-CMAKE-default-o.patch
 
 build:
   number: {{ build_num }}
