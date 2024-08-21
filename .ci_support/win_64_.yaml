@@ -1,7 +1,7 @@
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge lapack_rc
+- conda-forge lapack_dev
 m2w64_c_compiler:
 - gcc
 m2w64_c_compiler_version:
