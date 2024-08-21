@@ -227,7 +227,7 @@ outputs:
 
   # For conda-forge blas selector, see also blas-feedstock
   - name: blas
-    version: {{ blas_major }}.{{ blas_minor }}
+    version: "{{ blas_major }}.{{ blas_minor }}"
     build:
       string: netlib
       track_features:
