@@ -1,16 +1,18 @@
-c_compiler:
-- vs2019
-c_stdlib:
-- vs
 channel_sources:
-- conda-forge/label/llvm_rc,conda-forge
+- conda-forge
 channel_targets:
 - conda-forge lapack_dev
-cxx_compiler:
-- vs2019
-fortran_compiler:
-- flang
-fortran_compiler_version:
-- '19'
+m2w64_c_compiler:
+- gcc
+m2w64_c_compiler_version:
+- '13'
+m2w64_c_stdlib:
+- m2w64-sysroot
+m2w64_c_stdlib_version:
+- '12'
+m2w64_fortran_compiler:
+- gfortran
+m2w64_fortran_compiler_version:
+- '13'
 target_platform:
 - win-64
