@@ -1,6 +1,6 @@
 {% set version = "3.9.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 6 %}
+{% set build_num = 7 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -43,6 +43,8 @@ source:
     - patches/0007-fix-workspace-query-in-dgelq.patch
     # from Reference-LAPACK/lapack#445, see also xianyi/OpenBLAS#2864
     - patches/0008-fix-dlanv2.patch
+    # from Reference-LAPACK/lapack#391
+    - patches/pr391.patch
 
 build:
   number: "{{ build_num }}"
@@ -66,7 +68,10 @@ outputs:
     build:
       string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
-       - blas_netlib
+        # netlib variants must have at least 1 more feature
+        # than all variants of non-netlib blas implementations
+        - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("libblas", max_pin="x") }}
     requirements:
@@ -96,7 +101,8 @@ outputs:
     build:
       string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("libtmglib", max_pin="x") }}
     requirements:
@@ -124,6 +130,7 @@ outputs:
       string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
         - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("libcblas", max_pin="x") }}
     requirements:
@@ -155,6 +162,7 @@ outputs:
       string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
         - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("liblapack", max_pin="x") }}
     requirements:
@@ -185,6 +193,7 @@ outputs:
       string: "{{ build_num }}_h{{ PKG_HASH }}_netlib"
       track_features:
         - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("liblapacke", max_pin="x") }}
     requirements:
@@ -217,7 +226,8 @@ outputs:
     build:
       string: "{{ build_num }}_netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
+        - blas_netlib_2
     requirements:
       run:
         - {{ pin_subpackage("libblas", exact=True) }}
@@ -231,7 +241,8 @@ outputs:
     build:
       string: "netlib"
       track_features:
-       - blas_netlib
+        - blas_netlib
+        - blas_netlib_2
     requirements:
     - {{ pin_subpackage("liblapack", exact=True) }}
     - {{ pin_subpackage("liblapacke", exact=True) }}
