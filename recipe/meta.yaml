@@ -43,6 +43,8 @@ source:
     - patches/0007-fix-workspace-query-in-dgelq.patch
     # from Reference-LAPACK/lapack#445, see also xianyi/OpenBLAS#2864
     - patches/0008-fix-dlanv2.patch
+    # from Reference-LAPACK/lapack#391
+    - patches/pr391.patch
 
 build:
   number: "{{ build_num }}"
