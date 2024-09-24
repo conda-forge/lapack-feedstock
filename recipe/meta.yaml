@@ -1,6 +1,6 @@
 {% set version = "3.11.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 2 %}
+{% set build_num = 3 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -47,7 +47,10 @@ outputs:
     build:
       string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
+        # netlib variants must have at least 1 more feature
+        # than all variants of non-netlib blas implementations
         - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("libblas", max_pin="x") }}
     requirements:
@@ -80,6 +83,7 @@ outputs:
       string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("libtmglib", max_pin="x") }}
     requirements:
@@ -110,6 +114,7 @@ outputs:
       string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("libcblas", max_pin="x") }}
     requirements:
@@ -144,6 +149,7 @@ outputs:
       string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("liblapack", max_pin="x") }}
     requirements:
@@ -177,6 +183,7 @@ outputs:
       string: {{ build_num }}_h{{ PKG_HASH }}_netlib
       track_features:
         - blas_netlib
+        - blas_netlib_2
       run_exports:
         - {{ pin_subpackage("liblapacke", max_pin="x") }}
     requirements:
@@ -213,6 +220,7 @@ outputs:
       string: {{ build_num }}_netlib
       track_features:
         - blas_netlib
+        - blas_netlib_2
     requirements:
       run:
         - {{ pin_subpackage("libblas", exact=True) }}
@@ -230,6 +238,7 @@ outputs:
       string: netlib
       track_features:
         - blas_netlib
+        - blas_netlib_2
     requirements:
       - {{ pin_subpackage("liblapack", exact=True) }}
       - {{ pin_subpackage("liblapacke", exact=True) }}
