@@ -108,6 +108,12 @@ outputs:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
+      host:
+        - {{ pin_subpackage("libblas", exact=True) }}
+        - {{ pin_subpackage("liblapack", exact=True) }}
+      run:
+        - libblas {{ version }}
+        - liblapack {{ version }}
       run_constrained:
         - blas * netlib
     files:
@@ -136,6 +142,8 @@ outputs:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
+      host:
+        - {{ pin_subpackage("libblas", exact=True) }}
       run:
         - libblas {{ version }}.*
     files:
@@ -167,6 +175,8 @@ outputs:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
+      host:
+        - {{ pin_subpackage("libblas", exact=True) }}
       run:
         - libblas {{ version }}.*
     files:
@@ -197,6 +207,8 @@ outputs:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
+      host:
+        - {{ pin_subpackage("liblapack", exact=True) }}
       run:
         - libblas    {{ version }}.*
         - libcblas   {{ version }}.*
