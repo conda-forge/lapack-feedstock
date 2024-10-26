@@ -1,0 +1,108 @@
+From aec6dce7ac2101f970ff2919a63a39960e629f2b Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Sat, 26 Oct 2024 20:13:34 +1100
+Subject: [PATCH 2/2] don't declare RowMajorStrg as extern on windows
+
+on platforms with HAS_ATTRIBUTE_WEAK_SUPPORT, this presumably plays a role in
+the linker shenanigans with cblas_xerbla, but on windows it just blows up
+---
+ CBLAS/testing/c_c2chke.c | 2 +-
+ CBLAS/testing/c_c3chke.c | 2 +-
+ CBLAS/testing/c_d2chke.c | 2 +-
+ CBLAS/testing/c_s2chke.c | 2 +-
+ CBLAS/testing/c_s3chke.c | 2 +-
+ CBLAS/testing/c_z2chke.c | 2 +-
+ CBLAS/testing/c_z3chke.c | 2 +-
+ 7 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/CBLAS/testing/c_c2chke.c b/CBLAS/testing/c_c2chke.c
+index 33a0261f5..fb8656f57 100644
+--- a/CBLAS/testing/c_c2chke.c
++++ b/CBLAS/testing/c_c2chke.c
+@@ -33,7 +33,7 @@ void F77_c2chke(char *rout) {
+           BETA[2]  = {0.0,0.0},
+           RALPHA = 0.0;
+    extern int cblas_info, cblas_lerr, cblas_ok;
+-   extern int RowMajorStrg;
++   int RowMajorStrg = TRUE;
+    extern char *cblas_rout;
+ 
+ #ifndef HAS_ATTRIBUTE_WEAK_SUPPORT
+diff --git a/CBLAS/testing/c_c3chke.c b/CBLAS/testing/c_c3chke.c
+index 7057c7a2c..cfe433c88 100644
+--- a/CBLAS/testing/c_c3chke.c
++++ b/CBLAS/testing/c_c3chke.c
+@@ -33,7 +33,7 @@ void  F77_c3chke(char *  rout) {
+            BETA[2]  = {0.0,0.0},
+            RALPHA   = 0.0, RBETA = 0.0;
+    extern int cblas_info, cblas_lerr, cblas_ok;
+-   extern int RowMajorStrg;
++   int RowMajorStrg = TRUE;
+    extern char *cblas_rout;
+ 
+    cblas_ok = TRUE ;
+diff --git a/CBLAS/testing/c_d2chke.c b/CBLAS/testing/c_d2chke.c
+index 73e8aceec..f58501fb5 100644
+--- a/CBLAS/testing/c_d2chke.c
++++ b/CBLAS/testing/c_d2chke.c
+@@ -31,7 +31,7 @@ void F77_d2chke(char *rout) {
+           Y[2] = {0.0,0.0},
+           ALPHA=0.0, BETA=0.0;
+    extern int cblas_info, cblas_lerr, cblas_ok;
+-   extern int RowMajorStrg;
++   int RowMajorStrg = TRUE;
+    extern char *cblas_rout;
+ 
+ #ifndef HAS_ATTRIBUTE_WEAK_SUPPORT
+diff --git a/CBLAS/testing/c_s2chke.c b/CBLAS/testing/c_s2chke.c
+index a781bd505..4ca0941cc 100644
+--- a/CBLAS/testing/c_s2chke.c
++++ b/CBLAS/testing/c_s2chke.c
+@@ -31,7 +31,7 @@ void F77_s2chke(char *rout) {
+           Y[2] = {0.0,0.0},
+           ALPHA=0.0, BETA=0.0;
+    extern int cblas_info, cblas_lerr, cblas_ok;
+-   extern int RowMajorStrg;
++   int RowMajorStrg = TRUE;
+    extern char *cblas_rout;
+ 
+ #ifndef HAS_ATTRIBUTE_WEAK_SUPPORT
+diff --git a/CBLAS/testing/c_s3chke.c b/CBLAS/testing/c_s3chke.c
+index 425d6a702..135ee32ac 100644
+--- a/CBLAS/testing/c_s3chke.c
++++ b/CBLAS/testing/c_s3chke.c
+@@ -31,7 +31,7 @@ void F77_s3chke(char *rout) {
+           C[2] = {0.0,0.0},
+           ALPHA=0.0, BETA=0.0;
+    extern int cblas_info, cblas_lerr, cblas_ok;
+-   extern int RowMajorStrg;
++   int RowMajorStrg = TRUE;
+    extern char *cblas_rout;
+ 
+ #ifndef HAS_ATTRIBUTE_WEAK_SUPPORT
+diff --git a/CBLAS/testing/c_z2chke.c b/CBLAS/testing/c_z2chke.c
+index 65e552da3..712200177 100644
+--- a/CBLAS/testing/c_z2chke.c
++++ b/CBLAS/testing/c_z2chke.c
+@@ -33,7 +33,7 @@ void F77_z2chke(char *rout) {
+           BETA[2]  = {0.0,0.0},
+           RALPHA = 0.0;
+    extern int cblas_info, cblas_lerr, cblas_ok;
+-   extern int RowMajorStrg;
++   int RowMajorStrg = TRUE;
+    extern char *cblas_rout;
+ 
+ #ifndef HAS_ATTRIBUTE_WEAK_SUPPORT
+diff --git a/CBLAS/testing/c_z3chke.c b/CBLAS/testing/c_z3chke.c
+index 30840489a..bb996a0af 100644
+--- a/CBLAS/testing/c_z3chke.c
++++ b/CBLAS/testing/c_z3chke.c
+@@ -33,7 +33,7 @@ void  F77_z3chke(char *  rout) {
+            BETA[2]  = {0.0,0.0},
+            RALPHA   = 0.0, RBETA = 0.0;
+    extern int cblas_info, cblas_lerr, cblas_ok;
+-   extern int RowMajorStrg;
++   int RowMajorStrg = TRUE;
+    extern char *cblas_rout;
+ 
+    cblas_ok = TRUE ;
