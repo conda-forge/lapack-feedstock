@@ -47,6 +47,8 @@ source:
     - patches/0009-remove-extraneous-semicolon.patch
     # avoid linker errors on windows
     - patches/0010-don-t-declare-RowMajorStrg-as-extern-on-windows.patch       # [win]
+    # make xerbla-shenanigans work on windows
+    - patches/0011-use-__declspec-selectany-for-cblas_xerbla-s-RowMajor.patch  # [win]
 
 build:
   number: "{{ build_num }}"

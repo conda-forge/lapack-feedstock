@@ -1,7 +1,7 @@
 From 45d55d2af456d441fc284c19322f2f3a760cb2d0 Mon Sep 17 00:00:00 2001
 From: Isuru Fernando <isuruf@gmail.com>
 Date: Thu, 22 Nov 2018 19:39:51 -0600
-Subject: [PATCH 01/10] Avoid setting current_version and compatibility_version
+Subject: [PATCH 01/11] Avoid setting current_version and compatibility_version
  on OSX
 
 ---

@@ -1,7 +1,7 @@
 From 729749ad7fa884a233cffb9c242e70975d5c65aa Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sat, 26 Oct 2024 20:13:34 +1100
-Subject: [PATCH 10/10] don't declare RowMajorStrg as extern on windows
+Subject: [PATCH 10/11] don't declare RowMajorStrg as extern on windows
 
 on platforms with HAS_ATTRIBUTE_WEAK_SUPPORT, this presumably plays a role in
 the linker shenanigans with cblas_xerbla, but on windows it just blows up
