@@ -1,7 +1,7 @@
-From e30d1c9ca0c08ab3559015cb33621b7f28ba801b Mon Sep 17 00:00:00 2001
+From 0b90108cb26142d6f18c21e418ad3c0a03086158 Mon Sep 17 00:00:00 2001
 From: pdalgd <55156186+pdalgd@users.noreply.github.com>
 Date: Fri, 21 Feb 2020 13:24:37 +0100
-Subject: [PATCH 4/8] NaN not propagating in DCOMBSSQ and SCOMBSSQ
+Subject: [PATCH 04/10] NaN not propagating in DCOMBSSQ and SCOMBSSQ
 
 ---
  SRC/dcombssq.f | 2 ++
@@ -9,7 +9,7 @@ Subject: [PATCH 4/8] NaN not propagating in DCOMBSSQ and SCOMBSSQ
  2 files changed, 4 insertions(+)
 
 diff --git a/SRC/dcombssq.f b/SRC/dcombssq.f
-index 79f6d95c..980a80e6 100644
+index 79f6d95c9..980a80e66 100644
 --- a/SRC/dcombssq.f
 +++ b/SRC/dcombssq.f
 @@ -80,6 +80,8 @@
@@ -22,7 +22,7 @@ index 79f6d95c..980a80e6 100644
        ELSE
           V1( 2 ) = V2( 2 ) + ( V1( 1 ) / V2( 1 ) )**2 * V1( 2 )
 diff --git a/SRC/scombssq.f b/SRC/scombssq.f
-index 76bc0e32..cc51a324 100644
+index 76bc0e320..cc51a324b 100644
 --- a/SRC/scombssq.f
 +++ b/SRC/scombssq.f
 @@ -80,6 +80,8 @@
@@ -34,6 +34,3 @@ index 76bc0e32..cc51a324 100644
           END IF
        ELSE
           V1( 2 ) = V2( 2 ) + ( V1( 1 ) / V2( 1 ) )**2 * V1( 2 )
--- 
-2.26.2.windows.1
-

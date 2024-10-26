@@ -1,7 +1,7 @@
-From a6666421568ea9eaa9a1b880cf33579a88ba808c Mon Sep 17 00:00:00 2001
+From 1979f4abf0b9080c9f935152f64d0c70a5a9ee24 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 26 Apr 2020 00:57:37 +0200
-Subject: [PATCH 6/8] Fix some minor inconsistencies in LAPACK(E)_[cz]gesvdq
+Subject: [PATCH 06/10] Fix some minor inconsistencies in LAPACK(E)_[cz]gesvdq
 
 For LAPACKE_cgesvdq, align datatype of `rwork` with lapacke.h and callsite
 in LAPACKE_cgesvdq_work; both of the latter use `float* rwork`, so there's
@@ -17,7 +17,7 @@ https://github.com/Reference-LAPACK/lapack/blob/v3.9.0/SRC/zgesvdq.f#L422
  2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/LAPACKE/include/lapack.h b/LAPACKE/include/lapack.h
-index 9a8f46bb..aedaa308 100644
+index 9a8f46bb1..aedaa308d 100644
 --- a/LAPACKE/include/lapack.h
 +++ b/LAPACKE/include/lapack.h
 @@ -2513,7 +2513,7 @@ void LAPACK_zgesvdq(
@@ -30,7 +30,7 @@ index 9a8f46bb..aedaa308 100644
      lapack_int* info );
  
 diff --git a/LAPACKE/src/lapacke_cgesvdq.c b/LAPACKE/src/lapacke_cgesvdq.c
-index 6ecd0696..eee945e4 100644
+index 6ecd06962..eee945e4b 100644
 --- a/LAPACKE/src/lapacke_cgesvdq.c
 +++ b/LAPACKE/src/lapacke_cgesvdq.c
 @@ -47,8 +47,8 @@ lapack_int LAPACKE_cgesvdq( int matrix_layout, char joba, char jobp,
@@ -53,6 +53,3 @@ index 6ecd0696..eee945e4 100644
      if( rwork == NULL ) {
          info = LAPACK_WORK_MEMORY_ERROR;
          goto exit_level_0;
--- 
-2.26.2.windows.1
-
