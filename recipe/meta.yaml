@@ -121,8 +121,6 @@ outputs:
       - lib/libtmglib.so.{{ version_major }}      # [linux]
       - lib/libtmglib.so.{{ version }}            # [linux]
       - lib/libtmglib.dylib                       # [osx]
-      - lib/libtmglib.{{ version_major }}.dylib   # [osx]
-      - lib/libtmglib.{{ version }}.dylib         # [osx]
       - Library/bin/tmglib.dll                    # [win]
       - Library/lib/tmglib.lib                    # [win]
     test:
