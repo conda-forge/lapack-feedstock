@@ -23,7 +23,7 @@ source:
   sha256: 106087f1bb5f46afdfba7f569d0cbe23dacb9a07cd24733765a0e89dbe1ad573
   patches:
     # Avoid setting current_version and compatibility_version
-    - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
+    - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch
     #
     # carry upstream patches for build errors/bugs; these can all be removed upon next release
     # ===FIX BUILD ERRORS===
@@ -49,6 +49,8 @@ source:
     - patches/0010-don-t-declare-RowMajorStrg-as-extern-on-windows.patch       # [win]
     # make xerbla-shenanigans work on windows
     - patches/0011-use-__declspec-selectany-for-cblas_xerbla-s-RowMajor.patch  # [win]
+    # keep things called libblas.dll & blas.lib (as with m2w64-compilers)
+    - patches/0012-keep-same-library-naming-as-before-switching-to-msvc.patch
 
 build:
   number: "{{ build_num }}"
@@ -89,7 +91,7 @@ outputs:
       - lib/libblas.dylib                       # [osx]
       - lib/libblas.{{ version_major }}.dylib   # [osx]
       - lib/libblas.{{ version }}.dylib         # [osx]
-      - Library/bin/blas.dll                    # [win]
+      - Library/bin/libblas.dll                 # [win]
       - Library/lib/blas.lib                    # [win]
     test:
       commands:
@@ -121,7 +123,7 @@ outputs:
       - lib/libtmglib.so.{{ version_major }}      # [linux]
       - lib/libtmglib.so.{{ version }}            # [linux]
       - lib/libtmglib.dylib                       # [osx]
-      - Library/bin/tmglib.dll                    # [win]
+      - Library/bin/libtmglib.dll                 # [win]
       - Library/lib/tmglib.lib                    # [win]
     test:
       commands:
@@ -154,7 +156,7 @@ outputs:
       - lib/libcblas.dylib                       # [osx]
       - lib/libcblas.{{ version_major }}.dylib   # [osx]
       - lib/libcblas.{{ version }}.dylib         # [osx]
-      - Library/bin/cblas.dll                    # [win]
+      - Library/bin/libcblas.dll                 # [win]
       - Library/lib/cblas.lib                    # [win]
     test:
       commands:
@@ -186,7 +188,7 @@ outputs:
       - lib/liblapack.dylib                       # [osx]
       - lib/liblapack.{{ version_major }}.dylib   # [osx]
       - lib/liblapack.{{ version }}.dylib         # [osx]
-      - Library/bin/lapack.dll                    # [win]
+      - Library/bin/liblapack.dll                 # [win]
       - Library/lib/lapack.lib                    # [win]
     test:
       commands:
@@ -221,7 +223,7 @@ outputs:
       - lib/liblapacke.dylib                       # [osx]
       - lib/liblapacke.{{ version_major }}.dylib   # [osx]
       - lib/liblapacke.{{ version }}.dylib         # [osx]
-      - Library/bin/lapacke.dll                    # [win]
+      - Library/bin/liblapacke.dll                 # [win]
       - Library/lib/lapacke.lib                    # [win]
     test:
       commands:
@@ -270,7 +272,7 @@ outputs:
         - test -f $PREFIX/lib/pkgconfig/{{ each_lib }}.pc                   # [unix]
         - if not exist %LIBRARY_LIB%\pkgconfig\{{ each_lib }}.pc exit 1     # [win]
         - if not exist %LIBRARY_LIB%\{{ each_lib }}.lib exit 1              # [win]
-        - if not exist %LIBRARY_BIN%\{{ each_lib }}.dll exit 1              # [win]
+        - if not exist %LIBRARY_BIN%\lib{{ each_lib }}.dll exit 1           # [win]
         {% endfor %}
 
   # For compatiblity (see #33)

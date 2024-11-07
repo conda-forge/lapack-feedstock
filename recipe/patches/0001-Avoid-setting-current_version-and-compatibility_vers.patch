@@ -1,21 +1,23 @@
-From 45d55d2af456d441fc284c19322f2f3a760cb2d0 Mon Sep 17 00:00:00 2001
+From add4fa0662dce4366dabe53d76ad84dd0652e34d Mon Sep 17 00:00:00 2001
 From: Isuru Fernando <isuruf@gmail.com>
 Date: Thu, 22 Nov 2018 19:39:51 -0600
-Subject: [PATCH 01/11] Avoid setting current_version and compatibility_version
+Subject: [PATCH 01/12] Avoid setting current_version and compatibility_version
  on OSX
 
+To facilitate the switching of implementations, avoid these appearing
+in libblas.dylib etc., so that downstream consumers don't record them.
 ---
- BLAS/SRC/CMakeLists.txt  | 5 -----
- CBLAS/src/CMakeLists.txt | 2 --
- LAPACKE/CMakeLists.txt   | 2 --
- SRC/CMakeLists.txt       | 5 -----
- 4 files changed, 14 deletions(-)
+ BLAS/SRC/CMakeLists.txt  | 10 ++++++----
+ CBLAS/src/CMakeLists.txt |  9 +++++++--
+ LAPACKE/CMakeLists.txt   |  9 +++++++--
+ SRC/CMakeLists.txt       | 10 ++++++----
+ 4 files changed, 26 insertions(+), 12 deletions(-)
 
 diff --git a/BLAS/SRC/CMakeLists.txt b/BLAS/SRC/CMakeLists.txt
-index 41c480432..bdc49b915 100644
+index 41c480432..7b484a8d7 100644
 --- a/BLAS/SRC/CMakeLists.txt
 +++ b/BLAS/SRC/CMakeLists.txt
-@@ -98,9 +98,4 @@ endif()
+@@ -98,9 +98,11 @@ endif()
  list(REMOVE_DUPLICATES SOURCES)
  
  add_library(blas ${SOURCES})
@@ -23,39 +25,61 @@ index 41c480432..bdc49b915 100644
 -  blas PROPERTIES
 -  VERSION ${LAPACK_VERSION}
 -  SOVERSION ${LAPACK_MAJOR_VERSION}
--  )
++if(NOT APPLE)
++  set_target_properties(
++    blas PROPERTIES
++    VERSION ${LAPACK_VERSION}
++    SOVERSION ${LAPACK_MAJOR_VERSION}
+   )
++endif()
  lapack_install_library(blas)
 diff --git a/CBLAS/src/CMakeLists.txt b/CBLAS/src/CMakeLists.txt
-index 90e19f818..b31a2da0f 100644
+index 90e19f818..992036859 100644
 --- a/CBLAS/src/CMakeLists.txt
 +++ b/CBLAS/src/CMakeLists.txt
-@@ -117,8 +117,6 @@ add_library(cblas ${SOURCES})
+@@ -117,9 +117,14 @@ add_library(cblas ${SOURCES})
  set_target_properties(
    cblas PROPERTIES
    LINKER_LANGUAGE C
 -  VERSION ${LAPACK_VERSION}
 -  SOVERSION ${LAPACK_MAJOR_VERSION}
    )
++if(NOT APPLE)
++  set_target_properties(
++    cblas PROPERTIES
++    VERSION ${LAPACK_VERSION}
++    SOVERSION ${LAPACK_MAJOR_VERSION}
++  )
++endif()
  target_include_directories(cblas PUBLIC
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+   $<INSTALL_INTERFACE:include>
 diff --git a/LAPACKE/CMakeLists.txt b/LAPACKE/CMakeLists.txt
-index 0589a74ba..6ba4a2e9a 100644
+index 0589a74ba..51a186e71 100644
 --- a/LAPACKE/CMakeLists.txt
 +++ b/LAPACKE/CMakeLists.txt
-@@ -76,8 +76,6 @@ add_library(lapacke ${SOURCES})
+@@ -76,9 +76,14 @@ add_library(lapacke ${SOURCES})
  set_target_properties(
    lapacke PROPERTIES
    LINKER_LANGUAGE C
 -  VERSION ${LAPACK_VERSION}
 -  SOVERSION ${LAPACK_MAJOR_VERSION}
    )
++if(NOT APPLE)
++  set_target_properties(
++    lapacke PROPERTIES
++    VERSION ${LAPACK_VERSION}
++    SOVERSION ${LAPACK_MAJOR_VERSION}
++  )
++endif()
  target_include_directories(lapacke PUBLIC
    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+   $<INSTALL_INTERFACE:include>
 diff --git a/SRC/CMakeLists.txt b/SRC/CMakeLists.txt
-index f19bdd302..b9aa77844 100644
+index f19bdd302..076c979ba 100644
 --- a/SRC/CMakeLists.txt
 +++ b/SRC/CMakeLists.txt
-@@ -501,11 +501,6 @@ endif()
+@@ -501,11 +501,13 @@ endif()
  list(REMOVE_DUPLICATES SOURCES)
  
  add_library(lapack ${SOURCES})
@@ -63,7 +87,13 @@ index f19bdd302..b9aa77844 100644
 -  lapack PROPERTIES
 -  VERSION ${LAPACK_VERSION}
 -  SOVERSION ${LAPACK_MAJOR_VERSION}
--  )
++if(NOT APPLE)
++  set_target_properties(
++    lapack PROPERTIES
++    VERSION ${LAPACK_VERSION}
++    SOVERSION ${LAPACK_MAJOR_VERSION}
+   )
++endif()
  
  if(USE_XBLAS)
    target_link_libraries(lapack PRIVATE ${XBLAS_LIBRARY})

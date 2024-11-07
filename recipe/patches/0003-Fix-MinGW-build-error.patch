@@ -1,7 +1,7 @@
-From f0a4318be913a6cdd6492c0129e4b1ebdf942bdb Mon Sep 17 00:00:00 2001
+From a5d9a0df4ef795b63fc2ac9921a28da91e396a5e Mon Sep 17 00:00:00 2001
 From: Julien Schueller <schueller@phimeca.com>
 Date: Mon, 25 Nov 2019 19:41:16 +0100
-Subject: [PATCH 03/11] Fix MinGW build error
+Subject: [PATCH 03/12] Fix MinGW build error
 
 With MinGW the build fails for some LAPACKE xgesvd routines with:
 lapacke_cgesvdq.c:74:5: error: aggregate value used where an integer was expected
