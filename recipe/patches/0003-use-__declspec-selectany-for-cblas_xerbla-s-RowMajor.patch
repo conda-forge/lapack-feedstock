@@ -1,7 +1,7 @@
-From 873da7545d4622ed403011ac38222b7fb7cbe43e Mon Sep 17 00:00:00 2001
+From 7c5e7080a88e2333d02ab16b7e54820e5734819d Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Sun, 27 Oct 2024 00:15:33 +1100
-Subject: [PATCH 3/3] use __declspec(selectany) for cblas_xerbla's RowMajorStrg
+Subject: [PATCH 3/4] use __declspec(selectany) for cblas_xerbla's RowMajorStrg
  on windows
 
 ---
