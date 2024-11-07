@@ -49,8 +49,8 @@ source:
     - patches/0010-don-t-declare-RowMajorStrg-as-extern-on-windows.patch       # [win]
     # make xerbla-shenanigans work on windows
     - patches/0011-use-__declspec-selectany-for-cblas_xerbla-s-RowMajor.patch  # [win]
-    # keep things called libblas.dll & blas.lib (as with m2w64-compilers)
-    - patches/0012-keep-same-library-naming-as-before-switching-to-msvc.patch
+    # from Reference-LAPACK/lapack#810
+    - patches/0012-cmake-allow-setting-a-prefix-for-the-library-names.patch
 
 build:
   number: "{{ build_num }}"
