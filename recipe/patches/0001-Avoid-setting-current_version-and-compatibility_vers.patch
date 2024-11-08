@@ -1,7 +1,7 @@
 From add4fa0662dce4366dabe53d76ad84dd0652e34d Mon Sep 17 00:00:00 2001
 From: Isuru Fernando <isuruf@gmail.com>
 Date: Thu, 22 Nov 2018 19:39:51 -0600
-Subject: [PATCH 01/12] Avoid setting current_version and compatibility_version
+Subject: [PATCH 01/11] Avoid setting current_version and compatibility_version
  on OSX
 
 To facilitate the switching of implementations, avoid these appearing

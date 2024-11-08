@@ -1,0 +1,61 @@
+From 1b351ff20d9cc56d6610557058331dd21e65b088 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Fri, 8 Nov 2024 14:35:19 +1100
+Subject: [PATCH 11/11] add DLL import/export machinery for RowMajorStrg
+
+Suggested-By: Isuru Fernando <isuruf@gmail.com>
+---
+ CBLAS/include/cblas.h     |  9 +++++++++
+ CBLAS/src/CMakeLists.txt  |  3 +++
+ CBLAS/src/cblas_globals.c | 10 ++++++++--
+ 3 files changed, 20 insertions(+), 2 deletions(-)
+
+diff --git a/CBLAS/include/cblas.h b/CBLAS/include/cblas.h
+index 9e937964e..171d4d778 100644
+--- a/CBLAS/include/cblas.h
++++ b/CBLAS/include/cblas.h
+@@ -2,6 +2,15 @@
+ #define CBLAS_H
+ #include <stddef.h>
+ 
++#ifdef _MSC_VER
++#  ifdef CBLAS_BUILDING_DLL
++#    define CBLAS_DLL __declspec(dllexport)
++#  else
++#    define CBLAS_DLL __declspec(dllimport)
++#  endif
++#else
++#  define CBLAS_DLL
++#endif
+ 
+ #ifdef __cplusplus
+ extern "C" {            /* Assume C declarations for C++ */
+diff --git a/CBLAS/src/CMakeLists.txt b/CBLAS/src/CMakeLists.txt
+index 992036859..c7a2dad27 100644
+--- a/CBLAS/src/CMakeLists.txt
++++ b/CBLAS/src/CMakeLists.txt
+@@ -125,6 +125,9 @@ if(NOT APPLE)
+     SOVERSION ${LAPACK_MAJOR_VERSION}
+   )
+ endif()
++if(BUILD_SHARED_LIBS)
++  target_compile_definitions(cblas PRIVATE CBLAS_BUILDING_DLL)
++endif()
+ target_include_directories(cblas PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+   $<INSTALL_INTERFACE:include>
+diff --git a/CBLAS/src/cblas_globals.c b/CBLAS/src/cblas_globals.c
+index ebcd74db3..b7bf74e23 100644
+--- a/CBLAS/src/cblas_globals.c
++++ b/CBLAS/src/cblas_globals.c
+@@ -1,2 +1,8 @@
+-int CBLAS_CallFromC=0;
+-int RowMajorStrg=0;
++#ifdef _MSC_VER
++#  define CBLAS_DLL __declspec(dllexport)
++#else
++#  define CBLAS_DLL
++#endif
++
++CBLAS_DLL int CBLAS_CallFromC=0;
++CBLAS_DLL int RowMajorStrg=0;

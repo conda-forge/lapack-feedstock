@@ -1,7 +1,7 @@
 From 528211aa33f74b456b8b6aae0fd4ac6619767502 Mon Sep 17 00:00:00 2001
 From: thijs <steelthijs@gmail.com>
 Date: Fri, 18 Sep 2020 11:19:12 +0200
-Subject: [PATCH 08/12] fix-dlanv2
+Subject: [PATCH 08/11] fix-dlanv2
 
 ---
  SRC/dlanv2.f | 28 ++++++++++++++++++++++++++--
