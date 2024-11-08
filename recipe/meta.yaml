@@ -24,12 +24,10 @@ source:
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch
-    # avoid linker errors on windows
-    - patches/0002-don-t-declare-RowMajorStrg-as-extern-on-windows.patch       # [win]
-    # make xerbla-shenanigans work on windows
-    - patches/0003-use-__declspec-selectany-for-cblas_xerbla-s-RowMajor.patch  # [win]
     # backport https://github.com/Reference-LAPACK/lapack/pull/810
-    - patches/0004-cmake-allow-setting-a-prefix-for-the-library-names.patch
+    - patches/0002-cmake-allow-setting-a-prefix-for-the-library-names.patch
+    # make symbol RowMajorStrg visible through DLL boundary
+    - patches/0003-add-DLL-import-export-machinery-for-RowMajorStrg.patch
 
 build:
   number: {{ build_num }}
@@ -39,9 +37,10 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("fortran") }}
-    - ninja                             # [win]
-    - make                              # [unix]
     - cmake
+    - make                              # [unix]
+    - ninja                             # [win]
+    - m2-sed                            # [win]
 
 outputs:
   - name: libblas

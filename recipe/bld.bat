@@ -1,5 +1,14 @@
 @echo on
 
+:: add CBLAS_DLL markers to RowMajorStrg/CBLAS_CallFromC in CBLAS/{src,testing}
+for %%f in (CBLAS\src\*.c) do (
+    sed -i.bak "s/extern int RowMajorStrg;/CBLAS_DLL extern int RowMajorStrg;/g" %%f
+    sed -i.bak "s/extern int CBLAS_CallFromC;/CBLAS_DLL extern int CBLAS_CallFromC;/g" %%f
+)
+for %%f in (CBLAS\testing\*.c) do (
+    sed -i.bak "s/extern int RowMajorStrg;/CBLAS_DLL extern int RowMajorStrg;/g" %%f
+)
+
 mkdir build
 cd build
 
@@ -15,6 +24,8 @@ cmake -G "Ninja" ^
     -Wno-dev ..
 
 ninja -j%CPU_COUNT%
+if %ERRORLEVEL% NEQ 0 exit 1
+
 ninja install
 if %ERRORLEVEL% NEQ 0 exit 1
 
