@@ -1,7 +1,7 @@
-From b00f9da24e1aaefdfb492b23c1ada78ad045e64f Mon Sep 17 00:00:00 2001
+From 528211aa33f74b456b8b6aae0fd4ac6619767502 Mon Sep 17 00:00:00 2001
 From: thijs <steelthijs@gmail.com>
 Date: Fri, 18 Sep 2020 11:19:12 +0200
-Subject: [PATCH 8/8] fix-dlanv2
+Subject: [PATCH 08/11] fix-dlanv2
 
 ---
  SRC/dlanv2.f | 28 ++++++++++++++++++++++++++--
@@ -9,7 +9,7 @@ Subject: [PATCH 8/8] fix-dlanv2
  2 files changed, 52 insertions(+), 4 deletions(-)
 
 diff --git a/SRC/dlanv2.f b/SRC/dlanv2.f
-index d68481f7..61b016f1 100644
+index d68481f7e..2a7072ac1 100644
 --- a/SRC/dlanv2.f
 +++ b/SRC/dlanv2.f
 @@ -140,13 +140,16 @@
@@ -25,7 +25,7 @@ index d68481f7..61b016f1 100644
  *     .. Local Scalars ..
        DOUBLE PRECISION   AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB,
 -     $                   SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z
-+     $                   SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, 
++     $                   SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN,
 +     $                   SAFMN2, SAFMX2
 +      INTEGER            COUNT
  *     ..
@@ -69,7 +69,7 @@ index d68481f7..61b016f1 100644
              CS = SQRT( HALF*( ONE+ABS( SIGMA ) / TAU ) )
              SN = -( P / ( TAU*CS ) )*SIGN( ONE, SIGMA )
 diff --git a/SRC/slanv2.f b/SRC/slanv2.f
-index 1163446f..e678305f 100644
+index 1163446fa..46700e235 100644
 --- a/SRC/slanv2.f
 +++ b/SRC/slanv2.f
 @@ -140,13 +140,16 @@
@@ -85,7 +85,7 @@ index 1163446f..e678305f 100644
  *     .. Local Scalars ..
        REAL               AA, BB, BCMAX, BCMIS, CC, CS1, DD, EPS, P, SAB,
 -     $                   SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z
-+     $                   SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN, 
++     $                   SAC, SCALE, SIGMA, SN1, TAU, TEMP, Z, SAFMIN,
 +     $                   SAFMN2, SAFMX2
 +      INTEGER            COUNT
  *     ..
@@ -128,6 +128,3 @@ index 1163446f..e678305f 100644
              TAU = SLAPY2( SIGMA, TEMP )
              CS = SQRT( HALF*( ONE+ABS( SIGMA ) / TAU ) )
              SN = -( P / ( TAU*CS ) )*SIGN( ONE, SIGMA )
--- 
-2.26.2.windows.1
-

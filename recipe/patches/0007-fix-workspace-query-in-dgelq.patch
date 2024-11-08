@@ -1,7 +1,7 @@
-From b073e7b969d2e425483a2225aba8f78f9fef3c0f Mon Sep 17 00:00:00 2001
+From d08adb65a3c80595c10d186ee7343a91cd32c1ff Mon Sep 17 00:00:00 2001
 From: Thijs Steel <thijs.steel@kuleuven.be>
 Date: Wed, 16 Sep 2020 12:14:21 +0200
-Subject: [PATCH 7/8] fix workspace query in dgelq
+Subject: [PATCH 07/11] fix workspace query in dgelq
 
 ---
  SRC/cgelq.f   | 28 ++++++++++++++++++++--------
@@ -15,7 +15,7 @@ Subject: [PATCH 7/8] fix workspace query in dgelq
  8 files changed, 84 insertions(+), 36 deletions(-)
 
 diff --git a/SRC/cgelq.f b/SRC/cgelq.f
-index c3b2238b..0c8a18ed 100644
+index c3b2238bf..0c8a18ed1 100644
 --- a/SRC/cgelq.f
 +++ b/SRC/cgelq.f
 @@ -187,7 +187,7 @@
@@ -94,7 +94,7 @@ index c3b2238b..0c8a18ed 100644
        RETURN
  *
 diff --git a/SRC/cgetsls.f b/SRC/cgetsls.f
-index 3d783be6..01de3c98 100644
+index 3d783be66..01de3c984 100644
 --- a/SRC/cgetsls.f
 +++ b/SRC/cgetsls.f
 @@ -261,7 +261,7 @@
@@ -107,7 +107,7 @@ index 3d783be6..01de3c98 100644
           WSIZEO = TSZO + LWO
           WSIZEM = TSZM + LWM
 diff --git a/SRC/dgelq.f b/SRC/dgelq.f
-index fc14d892..cae24cfc 100644
+index fc14d892f..cae24cfce 100644
 --- a/SRC/dgelq.f
 +++ b/SRC/dgelq.f
 @@ -187,7 +187,7 @@
@@ -186,7 +186,7 @@ index fc14d892..cae24cfc 100644
        RETURN
  *
 diff --git a/SRC/dgetsls.f b/SRC/dgetsls.f
-index dfc72c8b..c2ba5e2b 100644
+index dfc72c8b2..c2ba5e2b8 100644
 --- a/SRC/dgetsls.f
 +++ b/SRC/dgetsls.f
 @@ -258,7 +258,7 @@
@@ -199,7 +199,7 @@ index dfc72c8b..c2ba5e2b 100644
           WSIZEO = TSZO + LWO
           WSIZEM = TSZM + LWM
 diff --git a/SRC/sgelq.f b/SRC/sgelq.f
-index 96c4097e..aadf1412 100644
+index 96c4097e8..aadf14125 100644
 --- a/SRC/sgelq.f
 +++ b/SRC/sgelq.f
 @@ -187,7 +187,7 @@
@@ -278,7 +278,7 @@ index 96c4097e..aadf1412 100644
  *
  *     End of SGELQ
 diff --git a/SRC/sgetsls.f b/SRC/sgetsls.f
-index 53d2f943..3bf08451 100644
+index 53d2f9431..3bf084515 100644
 --- a/SRC/sgetsls.f
 +++ b/SRC/sgetsls.f
 @@ -258,7 +258,7 @@
@@ -291,7 +291,7 @@ index 53d2f943..3bf08451 100644
           WSIZEO = TSZO + LWO
           WSIZEM = TSZM + LWM
 diff --git a/SRC/zgelq.f b/SRC/zgelq.f
-index 4e7e7e38..e0e7512a 100644
+index 4e7e7e38e..e0e7512aa 100644
 --- a/SRC/zgelq.f
 +++ b/SRC/zgelq.f
 @@ -187,7 +187,7 @@
@@ -370,7 +370,7 @@ index 4e7e7e38..e0e7512a 100644
        RETURN
  *
 diff --git a/SRC/zgetsls.f b/SRC/zgetsls.f
-index 1aab3c66..11233785 100644
+index 1aab3c662..11233785b 100644
 --- a/SRC/zgetsls.f
 +++ b/SRC/zgetsls.f
 @@ -261,7 +261,7 @@
@@ -382,6 +382,3 @@ index 1aab3c66..11233785 100644
           LWM  = MAX( LWM, INT( WORKQ( 1 ) ) )
           WSIZEO = TSZO + LWO
           WSIZEM = TSZM + LWM
--- 
-2.26.2.windows.1
-

@@ -1,15 +1,22 @@
+@echo on
+
+:: add CBLAS_DLL markers to RowMajorStrg/CBLAS_CallFromC in CBLAS/{src,testing}
+for %%f in (CBLAS\src\*.c) do (
+    sed -i.bak "s/extern int RowMajorStrg;/CBLAS_DLL extern int RowMajorStrg;/g" %%f
+    sed -i.bak "s/extern int CBLAS_CallFromC;/CBLAS_DLL extern int CBLAS_CallFromC;/g" %%f
+)
+for %%f in (CBLAS\testing\*.c) do (
+    sed -i.bak "s/extern int RowMajorStrg;/CBLAS_DLL extern int RowMajorStrg;/g" %%f
+)
+
 mkdir build
 cd build
-
-set "HOST=x86_64-w64-mingw32"
-set "CC=%HOST%-gcc.exe"
-set "CXX=%HOST%-g++.exe"
-set "FC=%HOST%-gfortran.exe"
 
 cmake -G "Ninja" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DBUILD_SHARED_LIBS=yes ^
     -DCMAKE_BUILD_TYPE=Release ^
+    -DCMAKE_SHARED_LIBRARY_PREFIX=lib ^
     -DBUILD_TESTING=ON ^
     -DLAPACKE=ON ^
     -DCBLAS=ON ^
@@ -17,8 +24,17 @@ cmake -G "Ninja" ^
     -Wno-dev ..
 
 ninja -j%CPU_COUNT%
+if %ERRORLEVEL% NEQ 0 exit 1
+
 ninja install
 if %ERRORLEVEL% NEQ 0 exit 1
+
+:: strip "lib" prefix from import libraries, in line with previous naming
+move %LIBRARY_LIB%\libblas.lib %LIBRARY_LIB%\blas.lib
+move %LIBRARY_LIB%\libcblas.lib %LIBRARY_LIB%\cblas.lib
+move %LIBRARY_LIB%\liblapack.lib %LIBRARY_LIB%\lapack.lib
+move %LIBRARY_LIB%\liblapacke.lib %LIBRARY_LIB%\lapacke.lib
+move %LIBRARY_LIB%\libtmglib.lib %LIBRARY_LIB%\tmglib.lib
 
 :: testing with shared libraries does not work - skip them.
 :: This is because: to test that the program exits if wrong parameters are given,
@@ -27,14 +43,3 @@ if %ERRORLEVEL% NEQ 0 exit 1
 :: This does not work with dylibs on osx and dlls on windows.
 ctest --output-on-failure -E "x*cblat*"
 if %ERRORLEVEL% NEQ 0 exit 1
-
-for %%i in (blas cblas lapack lapacke) do (
-    dumpbin /exports "%LIBRARY_PREFIX%/bin/lib%%i.dll" > exports%%i.txt
-    echo LIBRARY lib%%i.dll > %%i.def
-    echo EXPORTS >> %%i.def
-    for /f "skip=19 tokens=4" %%A in (exports%%i.txt) do echo %%A >> %%i.def
-    lib /def:%%i.def /out:%%i.lib /machine:x64
-    copy %%i.lib "%LIBRARY_PREFIX%/lib/%%i.lib"
-)
-
-dir "%LIBRARY_PREFIX%/lib"

@@ -58,7 +58,7 @@ make install
 
 
 if [[ "${target_platform}" == osx-* ]]; then
-    for lib in blas cblas lapack lapacke; do
+    for lib in blas cblas lapack lapacke tmglib; do
         mv $PREFIX/lib/lib$lib.dylib $PREFIX/lib/lib$lib.$PKG_VERSION.dylib
         install_name_tool -id $PREFIX/lib/lib$lib.3.dylib $PREFIX/lib/lib$lib.$PKG_VERSION.dylib
         ln -s  $PREFIX/lib/lib$lib.$PKG_VERSION.dylib $PREFIX/lib/lib$lib.dylib
