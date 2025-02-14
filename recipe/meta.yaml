@@ -82,7 +82,7 @@ outputs:
       host:
         # ensure run-export that avoids solver thrashing, see
         # https://github.com/conda-forge/blas-feedstock/pull/134
-        - mkl-devel     # [x86_64 and not osx}
+        - mkl-devel     # [x86_64 and not osx]
       run_constrained:
         - blas * netlib
     files:
@@ -117,7 +117,7 @@ outputs:
         - {{ pin_subpackage("libblas", exact=True) }}
         - {{ pin_subpackage("liblapack", exact=True) }}
         # see comment in libblas output
-        - mkl-devel     # [x86_64 and not osx}
+        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}
         - liblapack {{ version }}
@@ -152,7 +152,7 @@ outputs:
       host:
         - {{ pin_subpackage("libblas", exact=True) }}
         # see comment in libblas output
-        - mkl-devel     # [x86_64 and not osx}
+        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}.*
     files:
@@ -187,7 +187,7 @@ outputs:
       host:
         - {{ pin_subpackage("libblas", exact=True) }}
         # see comment in libblas output
-        - mkl-devel     # [x86_64 and not osx}
+        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}.*
     files:
@@ -221,7 +221,7 @@ outputs:
       host:
         - {{ pin_subpackage("liblapack", exact=True) }}
         # see comment in libblas output
-        - mkl-devel     # [x86_64 and not osx}
+        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas    {{ version }}.*
         - libcblas   {{ version }}.*
