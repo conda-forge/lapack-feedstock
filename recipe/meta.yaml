@@ -1,6 +1,6 @@
 {% set version = "3.9.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 8 %}
+{% set build_num = 9 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -79,6 +79,10 @@ outputs:
         - {{ stdlib("c") }}
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
+      host:
+        # ensure run-export that avoids solver thrashing, see
+        # https://github.com/conda-forge/blas-feedstock/pull/134
+        - mkl-devel     # [x86_64 and not osx]
       run_constrained:
         - blas * netlib
     files:
@@ -112,6 +116,8 @@ outputs:
       host:
         - {{ pin_subpackage("libblas", exact=True) }}
         - {{ pin_subpackage("liblapack", exact=True) }}
+        # see comment in libblas output
+        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}
         - liblapack {{ version }}
@@ -145,6 +151,8 @@ outputs:
         - {{ compiler("fortran") }}
       host:
         - {{ pin_subpackage("libblas", exact=True) }}
+        # see comment in libblas output
+        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}.*
     files:
@@ -178,6 +186,8 @@ outputs:
         - {{ compiler("fortran") }}
       host:
         - {{ pin_subpackage("libblas", exact=True) }}
+        # see comment in libblas output
+        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}.*
     files:
@@ -210,6 +220,8 @@ outputs:
         - {{ compiler("fortran") }}
       host:
         - {{ pin_subpackage("liblapack", exact=True) }}
+        # see comment in libblas output
+        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas    {{ version }}.*
         - libcblas   {{ version }}.*
