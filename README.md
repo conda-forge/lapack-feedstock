@@ -93,14 +93,14 @@ Current release info
 Installing lapack
 =================
 
-Installing `lapack` from the `conda-forge/label/mkl_rc` channel can be achieved by adding `conda-forge/label/mkl_rc` to your channels with:
+Installing `lapack` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
-conda config --add channels conda-forge/label/mkl_rc
+conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge/label/mkl_rc` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke, libtmglib` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `blas, blas-devel, lapack, libblas, libcblas, liblapack, liblapacke, libtmglib` can be installed with `conda`:
 
 ```
 conda install blas blas-devel lapack libblas libcblas liblapack liblapacke libtmglib
@@ -115,26 +115,26 @@ mamba install blas blas-devel lapack libblas libcblas liblapack liblapacke libtm
 It is possible to list all of the versions of `blas` available on your platform with `conda`:
 
 ```
-conda search blas --channel conda-forge/label/mkl_rc
+conda search blas --channel conda-forge
 ```
 
 or with `mamba`:
 
 ```
-mamba search blas --channel conda-forge/label/mkl_rc
+mamba search blas --channel conda-forge
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search blas --channel conda-forge/label/mkl_rc
+mamba repoquery search blas --channel conda-forge
 
 # List packages depending on `blas`:
-mamba repoquery whoneeds blas --channel conda-forge/label/mkl_rc
+mamba repoquery whoneeds blas --channel conda-forge
 
 # List dependencies of `blas`:
-mamba repoquery depends blas --channel conda-forge/label/mkl_rc
+mamba repoquery depends blas --channel conda-forge
 ```
 
 
