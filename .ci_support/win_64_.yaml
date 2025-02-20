@@ -5,7 +5,7 @@ c_stdlib:
 channel_sources:
 - conda-forge
 channel_targets:
-- conda-forge mkl_rc
+- conda-forge main
 fortran_compiler:
 - flang
 fortran_compiler_version:
@@ -19,6 +19,6 @@ liblapack:
 liblapacke:
 - 3.9.* *netlib
 mkl_devel:
-- '2025'
+- '2024'
 target_platform:
 - win-64

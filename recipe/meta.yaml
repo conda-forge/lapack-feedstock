@@ -1,12 +1,16 @@
 {% set version = "3.9.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 10 %}
+{% set build_num = 11 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
 # make sure we do not create colliding version strings of output "blas"
 # for builds across lapack-versions within the same blas_major
 {% set blas_minor = build_num + 100 %}
+
+# add cap that avoids solver thrashing, see
+# https://github.com/conda-forge/blas-feedstock/pull/134
+{% set mkl_next = 2025 %}
 
 {% if unix %}
 {% set library = "" %}
@@ -80,11 +84,9 @@ outputs:
         - {{ compiler("c") }}
         - {{ compiler("fortran") }}
       host:
-        # ensure run-export that avoids solver thrashing, see
-        # https://github.com/conda-forge/blas-feedstock/pull/134
-        - mkl-devel     # [x86_64 and not osx]
       run_constrained:
         - blas * netlib
+        - mkl <{{ mkl_next }}   # [x86_64 and not osx]
     files:
       - {{ library }}lib/pkgconfig/blas.pc
       - {{ library }}lib/cmake/blas-{{ version }}/*.cmake

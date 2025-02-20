@@ -1,5 +1,0 @@
-mkl_devel:
-  - 2025
-
-channel_targets:
-  - conda-forge mkl_rc
