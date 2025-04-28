@@ -1,6 +1,6 @@
 {% set version = "3.9.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 11 %}
+{% set build_num = 12 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -62,7 +62,7 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("fortran") }}
-    - cmake
+    - cmake <4
     - make                              # [unix]
     - ninja                             # [win]
     - m2-sed                            # [win]
@@ -118,13 +118,12 @@ outputs:
       host:
         - {{ pin_subpackage("libblas", exact=True) }}
         - {{ pin_subpackage("liblapack", exact=True) }}
-        # see comment in libblas output
-        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}
         - liblapack {{ version }}
       run_constrained:
         - blas * netlib
+        - mkl <{{ mkl_next }}   # [x86_64 and not osx]
     files:
       - lib/libtmglib.so                          # [linux]
       - lib/libtmglib.so.{{ version_major }}      # [linux]
@@ -153,10 +152,10 @@ outputs:
         - {{ compiler("fortran") }}
       host:
         - {{ pin_subpackage("libblas", exact=True) }}
-        # see comment in libblas output
-        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}.*
+      run_constrained:
+        - mkl <{{ mkl_next }}   # [x86_64 and not osx]
     files:
       - {{ library }}include/cblas*.h
       - {{ library }}lib/pkgconfig/cblas.pc
@@ -188,10 +187,10 @@ outputs:
         - {{ compiler("fortran") }}
       host:
         - {{ pin_subpackage("libblas", exact=True) }}
-        # see comment in libblas output
-        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas {{ version }}.*
+      run_constrained:
+        - mkl <{{ mkl_next }}   # [x86_64 and not osx]
     files:
       - {{ library }}lib/pkgconfig/lapack.pc
       - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
@@ -222,12 +221,12 @@ outputs:
         - {{ compiler("fortran") }}
       host:
         - {{ pin_subpackage("liblapack", exact=True) }}
-        # see comment in libblas output
-        - mkl-devel     # [x86_64 and not osx]
       run:
         - libblas    {{ version }}.*
         - libcblas   {{ version }}.*
         - liblapack  {{ version }}.*
+      run_constrained:
+        - mkl <{{ mkl_next }}   # [x86_64 and not osx]
     files:
       - {{ library }}include/lapack*.h
       - {{ library }}lib/pkgconfig/lapacke.pc
