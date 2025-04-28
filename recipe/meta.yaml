@@ -62,7 +62,7 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("fortran") }}
-    - cmake
+    - cmake <4
     - make                              # [unix]
     - ninja                             # [win]
     - m2-sed                            # [win]
