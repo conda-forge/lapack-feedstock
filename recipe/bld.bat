@@ -21,7 +21,6 @@ cmake -G "Ninja" ^
     -DLAPACKE=ON ^
     -DCBLAS=ON ^
     -DBUILD_DEPRECATED=ON ^
-    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ^
     -Wno-dev ..
 
 ninja -j%CPU_COUNT%
