@@ -24,10 +24,8 @@ source:
   patches:
     # Avoid setting current_version and compatibility_version
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch
-    # backport https://github.com/Reference-LAPACK/lapack/pull/810
-    - patches/0002-cmake-allow-setting-a-prefix-for-the-library-names.patch
     # make symbol RowMajorStrg visible through DLL boundary
-    - patches/0003-add-DLL-import-export-machinery-for-RowMajorStrg.patch
+    - patches/0002-add-DLL-import-export-machinery-for-RowMajorStrg.patch
 
 build:
   number: {{ build_num }}
