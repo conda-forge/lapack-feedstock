@@ -26,6 +26,8 @@ source:
     - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch
     # make symbol RowMajorStrg visible through DLL boundary
     - patches/0002-add-DLL-import-export-machinery-for-RowMajorStrg.patch
+    - patches/gh1093.patch
+    - patches/gh1099.patch
 
 build:
   number: {{ build_num }}
