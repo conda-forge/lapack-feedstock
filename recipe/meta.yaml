@@ -72,7 +72,7 @@ outputs:
       - Library/lib/blas.lib                    # [win]
     test:
       commands:
-        - echo "no need to revalidate `files:` specification"
+        - echo "no need to revalidate files specification"
 
   - name: libtmglib
     build:
@@ -106,7 +106,7 @@ outputs:
       - Library/lib/tmglib.lib                    # [win]
     test:
       commands:
-        - echo "no need to revalidate `files:` specification"
+        - echo "no need to revalidate files specification"
 
   - name: libcblas
     build:
@@ -139,7 +139,7 @@ outputs:
       - Library/lib/cblas.lib                    # [win]
     test:
       commands:
-        - echo "no need to revalidate `files:` specification"
+        - echo "no need to revalidate files specification"
 
   - name: liblapack
     build:
@@ -171,7 +171,7 @@ outputs:
       - Library/lib/lapack.lib                    # [win]
     test:
       commands:
-        - echo "no need to revalidate `files:` specification"
+        - echo "no need to revalidate files specification"
 
   - name: liblapacke
     build:
@@ -206,7 +206,7 @@ outputs:
       - Library/lib/lapacke.lib                    # [win]
     test:
       commands:
-        - echo "no need to revalidate `files:` specification"
+        - echo "no need to revalidate files specification"
 
   - name: blas-devel
     build:
