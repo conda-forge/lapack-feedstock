@@ -1,4 +1,4 @@
-From ded2f19c673031694773782b0eb8d8f4b55f40ea Mon Sep 17 00:00:00 2001
+From d423fcfae3a95a8acdf06ed27ac90147e06ff8fd Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Fri, 8 Nov 2024 14:35:19 +1100
 Subject: [PATCH 2/2] add DLL import/export machinery for RowMajorStrg
@@ -31,12 +31,12 @@ index b8baf4e..5ed6dc1 100644
  #ifdef __cplusplus
  extern "C" {            /* Assume C declarations for C++ */
 diff --git a/CBLAS/src/CMakeLists.txt b/CBLAS/src/CMakeLists.txt
-index ca7dac1..ce2c9e1 100644
+index 0126d2b..a367ae5 100644
 --- a/CBLAS/src/CMakeLists.txt
 +++ b/CBLAS/src/CMakeLists.txt
-@@ -174,6 +174,10 @@ set_target_properties(
-   POSITION_INDEPENDENT_CODE ON
+@@ -181,6 +181,10 @@ if (NOT APPLE)
    )
+ endif()
  
 +if(BUILD_SHARED_LIBS)
 +  target_compile_definitions(${CBLASLIB} PRIVATE CBLAS_BUILDING_DLL)

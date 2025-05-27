@@ -1,2 +1,5 @@
 channel_targets:
   - conda-forge lapack_rc
+
+c_compiler:   # [win]
+  - vs2022    # [win]
