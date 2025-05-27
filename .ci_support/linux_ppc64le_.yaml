@@ -19,13 +19,13 @@ fortran_compiler:
 fortran_compiler_version:
 - '13'
 libblas:
-- 3.9 *netlib
+- 3.9.* *netlib
 libcblas:
-- 3.9 *netlib
+- 3.9.* *netlib
 liblapack:
-- 3.9 *netlib
+- 3.9.* *netlib
 liblapacke:
-- 3.9 *netlib
+- 3.9.* *netlib
 target_platform:
 - linux-ppc64le
 zip_keys:
