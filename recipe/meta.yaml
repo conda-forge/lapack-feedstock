@@ -7,6 +7,7 @@
 # make sure we do not create colliding version strings of output "blas"
 # for builds across lapack-versions within the same blas_major
 {% set blas_minor = build_num + 200 %}
+{% set version_p0 = ".".join(version.split(".")[:2]) + ".0" %}
 
 {% if unix %}
 {% set library = "" %}
@@ -64,10 +65,10 @@ outputs:
       - {{ library }}lib/pkgconfig/blas.pc
       - lib/libblas.so                          # [linux]
       - lib/libblas.so.{{ version_major }}      # [linux]
-      - lib/libblas.so.{{ version }}            # [linux]
+      - lib/libblas.so.{{ version_p0 }}         # [linux]
       - lib/libblas.dylib                       # [osx]
       - lib/libblas.{{ version_major }}.dylib   # [osx]
-      - lib/libblas.{{ version }}.dylib         # [osx]
+      - lib/libblas.{{ version_p0 }}.dylib      # [osx]
       - Library/bin/libblas.dll                 # [win]
       - Library/lib/blas.lib                    # [win]
     test:
@@ -98,10 +99,10 @@ outputs:
     files:
       - lib/libtmglib.so                          # [linux]
       - lib/libtmglib.so.{{ version_major }}      # [linux]
-      - lib/libtmglib.so.{{ version }}            # [linux]
+      - lib/libtmglib.so.{{ version_p0 }}         # [linux]
       - lib/libtmglib.dylib                       # [osx]
       - lib/libtmglib.{{ version_major }}.dylib   # [osx]
-      - lib/libtmglib.{{ version }}.dylib         # [osx]
+      - lib/libtmglib.{{ version_p0 }}.dylib      # [osx]
       - Library/bin/libtmglib.dll                 # [win]
       - Library/lib/tmglib.lib                    # [win]
     test:
@@ -128,13 +129,13 @@ outputs:
     files:
       - {{ library }}include/cblas*.h
       - {{ library }}lib/pkgconfig/cblas.pc
-      - {{ library }}lib/cmake/cblas-{{ version }}/*.cmake
+      - {{ library }}lib/cmake/cblas-{{ version_p0 }}/*.cmake
       - lib/libcblas.so                          # [linux]
       - lib/libcblas.so.{{ version_major }}      # [linux]
-      - lib/libcblas.so.{{ version }}            # [linux]
+      - lib/libcblas.so.{{ version_p0 }}         # [linux]
       - lib/libcblas.dylib                       # [osx]
       - lib/libcblas.{{ version_major }}.dylib   # [osx]
-      - lib/libcblas.{{ version }}.dylib         # [osx]
+      - lib/libcblas.{{ version_p0 }}.dylib      # [osx]
       - Library/bin/libcblas.dll                 # [win]
       - Library/lib/cblas.lib                    # [win]
     test:
@@ -160,13 +161,13 @@ outputs:
         - libblas {{ version }}
     files:
       - {{ library }}lib/pkgconfig/lapack.pc
-      - {{ library }}lib/cmake/lapack-{{ version }}/*.cmake
+      - {{ library }}lib/cmake/lapack-{{ version_p0 }}/*.cmake
       - lib/liblapack.so                          # [linux]
       - lib/liblapack.so.{{ version_major }}      # [linux]
-      - lib/liblapack.so.{{ version }}            # [linux]
+      - lib/liblapack.so.{{ version_p0 }}         # [linux]
       - lib/liblapack.dylib                       # [osx]
       - lib/liblapack.{{ version_major }}.dylib   # [osx]
-      - lib/liblapack.{{ version }}.dylib         # [osx]
+      - lib/liblapack.{{ version_p0 }}.dylib      # [osx]
       - Library/bin/liblapack.dll                 # [win]
       - Library/lib/lapack.lib                    # [win]
     test:
@@ -195,13 +196,13 @@ outputs:
     files:
       - {{ library }}include/lapack*.h
       - {{ library }}lib/pkgconfig/lapacke.pc
-      - {{ library }}lib/cmake/lapacke-{{ version }}/*.cmake
+      - {{ library }}lib/cmake/lapacke-{{ version_p0 }}/*.cmake
       - lib/liblapacke.so                          # [linux]
       - lib/liblapacke.so.{{ version_major }}      # [linux]
-      - lib/liblapacke.so.{{ version }}            # [linux]
+      - lib/liblapacke.so.{{ version_p0 }}         # [linux]
       - lib/liblapacke.dylib                       # [osx]
       - lib/liblapacke.{{ version_major }}.dylib   # [osx]
-      - lib/liblapacke.{{ version }}.dylib         # [osx]
+      - lib/liblapacke.{{ version_p0 }}.dylib      # [osx]
       - Library/bin/liblapacke.dll                 # [win]
       - Library/lib/lapacke.lib                    # [win]
     test:
@@ -244,10 +245,10 @@ outputs:
         {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
         - test -f $PREFIX/lib/lib{{ each_lib }}.so                          # [linux]
         - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version_major }}      # [linux]
-        - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version }}            # [linux]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.so.{{ version_p0 }}         # [linux]
         - test -f $PREFIX/lib/lib{{ each_lib }}.dylib                       # [osx]
         - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version_major }}.dylib   # [osx]
-        - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version }}.dylib         # [osx]
+        - test -f $PREFIX/lib/lib{{ each_lib }}.{{ version_p0 }}.dylib      # [osx]
         - test -f $PREFIX/lib/pkgconfig/{{ each_lib }}.pc                   # [unix]
         - if not exist %LIBRARY_LIB%\pkgconfig\{{ each_lib }}.pc exit 1     # [win]
         - if not exist %LIBRARY_LIB%\{{ each_lib }}.lib exit 1              # [win]
