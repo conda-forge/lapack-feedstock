@@ -51,12 +51,13 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" != "1" ]]; then
   fi
 fi
 
+PKG_VERSION_P0=${PKG_VERSION%.*}.0
 
 if [[ "${target_platform}" == osx-* ]]; then
-    for lib in blas cblas lapack lapacke tmglib; do
-        mv $PREFIX/lib/lib$lib.dylib $PREFIX/lib/lib$lib.$PKG_VERSION.dylib
-        install_name_tool -id $PREFIX/lib/lib$lib.3.dylib $PREFIX/lib/lib$lib.$PKG_VERSION.dylib
-        ln -s  $PREFIX/lib/lib$lib.$PKG_VERSION.dylib $PREFIX/lib/lib$lib.dylib
-        ln -s  $PREFIX/lib/lib$lib.$PKG_VERSION.dylib $PREFIX/lib/lib$lib.3.dylib
+    for libname in blas cblas lapack lapacke tmglib; do
+        mv $PREFIX/lib/lib${libname}.dylib $PREFIX/lib/lib${libname}.${PKG_VERSION_P0}.dylib
+        ${INSTALL_NAME_TOOL} -id $PREFIX/lib/lib${libname}.3.dylib $PREFIX/lib/lib${libname}.${PKG_VERSION_P0}.dylib
+        ln -s  $PREFIX/lib/lib${libname}.${PKG_VERSION_P0}.dylib $PREFIX/lib/lib${libname}.dylib
+        ln -s  $PREFIX/lib/lib${libname}.${PKG_VERSION_P0}.dylib $PREFIX/lib/lib${libname}.3.dylib
     done
 fi

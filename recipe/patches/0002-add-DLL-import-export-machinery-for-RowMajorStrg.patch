@@ -1,0 +1,65 @@
+From d423fcfae3a95a8acdf06ed27ac90147e06ff8fd Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Fri, 8 Nov 2024 14:35:19 +1100
+Subject: [PATCH 2/2] add DLL import/export machinery for RowMajorStrg
+
+Suggested-By: Isuru Fernando <isuruf@gmail.com>
+---
+ CBLAS/include/cblas.h     |  9 +++++++++
+ CBLAS/src/CMakeLists.txt  |  4 ++++
+ CBLAS/src/cblas_globals.c | 10 ++++++++--
+ 3 files changed, 21 insertions(+), 2 deletions(-)
+
+diff --git a/CBLAS/include/cblas.h b/CBLAS/include/cblas.h
+index b8baf4e..5ed6dc1 100644
+--- a/CBLAS/include/cblas.h
++++ b/CBLAS/include/cblas.h
+@@ -4,6 +4,15 @@
+ #include <stdint.h>
+ #include <inttypes.h>
+ 
++#ifdef _MSC_VER
++#  ifdef CBLAS_BUILDING_DLL
++#    define CBLAS_DLL __declspec(dllexport)
++#  else
++#    define CBLAS_DLL __declspec(dllimport)
++#  endif
++#else
++#  define CBLAS_DLL
++#endif
+ 
+ #ifdef __cplusplus
+ extern "C" {            /* Assume C declarations for C++ */
+diff --git a/CBLAS/src/CMakeLists.txt b/CBLAS/src/CMakeLists.txt
+index 0126d2b..a367ae5 100644
+--- a/CBLAS/src/CMakeLists.txt
++++ b/CBLAS/src/CMakeLists.txt
+@@ -181,6 +181,10 @@ if (NOT APPLE)
+   )
+ endif()
+ 
++if(BUILD_SHARED_LIBS)
++  target_compile_definitions(${CBLASLIB} PRIVATE CBLAS_BUILDING_DLL)
++endif()
++
+ target_include_directories(${CBLASLIB} PUBLIC
+   $<INSTALL_INTERFACE:include>
+ )
+diff --git a/CBLAS/src/cblas_globals.c b/CBLAS/src/cblas_globals.c
+index 5d91a18..b7bf74e 100644
+--- a/CBLAS/src/cblas_globals.c
++++ b/CBLAS/src/cblas_globals.c
+@@ -1,2 +1,8 @@
+-   int CBLAS_CallFromC=0;
+-   int RowMajorStrg=0;
++#ifdef _MSC_VER
++#  define CBLAS_DLL __declspec(dllexport)
++#else
++#  define CBLAS_DLL
++#endif
++
++CBLAS_DLL int CBLAS_CallFromC=0;
++CBLAS_DLL int RowMajorStrg=0;
+-- 
+2.45.2
+
