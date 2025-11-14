@@ -9,7 +9,7 @@ channel_targets:
 fortran_compiler:
 - flang
 fortran_compiler_version:
-- '19'
+- '21'
 libblas:
 - 3.9.* *netlib
 libcblas:

@@ -1,13 +1,14 @@
 {% set version = "3.12.1" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 0 %}
+{% set build_num = 1 %}
 {% set version_major = version.split(".")[0] %}
+{% set version_minor = version.split(".")[1] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
 # make sure we do not create colliding version strings of output "blas"
 # for builds across lapack-versions within the same blas_major
 # 3.9 -> +100, 3.10 -> +200, 3.11 -> +300, 3.12 -> +400
-{% set blas_minor = build_num + 400 %}
+{% set blas_minor = build_num + (version_minor|int - 8) * 100 %}
 {% set version_p0 = ".".join(version.split(".")[:2]) + ".0" %}
 
 {% if unix %}
