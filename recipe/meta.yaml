@@ -1,12 +1,14 @@
 {% set version = "3.11.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 4 %}
+{% set build_num = 5 %}
 {% set version_major = version.split(".")[0] %}
+{% set version_minor = version.split(".")[1] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
 # make sure we do not create colliding version strings of output "blas"
 # for builds across lapack-versions within the same blas_major
-{% set blas_minor = build_num + 200 %}
+# 3.9 -> +100, 3.10 -> +200, 3.11 -> +300
+{% set blas_minor = build_num + (version_minor|int - 8) * 100 %}
 
 {% if unix %}
 {% set library = "" %}
@@ -39,7 +41,7 @@ requirements:
     - {{ compiler("fortran") }}
     - ninja                             # [win]
     - make                              # [unix]
-    - cmake
+    - cmake <4
 
 outputs:
   - name: libblas
