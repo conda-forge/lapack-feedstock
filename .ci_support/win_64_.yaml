@@ -1,5 +1,5 @@
 c_compiler:
-- vs2019
+- vs2022
 c_stdlib:
 - vs
 channel_sources:
@@ -9,7 +9,7 @@ channel_targets:
 fortran_compiler:
 - flang
 fortran_compiler_version:
-- '19'
+- '21'
 libblas:
 - 3.9.* *netlib
 libcblas:
@@ -18,7 +18,5 @@ liblapack:
 - 3.9.* *netlib
 liblapacke:
 - 3.9.* *netlib
-mkl_devel:
-- '2024'
 target_platform:
 - win-64
