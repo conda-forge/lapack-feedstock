@@ -6,7 +6,8 @@
 {% set blas_major = "2" %}
 # make sure we do not create colliding version strings of output "blas"
 # for builds across lapack-versions within the same blas_major
-{% set blas_minor = build_num + 200 %}
+# 3.9 -> +100, 3.10 -> +200, 3.11 -> +300
+{% set blas_minor = build_num + 300 %}
 
 {% if unix %}
 {% set library = "" %}
