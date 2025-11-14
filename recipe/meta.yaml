@@ -41,7 +41,7 @@ requirements:
     - {{ compiler("fortran") }}
     - ninja                             # [win]
     - make                              # [unix]
-    - cmake
+    - cmake <4
 
 outputs:
   - name: libblas
