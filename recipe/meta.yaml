@@ -258,7 +258,7 @@ outputs:
   # For compatiblity (see #33)
   - name: lapack
     build:
-      string: netlib
+      string: {{ build_num }}_netlib
     requirements:
       run:
         - liblapack {{ version }}
