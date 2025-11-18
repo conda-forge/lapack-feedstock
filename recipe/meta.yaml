@@ -1,6 +1,6 @@
 {% set version = "3.11.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 6 %}
+{% set build_num = 7 %}
 {% set version_major = version.split(".")[0] %}
 {% set version_minor = version.split(".")[1] %}
 # blas_major denotes major infrastructural change to how blas is managed
@@ -25,11 +25,11 @@ source:
   sha256: 4b9ba79bfd4921ca820e83979db76ab3363155709444a787979e81c22285ffa9
   patches:
     # Avoid setting current_version and compatibility_version
-    - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch  # [osx]
-    # avoid linker errors on windows
-    - patches/0002-don-t-declare-RowMajorStrg-as-extern-on-windows.patch       # [win]
-    # make xerbla-shenanigans work on windows
-    - patches/0003-use-__declspec-selectany-for-cblas_xerbla-s-RowMajor.patch  # [win]
+    - patches/0001-Avoid-setting-current_version-and-compatibility_vers.patch
+    # backport https://github.com/Reference-LAPACK/lapack/pull/810
+    - patches/0002-cmake-allow-setting-a-prefix-for-the-library-names.patch
+    # make symbol RowMajorStrg visible through DLL boundary
+    - patches/0003-add-DLL-import-export-machinery-for-RowMajorStrg.patch
 
 build:
   number: {{ build_num }}
@@ -39,9 +39,10 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("fortran") }}
-    - ninja                             # [win]
-    - make                              # [unix]
     - cmake <4
+    - make                              # [unix]
+    - ninja                             # [win]
+    - m2-sed                            # [win]
 
 outputs:
   - name: libblas
@@ -69,7 +70,7 @@ outputs:
       - lib/libblas.dylib                       # [osx]
       - lib/libblas.{{ version_major }}.dylib   # [osx]
       - lib/libblas.{{ version }}.dylib         # [osx]
-      - Library/bin/blas.dll                    # [win]
+      - Library/bin/libblas.dll                 # [win]
       - Library/lib/blas.lib                    # [win]
     test:
       commands:
@@ -103,7 +104,7 @@ outputs:
       - lib/libtmglib.dylib                       # [osx]
       - lib/libtmglib.{{ version_major }}.dylib   # [osx]
       - lib/libtmglib.{{ version }}.dylib         # [osx]
-      - Library/bin/tmglib.dll                    # [win]
+      - Library/bin/libtmglib.dll                 # [win]
       - Library/lib/tmglib.lib                    # [win]
     test:
       commands:
@@ -136,7 +137,7 @@ outputs:
       - lib/libcblas.dylib                       # [osx]
       - lib/libcblas.{{ version_major }}.dylib   # [osx]
       - lib/libcblas.{{ version }}.dylib         # [osx]
-      - Library/bin/cblas.dll                    # [win]
+      - Library/bin/libcblas.dll                 # [win]
       - Library/lib/cblas.lib                    # [win]
     test:
       commands:
@@ -168,7 +169,7 @@ outputs:
       - lib/liblapack.dylib                       # [osx]
       - lib/liblapack.{{ version_major }}.dylib   # [osx]
       - lib/liblapack.{{ version }}.dylib         # [osx]
-      - Library/bin/lapack.dll                    # [win]
+      - Library/bin/liblapack.dll                 # [win]
       - Library/lib/lapack.lib                    # [win]
     test:
       commands:
@@ -203,7 +204,7 @@ outputs:
       - lib/liblapacke.dylib                       # [osx]
       - lib/liblapacke.{{ version_major }}.dylib   # [osx]
       - lib/liblapacke.{{ version }}.dylib         # [osx]
-      - Library/bin/lapacke.dll                    # [win]
+      - Library/bin/liblapacke.dll                 # [win]
       - Library/lib/lapacke.lib                    # [win]
     test:
       commands:
@@ -252,7 +253,7 @@ outputs:
         - test -f $PREFIX/lib/pkgconfig/{{ each_lib }}.pc                   # [unix]
         - if not exist %LIBRARY_LIB%\pkgconfig\{{ each_lib }}.pc exit 1     # [win]
         - if not exist %LIBRARY_LIB%\{{ each_lib }}.lib exit 1              # [win]
-        - if not exist %LIBRARY_BIN%\{{ each_lib }}.dll exit 1              # [win]
+        - if not exist %LIBRARY_BIN%\lib{{ each_lib }}.dll exit 1           # [win]
         {% endfor %}
 
   # For compatiblity (see #33)
