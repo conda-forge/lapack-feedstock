@@ -25,6 +25,10 @@ export FFLAGS="$FFLAGS -fno-optimize-sibling-calls"
 
 # CMAKE_INSTALL_LIBDIR="lib" suppresses CentOS default of lib64 (conda expects lib)
 
+# Disable building INDEX64_EXT_API, as it includes ILP64 symbols within the LP64 library.
+# We cannot do that unless all the alternative providers do that as well, as otherwise
+# packages can start linking to these symbols.
+
 cmake \
   -DCMAKE_INSTALL_PREFIX=${PREFIX} \
   -DCMAKE_INSTALL_LIBDIR="lib" \
@@ -34,6 +38,7 @@ cmake \
   -DCBLAS=ON \
   -DBUILD_DEPRECATED=ON \
   -DTEST_FORTRAN_COMPILER=OFF \
+  -DBUILD_INDEX64_EXT_API=OFF \
   ${CMAKE_ARGS} ..
 
 make install -j${CPU_COUNT} VERBOSE=1
