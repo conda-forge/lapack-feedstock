@@ -12,6 +12,10 @@ for %%f in (CBLAS\testing\*.c) do (
 mkdir build
 cd build
 
+:: Disable building INDEX64_EXT_API, as it includes ILP64 symbols within the LP64 library.
+:: We cannot do that unless all the alternative providers do that as well, as otherwise
+:: packages can start linking to these symbols.
+
 cmake -G "Ninja" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DBUILD_SHARED_LIBS=yes ^
@@ -21,6 +25,7 @@ cmake -G "Ninja" ^
     -DLAPACKE=ON ^
     -DCBLAS=ON ^
     -DBUILD_DEPRECATED=ON ^
+    -DBUILD_INDEX64_EXT_API=OFF ^
     -Wno-dev ..
 
 ninja -j%CPU_COUNT%
