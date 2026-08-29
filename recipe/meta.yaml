@@ -62,7 +62,7 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("fortran") }}
-    - cmake <4
+    - cmake
     - make                              # [unix]
     - ninja                             # [win]
     - m2-sed                            # [win]
@@ -275,6 +275,15 @@ outputs:
     - {{ pin_subpackage("blas-devel", exact=True) }}
     - {{ pin_subpackage("libtmglib", exact=True) }}
     test:
+      files:
+        - CMakeLists.txt
+        - test_cblas_lapacke.c
+        - test_lapack.f90
+      requires:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
+        - cmake
+        - ninja
       commands:
         {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
         - test -f $PREFIX/lib/lib{{ each_lib }}.so                          # [linux]
@@ -287,6 +296,19 @@ outputs:
         - if not exist %LIBRARY_LIB%\pkgconfig\{{ each_lib }}.pc exit 1     # [win]
         - if not exist %LIBRARY_LIB%\{{ each_lib }}.lib exit 1              # [win]
         - if not exist %LIBRARY_BIN%\lib{{ each_lib }}.dll exit 1           # [win]
+        {% endfor %}
+        - cmake -S . -B consumer-build -G Ninja
+        - cmake --build consumer-build --config Release
+        - ctest --test-dir consumer-build --output-on-failure
+        {% for each_exe in ['cblas_lapacke_consumer', 'lapack_fortran_consumer'] %}
+        - dumpbin /headers consumer-build\{{ each_exe }}.exe | findstr /I /C:"AA64 machine (ARM64)"  # [target_platform == "win-arm64"]
+        - if errorlevel 1 exit 1                                            # [target_platform == "win-arm64"]
+        {% endfor %}
+        {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke', 'tmglib'] %}
+        - dumpbin /headers "%LIBRARY_BIN%\lib{{ each_lib }}.dll" | findstr /I /C:"AA64 machine (ARM64)"  # [target_platform == "win-arm64"]
+        - if errorlevel 1 exit 1                                            # [target_platform == "win-arm64"]
+        - dumpbin /headers "%LIBRARY_LIB%\{{ each_lib }}.lib" | findstr /I /C:"AA64 machine (ARM64)"  # [target_platform == "win-arm64"]
+        - if errorlevel 1 exit 1                                            # [target_platform == "win-arm64"]
         {% endfor %}
 
   # For compatiblity (see #33)
