@@ -2,45 +2,30 @@ cmake_minimum_required(VERSION 3.20)
 project(lapack_consumers LANGUAGES C Fortran)
 
 if(WIN32)
-  set(CONDA_INCLUDE_DIR "$ENV{LIBRARY_INC}")
-  set(CONDA_LIBRARY_DIR "$ENV{LIBRARY_LIB}")
+  set(CONDA_PREFIX "$ENV{LIBRARY_PREFIX}")
 else()
-  set(CONDA_INCLUDE_DIR "$ENV{PREFIX}/include")
-  set(CONDA_LIBRARY_DIR "$ENV{PREFIX}/lib")
+  set(CONDA_PREFIX "$ENV{PREFIX}")
 endif()
 
-find_path(CBLAS_INCLUDE_DIR cblas.h
-  PATHS "${CONDA_INCLUDE_DIR}"
-  NO_DEFAULT_PATH
-  REQUIRED)
-find_path(LAPACKE_INCLUDE_DIR lapacke.h
-  PATHS "${CONDA_INCLUDE_DIR}"
-  NO_DEFAULT_PATH
-  REQUIRED)
-
-foreach(library IN ITEMS blas cblas lapack lapacke)
-  string(TOUPPER "${library}" library_upper)
-  find_library(${library_upper}_LIBRARY
-    NAMES "${library}"
-    PATHS "${CONDA_LIBRARY_DIR}"
-    NO_DEFAULT_PATH
-    REQUIRED)
-endforeach()
+find_package(LAPACK CONFIG REQUIRED
+  PATHS "${CONDA_PREFIX}"
+  NO_DEFAULT_PATH)
+find_package(CBLAS CONFIG REQUIRED
+  PATHS "${CONDA_PREFIX}"
+  NO_DEFAULT_PATH)
+find_package(LAPACKE CONFIG REQUIRED
+  PATHS "${CONDA_PREFIX}"
+  NO_DEFAULT_PATH)
 
 add_executable(cblas_lapacke_consumer test_cblas_lapacke.c)
-target_include_directories(cblas_lapacke_consumer PRIVATE
-  "${CBLAS_INCLUDE_DIR}"
-  "${LAPACKE_INCLUDE_DIR}")
 target_link_libraries(cblas_lapacke_consumer PRIVATE
-  "${LAPACKE_LIBRARY}"
-  "${CBLAS_LIBRARY}"
-  "${LAPACK_LIBRARY}"
-  "${BLAS_LIBRARY}")
+  lapacke
+  cblas)
 
 add_executable(lapack_fortran_consumer test_lapack.f90)
 target_link_libraries(lapack_fortran_consumer PRIVATE
-  "${LAPACK_LIBRARY}"
-  "${BLAS_LIBRARY}")
+  lapack
+  blas)
 
 enable_testing()
 add_test(NAME cblas_lapacke_consumer COMMAND cblas_lapacke_consumer)
