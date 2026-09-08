@@ -16,7 +16,7 @@ cd build
 :: We cannot do that unless all the alternative providers do that as well, as otherwise
 :: packages can start linking to these symbols.
 
-cmake -G "Ninja" ^
+cmake %CMAKE_ARGS% -G "Ninja" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DBUILD_SHARED_LIBS=yes ^
     -DCMAKE_BUILD_TYPE=Release ^
@@ -46,5 +46,7 @@ move %LIBRARY_LIB%\libtmglib.lib %LIBRARY_LIB%\tmglib.lib
 :: the testsuite overrides the symbol xerbla (xerbla logs the error and exits) with
 :: its own version that reports to the test program in case of an error.
 :: This does not work with dylibs on osx and dlls on windows.
+if not "%CONDA_BUILD_SKIP_TESTS%"=="1" (
 ctest --output-on-failure -E "x*cblat*"
+)
 if %ERRORLEVEL% NEQ 0 exit 1
