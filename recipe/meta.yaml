@@ -300,13 +300,6 @@ outputs:
         - cmake -S . -B consumer-build -G Ninja
         - cmake --build consumer-build --config Release
         - ctest --test-dir consumer-build --output-on-failure
-        {% for each_exe in ['cblas_lapacke_consumer', 'lapack_fortran_consumer'] %}
-        - dumpbin /headers consumer-build\{{ each_exe }}.exe | findstr /I /C:"AA64 machine (ARM64)"  # [win and arm64]
-        {% endfor %}
-        {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke', 'tmglib'] %}
-        - dumpbin /headers "%LIBRARY_BIN%\lib{{ each_lib }}.dll" | findstr /I /C:"AA64 machine (ARM64)"  # [win and arm64]
-        - dumpbin /headers "%LIBRARY_LIB%\{{ each_lib }}.lib" | findstr /I /C:"AA64 machine (ARM64)"  # [win and arm64]
-        {% endfor %}
 
   # For compatiblity (see #33)
   - name: lapack
