@@ -12,6 +12,9 @@ for %%f in (CBLAS\testing\*.c) do (
 mkdir build
 cd build
 
+:: Initialize the policy value in this configure and nested try_compile projects.
+set "CMAKE_POLICY_VERSION_MINIMUM=3.5"
+
 cmake -G "Ninja" ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DBUILD_SHARED_LIBS=yes ^
