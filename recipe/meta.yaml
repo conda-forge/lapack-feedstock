@@ -1,6 +1,6 @@
 {% set version = "3.9.0" %}
 # if build_num is reset to 0 (for new version), update increment for blas_minor below
-{% set build_num = 15 %}
+{% set build_num = 16 %}
 {% set version_major = version.split(".")[0] %}
 # blas_major denotes major infrastructural change to how blas is managed
 {% set blas_major = "2" %}
@@ -62,7 +62,7 @@ requirements:
     - {{ stdlib("c") }}
     - {{ compiler("c") }}
     - {{ compiler("fortran") }}
-    - cmake <4
+    - cmake
     - make                              # [unix]
     - ninja                             # [win]
     - m2-sed                            # [win]
@@ -275,6 +275,15 @@ outputs:
     - {{ pin_subpackage("blas-devel", exact=True) }}
     - {{ pin_subpackage("libtmglib", exact=True) }}
     test:
+      files:
+        - CMakeLists.txt
+        - test_cblas_lapacke.c
+        - test_lapack.f90
+      requires:
+        - {{ compiler("c") }}
+        - {{ compiler("fortran") }}
+        - cmake
+        - ninja
       commands:
         {% for each_lib in ['blas', 'cblas', 'lapack', 'lapacke'] %}
         - test -f $PREFIX/lib/lib{{ each_lib }}.so                          # [linux]
@@ -288,6 +297,9 @@ outputs:
         - if not exist %LIBRARY_LIB%\{{ each_lib }}.lib exit 1              # [win]
         - if not exist %LIBRARY_BIN%\lib{{ each_lib }}.dll exit 1           # [win]
         {% endfor %}
+        - cmake -S . -B consumer-build -G Ninja
+        - cmake --build consumer-build --config Release
+        - ctest --test-dir consumer-build --output-on-failure
 
   # For compatiblity (see #33)
   - name: lapack
