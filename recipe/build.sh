@@ -23,6 +23,11 @@ fi
 export LDFLAGS="$LDFLAGS -fno-optimize-sibling-calls"
 export FFLAGS="$FFLAGS -fno-optimize-sibling-calls"
 
+# Reference BLAS/LAPACK results must not depend on the CPU architecture. GCC/gfortran default to
+# -ffp-contract=fast, which fuses a*b+c into FMA wherever the target has it (aarch64, ppc64le, osx-arm64).
+export FFLAGS="$FFLAGS -ffp-contract=off"
+export CFLAGS="$CFLAGS -ffp-contract=off"
+
 # CMAKE_INSTALL_LIBDIR="lib" suppresses CentOS default of lib64 (conda expects lib)
 
 # Initialize the policy value in this configure and nested try_compile projects.
